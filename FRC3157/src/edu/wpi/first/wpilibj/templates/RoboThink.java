@@ -14,6 +14,11 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class RoboThink {
     
+    public static final double kMAX_MOTOR_SPEED = 100;
+    
+    public static final double kMAX_MOTOR_POWER = 0.9;
+    public static final double kMAX_ERROR = 0.1;
+    
     public static final int kFIRE_WAITING = 0;
     public static final int kFIRE_EXTEND = 1;
     public static final int kFIRE_RETRACT = 2;
@@ -24,8 +29,8 @@ public class RoboThink {
     
     public static final double kENCODER_PPR = 4096;
     
-    public static double leftMultiplier=-0.9;
-    public static double rightMultiplier=0.9;
+    public static double leftMultiplier=-1*kMAX_SHOOTER_POWER;
+    public static double rightMultiplier=kMAX_SHOOTER_POWER;
     
     public int dFiringStep=0;
     public Timer thinkTimer;
@@ -106,6 +111,32 @@ public class RoboThink {
         double speed = 0;
         speed = (double)encoderCount/(double)kENCODER_PPR;
         speed/= ((double)encoderTime/60000);
-        return speed;
+        return speed;    
+    }
+    
+    public void steerStraight(){
+        double expectPowerLeft = OutputData.leftMotorVal*kMAX_MOTOR_SPEED;
+        double expectPowerRight = OutputData.rightMotorVal*kMAX_MOTOR_SPEED;
+        
+        if(fLeftMotorSpeed < (1.0- kMAX_ERROR) * expectPowerLeft || fLeftMotorSpeed > (1+kMAX_ERROR) *expectPowerLeft){
+            double dif = (expectPowerLeft - fLeftMotorSpeed) / expectPowerLeft;
+            OutputData.leftMotorVal += dif;
+            if(OutputData.leftMotorVal < -1*kMAX_MOTOR_POWER){
+                OutputData.leftMotorVal = -1*kMAX_MOTOR_POWER;
+            }
+            if(OutputData.leftMotorVal > kMAX_MOTOR_POWER){
+                OutputData.leftMotorVal = kMAX_MOTOR_POWER;
+            }
+        }
+        if(fRightMotorSpeed < (1.0- kMAX_ERROR) * expectPowerRight || fRightMotorSpeed > (1+kMAX_ERROR) *expectPowerRight){
+            double dif = (expectPowerRight - fRightMotorSpeed) / expectPowerRight;
+            OutputData.rightMotorVal += dif;
+            if(OutputData.rightMotorVal < -1*kMAX_MOTOR_POWER){
+                OutputData.rightMotorVal = -1*kMAX_MOTOR_POWER;
+            }
+            if(OutputData.rightMotorVal > kMAX_MOTOR_POWER){
+                OutputData.rightMotorVal = kMAX_MOTOR_POWER;
+            }
+        }
     }
 }

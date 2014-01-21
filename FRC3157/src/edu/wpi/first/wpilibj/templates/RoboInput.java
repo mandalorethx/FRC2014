@@ -23,6 +23,8 @@ public class RoboInput {
     public Encoder leftMotorEncoder;
     public Encoder rightMotorEncoder;
     
+    public static final int kCALIBRATE_BUTTON = 0;
+    
     public static int kSHOOTER_BUTTON=0;
     public static int kGRABBER_BUTTON=3;
     
@@ -60,7 +62,7 @@ public class RoboInput {
         InputData.grabberButttonPressed=this.coDrive.getRawButton(kGRABBER_BUTTON);
         getEncoderVals();
         
-        
+        InputData.bCalibrateButtonPressed=this.leftDrive.getRawButton(kCALIBRATE_BUTTON)||this.rightDrive.getRawButton(kCALIBRATE_BUTTON);
     }
     
     public void getEncoderVals(){
