@@ -20,6 +20,7 @@ public class RoboThink {
     public static final int kFIRE_SLEEP = 3;
     
     public static final double kMAX_SHOOTER_POWER = 0.9;
+    public static final double kMIN_SHOOTER_POWER = 0.7;
     public static final double kSLEEP_TIME = 500.0;
     
     public static final double kENCODER_PPR = 4096;
@@ -70,6 +71,9 @@ public class RoboThink {
    
     
     public void fire(){
+        // Power = MAX * raw + (1 - raw) * MIN
+        double shooterPower = kMAX_SHOOTER_POWER * InputData.coDriverStick[2] +
+                (1 - InputData.coDriverStick[2]) * kMIN_SHOOTER_POWER;
         switch( dFiringStep ) {
             case kFIRE_WAITING:
                 break;
@@ -79,8 +83,8 @@ public class RoboThink {
                     thinkTimer.start();
                     break;
                 }
-                OutputData.leftShooterVal=kMAX_SHOOTER_POWER;
-                OutputData.rightShooterVal=kMAX_SHOOTER_POWER;
+                OutputData.leftShooterVal=shooterPower;
+                OutputData.rightShooterVal=shooterPower;
                 break;
             case kFIRE_SLEEP:
                 if(thinkTimer.get()>=kSLEEP_TIME){
@@ -90,8 +94,8 @@ public class RoboThink {
                 OutputData.rightShooterVal=0;
                 break;
             case kFIRE_RETRACT:
-                OutputData.leftShooterVal=-1.0*kMAX_SHOOTER_POWER;
-                OutputData.rightShooterVal=-1.0*kMAX_SHOOTER_POWER;
+                OutputData.leftShooterVal=-1.0*shooterPower;
+                OutputData.rightShooterVal=-1.0*shooterPower;
                 if(InputData.bShooterRet == true){
                     OutputData.leftShooterVal=0;
                     OutputData.rightShooterVal=0;
