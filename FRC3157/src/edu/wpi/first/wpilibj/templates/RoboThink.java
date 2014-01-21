@@ -72,6 +72,10 @@ public class RoboThink {
         }
       fRightMotorSpeed=CalcMotorSpeed(InputData.rightMotorEncoderVal, InputData.fRightEncoderTime);  
       fLeftMotorSpeed=CalcMotorSpeed(InputData.leftMotorEncoderVal, InputData.fLeftEncoderTime);
+      
+      if(InputData.bCalibrateButtonPressed == true){
+          steerStraight();
+      }
     }
    
     
