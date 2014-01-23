@@ -8,7 +8,11 @@ package edu.wpi.first.wpilibj.templates;
 
 import com.sun.squawk.io.BufferedWriter;
 import com.sun.squawk.microedition.io.FileConnection;
+import edu.wpi.first.wpilibj.Timer;
 import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import javax.microedition.io.Connector;
 
 /**
  *
@@ -19,5 +23,34 @@ public class FRCLogger {
     private static FileConnection fc;
     private static DataOutputStream outStream;
     private static BufferedWriter outBuffer;
+    private static OutputStreamWriter outStreamWriter;
+    private static final String LOG_FILE="FRC_LOG.txt";
+    private static Timer clock;
     
+    public static void initialize(String fileName){
+        try{
+            fc=(FileConnection)Connector.open("File;///"+fileName,Connector.WRITE);
+            outStream=fc.openDataOutputStream();
+            outStreamWriter=new OutputStreamWriter(outStream);
+            outBuffer=new BufferedWriter(outStreamWriter);
+            clock.start();
+        }catch(IOException e){
+            //TODO//
+        }
+    }
+    public static void log(String msg){
+        try{
+            outBuffer.write("["+ clock.get() +"]: " + msg + "\n");
+            outBuffer.flush();
+        }catch(IOException e){
+            //TODO//
+        }
+    }
+    public static void close(){
+        try{
+            outBuffer.close();
+        }catch(IOException e){
+            //TODO//
+        }
+    }
 }
