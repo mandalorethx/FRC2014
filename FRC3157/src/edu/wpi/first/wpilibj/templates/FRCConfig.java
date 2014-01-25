@@ -31,37 +31,8 @@ public class FRCConfig {
     private static FileConnection fc;
     private static DataInputStream inStream;
     private static BufferedReader inBuffer;
-
     private static InputStreamReader inStreamReader;
     
-    public static void initialize(String fileName){
-        try{
-            fc = (FileConnection) Connector.open("file:///" + fileName, Connector.READ);
-            inStream = fc.openDataInputStream();
-            inStreamReader = new InputStreamReader( inStream );
-            inBuffer = new BufferedReader(inStreamReader);
-        }catch(IOException e){
-            System.out.println("could not open file " + fileName);
-        }
-    }    
-    public static void closeFile(){
-        try{
-            if(inBuffer != null){
-                inBuffer.close();
-            }
-            if(inStreamReader != null){
-                inStreamReader.close();
-            }
-            if(inStream != null){
-                inStream.close();
-            }
-            if(fc != null){
-                fc.close();
-            }
-        }catch(IOException e){
-            
-        }
-    }
     public static void innitConfig(){
         initialize(CONFIG_FILE);
         boolean fileDone = false;
@@ -98,5 +69,35 @@ public class FRCConfig {
         
         }
         closeFile();
+    }
+    
+    private static void initialize(String fileName){
+        try{
+            fc = (FileConnection) Connector.open("file:///" + fileName, Connector.READ);
+            inStream = fc.openDataInputStream();
+            inStreamReader = new InputStreamReader( inStream );
+            inBuffer = new BufferedReader(inStreamReader);
+        }catch(IOException e){
+            System.out.println("could not open file " + fileName);
+        }
+    }    
+    
+    private static void closeFile(){
+        try{
+            if(inBuffer != null){
+                inBuffer.close();
+            }
+            if(inStreamReader != null){
+                inStreamReader.close();
+            }
+            if(inStream != null){
+                inStream.close();
+            }
+            if(fc != null){
+                fc.close();
+            }
+        }catch(IOException e){
+            
+        }
     }
 }

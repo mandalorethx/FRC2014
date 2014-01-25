@@ -20,16 +20,17 @@ import javax.microedition.io.Connector;
  */
 public class FRCLogger {
     
+    private static final String LOG_FILE="FRC_LOG.txt";
+    
     private static FileConnection fc;
     private static DataOutputStream outStream;
     private static BufferedWriter outBuffer;
     private static OutputStreamWriter outStreamWriter;
-    private static final String LOG_FILE="FRC_LOG.txt";
     private static Timer clock;
     
-    public static void initialize(String fileName){
+    public static void initialize(){
         try{
-            fc=(FileConnection)Connector.open("File;///"+fileName,Connector.WRITE);
+            fc=(FileConnection)Connector.open("File;///" + LOG_FILE, Connector.WRITE);
             outStream=fc.openDataOutputStream();
             outStreamWriter=new OutputStreamWriter(outStream);
             outBuffer=new BufferedWriter(outStreamWriter);
@@ -40,7 +41,7 @@ public class FRCLogger {
     }
     public static void log(String msg){
         try{
-            outBuffer.write("["+ clock.get() +"]: " + msg + "\n");
+            outBuffer.write("["+ clock.get() +"] - " + msg + "\n");
             outBuffer.flush();
         }catch(IOException e){
             //TODO//
@@ -48,7 +49,8 @@ public class FRCLogger {
     }
     public static void close(){
         try{
-            outBuffer.close();
+            if( outBuffer != null )
+                outBuffer.close();
         }catch(IOException e){
             //TODO//
         }
