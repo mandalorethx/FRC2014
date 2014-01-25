@@ -51,8 +51,6 @@ public class FRC3157 extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-        
-        
         input=new RoboInput();
         think=new RoboThink();
         output=new RoboOutput();
@@ -77,6 +75,7 @@ public class FRC3157 extends IterativeRobot {
         if( !kRUN_AUTONOMOUS ) {
             return;
         }
+        
         switch(dAutonState){
             case kAUTON_WAIT:
                 if (autonTimer.get()>=kAUTON_DELAY){
