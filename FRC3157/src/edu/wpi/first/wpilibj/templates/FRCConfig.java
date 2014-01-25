@@ -8,6 +8,10 @@ package edu.wpi.first.wpilibj.templates;
 
 import com.sun.squawk.io.BufferedReader;
 import com.sun.squawk.microedition.io.FileConnection;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,11 +41,35 @@ public class FRCConfig {
     public static int dLeftDriverPort = 0;
     public static int dRightDriverPort = 1;
     public static int dCoDriverPort = 2;
+    public static double kMAX_MOTOR_POWER = 0.9;
+    public static int kLEFT_MOTOR_SLOT = 0;
+    public static int kRIGHT_MOTOR_SLOT = 1;
+    public static int kLEFT_DRIVER_STICK=0;
+    public static int kRIGHT_DRIVER_STICK=1;
+    public static int kCO_DRIVER_STICK=2;
+    public static int dPressureSlot=0;
+    public static int dRelaySlot=1;
+    public static int dLeftShooterSlot=2;
+    public static int dRightShooterSlot=3;
+    public static int dPinShooterSlot=4;
+    public static int kDRIVE_STRAIGHT_BUTTON = 0;
+    public static int kMAGIC_SHOOT_CATCH = 2;
+    public static int kSHOOTER_BUTTON = 0;
+    public static int kGRABBER_BUTTON = 3;
+    public static double leftMotorVal=0;
+    public static double rightMotorVal=0;
+    public static int rightDriverStick;
+    public static int rightMotorEncoderVal;
+    public static int leftDriverStick;
+    public static int leftMotorEncoderVal;
+    public static double fLeftEncoderTime;
+    public static double fRightEncoderTime;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
     private static BufferedReader inBuffer;
     private static InputStreamReader inStreamReader;
+
     
     /**
      * Initializes the static variables for the config class
@@ -97,11 +125,55 @@ public class FRCConfig {
                         kRIGHT_ENCODER_PORT_1=Integer.parseInt(value);
                     }else if(varName.equals("kRIGHT_ENCODER_PORT_2")){
                         kRIGHT_ENCODER_PORT_2=Integer.parseInt(value);
+                    }else if(varName.equals("kMAX_MOTOR_POWER")){
+                        kMAX_MOTOR_POWER=Integer.parseInt(value);
+                    }else if(varName.equals("kLEFT_MOTOR_SLOT")){
+                        kLEFT_MOTOR_SLOT=Integer.parseInt(value);
+                    }else if(varName.equals("kRIGHT_MOTOR_SLOT")){
+                        kRIGHT_MOTOR_SLOT=Integer.parseInt(value);
+                    }else if(varName.equals("kLEFT_DRIVER_STICK")){
+                        kLEFT_DRIVER_STICK=Integer.parseInt(value);
+                    }else if(varName.equals("kRIGHT_DRIVER_STICK=1;")){
+                        kRIGHT_DRIVER_STICK=Integer.parseInt(value);
+                    }else if(varName.equals("kCO_DRIVER_STICK")){
+                        kCO_DRIVER_STICK=Integer.parseInt(value);
+                    }else if(varName.equals("dPressureSlot")){
+                        dPressureSlot=Integer.parseInt(value);
+                    }else if(varName.equals("dRelaySlot")){
+                        dRelaySlot=Integer.parseInt(value);
+                    }else if(varName.equals("dLeftShooterSlot")){
+                        dLeftShooterSlot=Integer.parseInt(value);
+                    }else if(varName.equals("dRightShooterSlot")){
+                        dRightShooterSlot=Integer.parseInt(value);
+                    }else if(varName.equals("dPinShooterSlot")){
+                        dPinShooterSlot=Integer.parseInt(value);
+                    }else if(varName.equals("kDRIVE_STRAIGHT_BUTTON")){
+                        kDRIVE_STRAIGHT_BUTTON=Integer.parseInt(value);
+                    }else if(varName.equals("kMAGIC_SHOOT_CATCH")){
+                        kMAGIC_SHOOT_CATCH=Integer.parseInt(value);
+                    }else if(varName.equals("kSHOOTER_BUTTON")){
+                        kSHOOTER_BUTTON=Integer.parseInt(value);
+                    }else if(varName.equals("kGRABBER_BUTTON")){
+                        kGRABBER_BUTTON=Integer.parseInt(value);
+                    }else if(varName.equals("leftMotorVal")){
+                        leftMotorVal=Integer.parseInt(value);
+                    }else if(varName.equals("rightMotorVal")){
+                        rightMotorVal=Integer.parseInt(value);
+                    }else if(varName.equals("rightDriverStick")){
+                        rightDriverStick=Integer.parseInt(value);
+                    }else if(varName.equals("rightMotorEncoderVal")){
+                        rightMotorEncoderVal=Integer.parseInt(value);
+                    }else if(varName.equals("leftDriverStick")){
+                        leftDriverStick=Integer.parseInt(value);
+                    }else if(varName.equals("leftMotorEncoderVal")){
+                        leftMotorEncoderVal=Integer.parseInt(value);
+                    }else if(varName.equals("fLeftEncoderTime")){
+                        fLeftEncoderTime=Integer.parseInt(value);
+                    }else if(varName.equals("fRightEncoderTime")){
+                        fRightEncoderTime=Integer.parseInt(value);
                     }
                 }
-            }
-            
-            return true;
+            }return true;
         }catch(Exception e){
             return false;
         }
