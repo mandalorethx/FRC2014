@@ -56,7 +56,7 @@ public class FRCLogger {
      * instantiated
      * @return the logger
      */
-    public FRCLogger getInstance()
+    public static FRCLogger getInstance()
     {
         if( instance == null )
             instance = new FRCLogger();
