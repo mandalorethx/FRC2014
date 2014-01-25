@@ -56,14 +56,6 @@ public class FRCConfig {
     public static int kMAGIC_SHOOT_CATCH = 2;
     public static int kSHOOTER_BUTTON = 0;
     public static int kGRABBER_BUTTON = 3;
-    public static double leftMotorVal=0;
-    public static double rightMotorVal=0;
-    public static int rightDriverStick;
-    public static int rightMotorEncoderVal;
-    public static int leftDriverStick;
-    public static int leftMotorEncoderVal;
-    public static double fLeftEncoderTime;
-    public static double fRightEncoderTime;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -155,22 +147,6 @@ public class FRCConfig {
                         kSHOOTER_BUTTON=Integer.parseInt(value);
                     }else if(varName.equals("kGRABBER_BUTTON")){
                         kGRABBER_BUTTON=Integer.parseInt(value);
-                    }else if(varName.equals("leftMotorVal")){
-                        leftMotorVal=Integer.parseInt(value);
-                    }else if(varName.equals("rightMotorVal")){
-                        rightMotorVal=Integer.parseInt(value);
-                    }else if(varName.equals("rightDriverStick")){
-                        rightDriverStick=Integer.parseInt(value);
-                    }else if(varName.equals("rightMotorEncoderVal")){
-                        rightMotorEncoderVal=Integer.parseInt(value);
-                    }else if(varName.equals("leftDriverStick")){
-                        leftDriverStick=Integer.parseInt(value);
-                    }else if(varName.equals("leftMotorEncoderVal")){
-                        leftMotorEncoderVal=Integer.parseInt(value);
-                    }else if(varName.equals("fLeftEncoderTime")){
-                        fLeftEncoderTime=Integer.parseInt(value);
-                    }else if(varName.equals("fRightEncoderTime")){
-                        fRightEncoderTime=Integer.parseInt(value);
                     }
                 }
             }return true;
