@@ -30,9 +30,6 @@ public class RoboInput {
     public static int kSHOOTER_BUTTON=0;
     public static int kGRABBER_BUTTON=3;
     
-    public static final int[] kLEFT_ENCODER_PORTS={0,1};
-    public static final int[] kRIGHT_ENCODER_PORTS={2,3};
-    
     public Timer encoderTimer;
     
     public void initialize( int leftDrive, int rightDrive, int coDrive ){
@@ -43,8 +40,8 @@ public class RoboInput {
         encoderTimer = new Timer();
         encoderTimer.start();
         
-        this.leftMotorEncoder=new Encoder( kLEFT_ENCODER_PORTS[0],kLEFT_ENCODER_PORTS[1]);
-        this.rightMotorEncoder=new Encoder( kRIGHT_ENCODER_PORTS[0],kRIGHT_ENCODER_PORTS[1]);
+        this.leftMotorEncoder=new Encoder( FRCConfig.kLEFT_ENCODER_PORT_1,FRCConfig.kLEFT_ENCODER_PORT_2);
+        this.rightMotorEncoder=new Encoder( FRCConfig.kRIGHT_ENCODER_PORT_1,FRCConfig.kRIGHT_ENCODER_PORT_2);
         this.leftMotorEncoder.start();
         this.rightMotorEncoder.start();
     }
