@@ -59,9 +59,8 @@ public class RoboThink {
          if( InputData.shooterButtonPressed && dFiringStep == kFIRE_WAITING){
              dFiringStep = kFIRE_EXTEND;
          }
-        if(dFiringStep != kFIRE_WAITING ){
-            fire();
-        }
+       
+         fire();
         
         if(InputData.grabberButttonPressed == true){
             OutputData.leftGrabberVal = 1.0;
@@ -78,7 +77,7 @@ public class RoboThink {
       }
     }
    
-    
+    /*
     public void fire(){
         // Power = MAX * raw + (1 - raw) * MIN
         double shooterPower = kMAX_SHOOTER_POWER * InputData.coDriverStick[2] +
@@ -113,6 +112,17 @@ public class RoboThink {
                 break;
             default:
                 break;
+        }
+    }
+    */
+    public void fire(){
+        if(InputData.shooterButtonPressed){
+            OutputData.bPullPin=true;
+        }else if(!InputData.bShooterRet){
+            OutputData.bStartShooter=false;
+        }else{
+            OutputData.bPullPin=false;
+            OutputData.bStartShooter=true;
         }
     }
     public double CalcMotorSpeed(int encoderCount, double encoderTime){

@@ -14,8 +14,9 @@ public class OutputData {
     public static double leftMotorVal=0;
     public static double rightMotorVal=0;
     
-    public static double leftShooterVal=0;
-    public static double rightShooterVal=0;
+    public static boolean bStartShooter=false;
+    
+    public static boolean bPullPin=false;
     
     public static double leftGrabberVal=0;
     public static double rightGrabberVal=0;
@@ -25,8 +26,9 @@ public class OutputData {
         leftMotorVal=0;
         rightMotorVal=0;
         
-        leftShooterVal=0;
-        rightShooterVal=0;
+        bStartShooter=false;
+        
+        bPullPin=false;
         
         leftGrabberVal=0;
         rightGrabberVal=0;
