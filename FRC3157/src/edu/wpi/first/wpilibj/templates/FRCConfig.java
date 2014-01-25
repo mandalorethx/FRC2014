@@ -29,7 +29,7 @@ public class FRCConfig {
     public static double kMAX_SHOOTER_POWER = 0.9;
     public static double kMIN_SHOOTER_POWER = 0.7;
     public static double kSLEEP_TIME = 500.0;
-    public static double kENCODER_PPR = 4096;
+    public static double kENCODER_PPR = 1440; // I am 85-90% sure this is correct based on model number.
     public static int kCALIBRATE_BUTTON = 0;
     public static int kLEFT_ENCODER_PORT_1= 0;
     public static int kLEFT_ENCODER_PORT_2= 1;
