@@ -23,13 +23,12 @@ public class RoboInput {
     public Encoder leftMotorEncoder;
     public Encoder rightMotorEncoder;
     
-    public static final int kCALIBRATE_BUTTON = 0;
+    public static final int kDRIVE_STRAIGHT_BUTTON = 0;
+    
+    public static final int kMAGIC_SHOOT_CATCH = 2;
     
     public static int kSHOOTER_BUTTON=0;
     public static int kGRABBER_BUTTON=3;
-    
-    public static final int[] kLEFT_ENCODER_PORTS={0,1};
-    public static final int[] kRIGHT_ENCODER_PORTS={2,3};
     
     public Timer encoderTimer;
     
@@ -41,8 +40,8 @@ public class RoboInput {
         encoderTimer = new Timer();
         encoderTimer.start();
         
-        this.leftMotorEncoder=new Encoder( kLEFT_ENCODER_PORTS[0],kLEFT_ENCODER_PORTS[1]);
-        this.rightMotorEncoder=new Encoder( kRIGHT_ENCODER_PORTS[0],kRIGHT_ENCODER_PORTS[1]);
+        this.leftMotorEncoder=new Encoder( FRCConfig.kLEFT_ENCODER_PORT_1,FRCConfig.kLEFT_ENCODER_PORT_2);
+        this.rightMotorEncoder=new Encoder( FRCConfig.kRIGHT_ENCODER_PORT_1,FRCConfig.kRIGHT_ENCODER_PORT_2);
         this.leftMotorEncoder.start();
         this.rightMotorEncoder.start();
     }
@@ -62,7 +61,8 @@ public class RoboInput {
         InputData.grabberButttonPressed=this.coDrive.getRawButton(kGRABBER_BUTTON);
         getEncoderVals();
         
-        InputData.bCalibrateButtonPressed=this.leftDrive.getRawButton(kCALIBRATE_BUTTON)||this.rightDrive.getRawButton(kCALIBRATE_BUTTON);
+        InputData.bDriveStraightPressed=this.leftDrive.getRawButton(kDRIVE_STRAIGHT_BUTTON)||this.rightDrive.getRawButton(kDRIVE_STRAIGHT_BUTTON);
+        InputData.bAutoShootAndCatch=this.leftDrive.getRawButton(kMAGIC_SHOOT_CATCH)||this.rightDrive.getRawButton(kMAGIC_SHOOT_CATCH);
     }
     
     public void getEncoderVals(){

@@ -28,7 +28,9 @@ public class InputData {
     public static double fLeftEncoderTime;
     public static double fRightEncoderTime;
 
-    public static boolean bCalibrateButtonPressed = false;
+    public static boolean bDriveStraightPressed = false;
+    
+    public static boolean bAutoShootAndCatch = false;
     
     public static void reset() {
         for(int ii=0; ii<3; ++ii){
