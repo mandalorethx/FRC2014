@@ -34,6 +34,8 @@ public class FRC3157 extends IterativeRobot {
     public static final double kAUTON_MOVE_TIME=2000;
     public static final double kAUTON_FIRE_TIME=1000;
     
+    public static final boolean kRUN_AUTONOMOUS = true;
+    
     public Timer autonTimer;
     public int dAutonState;
     public static RoboInput input;
@@ -49,6 +51,8 @@ public class FRC3157 extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        
+        
         input=new RoboInput();
         think=new RoboThink();
         output=new RoboOutput();
@@ -70,6 +74,9 @@ public class FRC3157 extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+        if( !kRUN_AUTONOMOUS ) {
+            return;
+        }
         switch(dAutonState){
             case kAUTON_WAIT:
                 if (autonTimer.get()>=kAUTON_DELAY){
@@ -108,6 +115,7 @@ public class FRC3157 extends IterativeRobot {
                 break;
             default:
                 ScreenOutput.screenWrite("unknown AutonState");
+                FRCLogger.getInstance().logError("unknown autonTime");
                 break;
         }
         
