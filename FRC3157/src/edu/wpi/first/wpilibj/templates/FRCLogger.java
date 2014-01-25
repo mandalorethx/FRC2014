@@ -15,8 +15,8 @@ import java.io.OutputStreamWriter;
 import javax.microedition.io.Connector;
 
 /**
- *
- * @author Matt
+ * The logger for the robot
+ * @author Programming Subteam
  */
 public class FRCLogger {
     
@@ -28,31 +28,46 @@ public class FRCLogger {
     private static OutputStreamWriter outStreamWriter;
     private static Timer clock;
     
-    public static void initialize(){
+    /**
+     * Initializes the logger
+     * @return true if the logger is successfully created; false otherwise
+     */
+    public static boolean initialize(){
         try{
             fc=(FileConnection)Connector.open("File;///" + LOG_FILE, Connector.WRITE);
             outStream=fc.openDataOutputStream();
             outStreamWriter=new OutputStreamWriter(outStream);
             outBuffer=new BufferedWriter(outStreamWriter);
             clock.start();
+            
+            return true;
         }catch(IOException e){
-            //TODO//
+            return false;
         }
     }
+    
+    /**
+     * Logs a message
+     * @param msg - a string
+     */
     public static void log(String msg){
         try{
             outBuffer.write("["+ clock.get() +"] - " + msg + "\n");
             outBuffer.flush();
         }catch(IOException e){
-            //TODO//
+            //TODO
         }
     }
+    
+    /**
+     * Closes the logger if possible
+     */
     public static void close(){
         try{
             if( outBuffer != null )
                 outBuffer.close();
         }catch(IOException e){
-            //TODO//
+            //TODO
         }
     }
 }

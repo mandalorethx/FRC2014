@@ -14,8 +14,8 @@ import java.io.InputStreamReader;
 import javax.microedition.io.Connector;
 
 /**
- *
- * @author Matt
+ * An implementation of the config file for the robot
+ * @author Programming Subteam
  */
 public class FRCConfig {
     
@@ -33,8 +33,12 @@ public class FRCConfig {
     private static BufferedReader inBuffer;
     private static InputStreamReader inStreamReader;
     
-    public static void innitConfig(){
-        initialize(CONFIG_FILE);
+    /**
+     * Initializes the static variables for the config class
+     * @return true if the config file is successfully loaded; false otherwise
+     */
+    public static boolean initialize(){
+        openFile(CONFIG_FILE);
         boolean fileDone = false;
         try{
             while(!fileDone)
@@ -65,13 +69,22 @@ public class FRCConfig {
                     
                 }           
             }
+            
+            return true;
         }catch(Exception e){
-        
+            return false;
         }
-        closeFile();
+        finally
+        {
+            closeFile();
+        }
     }
     
-    private static void initialize(String fileName){
+    /**
+     * Helper function that opens the config file
+     * @param fileName - the name of the config file
+     */
+    private static void openFile(String fileName){
         try{
             fc = (FileConnection) Connector.open("file:///" + fileName, Connector.READ);
             inStream = fc.openDataInputStream();
@@ -82,6 +95,9 @@ public class FRCConfig {
         }
     }    
     
+    /**
+     * Closes the file if possible
+     */
     private static void closeFile(){
         try{
             if(inBuffer != null){
