@@ -8,10 +8,6 @@ package edu.wpi.first.wpilibj.templates;
 
 import com.sun.squawk.io.BufferedReader;
 import com.sun.squawk.microedition.io.FileConnection;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Victor;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -60,6 +56,9 @@ public class FRCConfig {
     public static int kMANUAL_PIN = 5;
     public static int kMANUAL_ON = 6;
     public static int kMANUAL_OFF = 7;
+    public static double kSTEER_P = 1;
+    public static double kSTEER_I = 1;
+    public static double kSTEER_D = 1;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -159,6 +158,12 @@ public class FRCConfig {
                         kMANUAL_ON=Integer.parseInt(value);
                     }else if(varName.equals("kMANUAL_OFF")){
                         kMANUAL_OFF=Integer.parseInt(value);
+                    }else if(varName.equals("kSTEER_I")){
+                        kSTEER_I=Double.parseDouble(value);
+                    }else if(varName.equals("kSTEER_P")){
+                        kSTEER_P=Double.parseDouble(value);
+                    }else if(varName.equals("kSTEER_D")){
+                        kSTEER_D=Double.parseDouble(value);
                     }
                 }
             }return true;
