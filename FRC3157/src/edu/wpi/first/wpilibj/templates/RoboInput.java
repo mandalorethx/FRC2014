@@ -73,6 +73,9 @@ public class RoboInput {
         
         InputData.bDriveStraightPressed=this.leftDrive.getRawButton(kDRIVE_STRAIGHT_BUTTON)||this.rightDrive.getRawButton(kDRIVE_STRAIGHT_BUTTON);
         InputData.bAutoShootAndCatch=this.leftDrive.getRawButton(kMAGIC_SHOOT_CATCH)||this.rightDrive.getRawButton(kMAGIC_SHOOT_CATCH);
+    
+        InputData.bAutoturnLeft=this.leftDrive.getRawButton(FRCConfig.kAUTOTURN_LEFT)||this.rightDrive.getRawButton(FRCConfig.kAUTOTURN_LEFT);
+        InputData.bAutoturnRight=this.leftDrive.getRawButton(FRCConfig.kAUTOTURN_RIGHT)||this.rightDrive.getRawButton(FRCConfig.kAUTOTURN_RIGHT);
     }
     
     public void getEncoderVals(){

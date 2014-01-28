@@ -37,6 +37,9 @@ public class InputData {
     
     public static boolean bPower = false;
     
+    public static boolean bAutoturnLeft = false;
+    public static boolean bAutoturnRight = false;
+    
     public static void reset() {
         for(int ii=0; ii<3; ++ii){
             leftDriverStick[ii] = 0;

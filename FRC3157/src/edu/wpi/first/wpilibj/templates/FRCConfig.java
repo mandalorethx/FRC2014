@@ -56,9 +56,11 @@ public class FRCConfig {
     public static int kMANUAL_PIN = 5;
     public static int kMANUAL_ON = 6;
     public static int kMANUAL_OFF = 7;
-    public static double kSTEER_P = 1;
-    public static double kSTEER_I = 1;
-    public static double kSTEER_D = 1;
+    public static double kSTEER_P = 0;
+    public static double kSTEER_I = 0;
+    public static double kSTEER_D = 0;
+    public static int kAUTOTURN_LEFT = 3;
+    public static int kAUTOTURN_RIGHT = 4;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -164,6 +166,10 @@ public class FRCConfig {
                         kSTEER_P=Double.parseDouble(value);
                     }else if(varName.equals("kSTEER_D")){
                         kSTEER_D=Double.parseDouble(value);
+                    }else if(varName.equals("kAUTOTURN_LEFT")){
+                        kAUTOTURN_LEFT=Integer.parseInt(value);
+                    }else if(varName.equals("kAUTOTURN_RIGHT")){
+                        kAUTOTURN_RIGHT=Integer.parseInt(value);
                     }
                 }
             }return true;
