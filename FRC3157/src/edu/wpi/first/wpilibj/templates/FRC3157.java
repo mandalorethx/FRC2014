@@ -46,6 +46,8 @@ public class FRC3157 extends IterativeRobot {
     public static int kRIGHT_DRIVER_STICK=1;
     public static int kCO_DRIVER_STICK=2;
     
+    // This is a test line!
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
