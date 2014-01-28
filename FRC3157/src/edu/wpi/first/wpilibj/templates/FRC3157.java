@@ -20,9 +20,6 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class FRC3157 extends IterativeRobot {
     
-    public static int kLEFT_MOTOR_SLOT = 0;
-    public static int kRIGHT_MOTOR_SLOT = 1;
-    
     public static final int kAUTON_WAIT=0;
     public static final int kAUTON_FIRE=1;
     public static final int kAUTON_WAIT_2=2;
@@ -42,10 +39,6 @@ public class FRC3157 extends IterativeRobot {
     public static RoboThink think;
     public static RoboOutput output;
     
-    public static int kLEFT_DRIVER_STICK=0;
-    public static int kRIGHT_DRIVER_STICK=1;
-    public static int kCO_DRIVER_STICK=2;
-    
     // This is a test line!
     
     /**
@@ -53,6 +46,8 @@ public class FRC3157 extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        FRCConfig.initialize();
+        
         input=new RoboInput();
         think=new RoboThink();
         output=new RoboOutput();
@@ -60,8 +55,8 @@ public class FRC3157 extends IterativeRobot {
         InputData.reset();
         OutputData.reset();
         
-        output.initialize(kLEFT_MOTOR_SLOT, kRIGHT_MOTOR_SLOT);
-        input.initialize(kCO_DRIVER_STICK, kCO_DRIVER_STICK, kCO_DRIVER_STICK);
+        output.initialize(FRCConfig.kLEFT_MOTOR_SLOT, FRCConfig.kRIGHT_MOTOR_SLOT);
+        input.initialize(FRCConfig.kLEFT_DRIVER_STICK, FRCConfig.kRIGHT_DRIVER_STICK, FRCConfig.kCO_DRIVER_STICK);
     }
 
     public void autonomousInit(){

@@ -56,6 +56,10 @@ public class FRCConfig {
     public static int kMAGIC_SHOOT_CATCH = 2;
     public static int kSHOOTER_BUTTON = 0;
     public static int kGRABBER_BUTTON = 3;
+    public static int kMANUAL_SHOOTER = 4;
+    public static int kMANUAL_PIN = 5;
+    public static int kMANUAL_ON = 6;
+    public static int kMANUAL_OFF = 7;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -81,7 +85,7 @@ public class FRCConfig {
                 int delim=line.indexOf("=");
                 if(delim!=-1){
                     String varName=line.substring(0,delim);
-                    String value=line.substring(delim+1,line.length());
+                    String value=line.substring(delim+1,line.length()-1);
                     
                     if(varName.equals("fMaxShooterPower")){
                         fMaxShooterPower=Double.parseDouble(value);
@@ -147,6 +151,14 @@ public class FRCConfig {
                         kSHOOTER_BUTTON=Integer.parseInt(value);
                     }else if(varName.equals("kGRABBER_BUTTON")){
                         kGRABBER_BUTTON=Integer.parseInt(value);
+                    }else if(varName.equals("kMANUAL_SHOOTER")){
+                        kMANUAL_SHOOTER=Integer.parseInt(value);
+                    }else if(varName.equals("kMANUAL_PIN")){
+                        kMANUAL_PIN=Integer.parseInt(value);
+                    }else if(varName.equals("kMANUAL_ON")){
+                        kMANUAL_ON=Integer.parseInt(value);
+                    }else if(varName.equals("kMANUAL_OFF")){
+                        kMANUAL_OFF=Integer.parseInt(value);
                     }
                 }
             }return true;

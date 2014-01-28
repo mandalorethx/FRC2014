@@ -15,12 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class RoboThink {
        
     public static final double kMAX_MOTOR_POWER = 0.9;
-       /*
-    public static final int kFIRE_WAITING = 0;
-    public static final int kFIRE_EXTEND = 1;
-    public static final int kFIRE_RETRACT = 2;
-    public static final int kFIRE_SLEEP = 3;
-    */
+
     public static final int kCATCH_WAITING = 0;
     public static final int kCATCH_EXTEND = 1;
     public static final int kCATCH_RETRACT = 2;
@@ -55,12 +50,13 @@ public class RoboThink {
         } else {
             OutputData.rightMotorVal=-1*rightMultiplier*(InputData.rightDriverStick[1]*InputData.rightDriverStick[1]);
         }
-         /*
-         if( InputData.shooterButtonPressed && dFiringStep == kFIRE_WAITING){
-             dFiringStep = kFIRE_EXTEND;
-         }
-         */
-         fire();
+
+         if(InputData.bPower==true){
+            OutputData.bPullPin=InputData.bManualPin;
+            OutputData.bStartShooter=InputData.bManualShoot;
+        }else{
+            fire();
+        }
         
         if(InputData.grabberButttonPressed == true){
             OutputData.leftGrabberVal = 1.0;
@@ -77,44 +73,6 @@ public class RoboThink {
       }
     }
    
-    /*
-    public void fire(){
-        // Power = MAX * raw + (1 - raw) * MIN
-        double shooterPower = FRCConfig.kMAX_SHOOTER_POWER * InputData.coDriverStick[2] +
-                (1 - InputData.coDriverStick[2]) * FRCConfig.kMIN_SHOOTER_POWER;
-        switch( dFiringStep ) {
-            case kFIRE_WAITING:
-                break;
-            case kFIRE_EXTEND:
-                if(InputData.bShooterExt == true) {
-                    dFiringStep = kFIRE_SLEEP;
-                    thinkTimer.start();
-                    break;
-                }
-                OutputData.leftShooterVal=shooterPower;
-                OutputData.rightShooterVal=shooterPower;
-                break;
-            case kFIRE_SLEEP:
-                if(thinkTimer.get()>=FRCConfig.kSLEEP_TIME){
-                    dFiringStep = kFIRE_RETRACT;
-                }
-                OutputData.leftShooterVal=0;
-                OutputData.rightShooterVal=0;
-                break;
-            case kFIRE_RETRACT:
-                OutputData.leftShooterVal=-1.0*shooterPower;
-                OutputData.rightShooterVal=-1.0*shooterPower;
-                if(InputData.bShooterRet == true){
-                    OutputData.leftShooterVal=0;
-                    OutputData.rightShooterVal=0;
-                    dFiringStep = kFIRE_WAITING;
-                }
-                break;
-            default:
-                break;
-        }
-    }
-    */
     public void fire(){
         if(InputData.shooterButtonPressed){
             OutputData.bPullPin=true;

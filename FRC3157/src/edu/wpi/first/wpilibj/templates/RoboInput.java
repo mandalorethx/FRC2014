@@ -60,6 +60,16 @@ public class RoboInput {
         InputData.shooterButtonPressed=this.coDrive.getRawButton(kSHOOTER_BUTTON);
         InputData.grabberButttonPressed=this.coDrive.getRawButton(kGRABBER_BUTTON);
         getEncoderVals();
+   
+        InputData.bManualShoot=this.coDrive.getRawButton(FRCConfig.kMANUAL_SHOOTER);
+        InputData.bManualPin=this.coDrive.getRawButton(FRCConfig.kMANUAL_PIN);
+        
+        if(this.coDrive.getRawButton(FRCConfig.kMANUAL_ON)){
+            InputData.bPower = true;
+        }else if(this.coDrive.getRawButton(FRCConfig.kMANUAL_OFF)){
+            InputData.bPower = false;
+        }
+        
         
         InputData.bDriveStraightPressed=this.leftDrive.getRawButton(kDRIVE_STRAIGHT_BUTTON)||this.rightDrive.getRawButton(kDRIVE_STRAIGHT_BUTTON);
         InputData.bAutoShootAndCatch=this.leftDrive.getRawButton(kMAGIC_SHOOT_CATCH)||this.rightDrive.getRawButton(kMAGIC_SHOOT_CATCH);

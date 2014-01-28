@@ -32,6 +32,11 @@ public class InputData {
     
     public static boolean bAutoShootAndCatch = false;
     
+    public static boolean bManualShoot = false;
+    public static boolean bManualPin = false;
+    
+    public static boolean bPower = false;
+    
     public static void reset() {
         for(int ii=0; ii<3; ++ii){
             leftDriverStick[ii] = 0;
