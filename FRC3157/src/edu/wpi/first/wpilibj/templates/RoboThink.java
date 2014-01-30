@@ -55,6 +55,10 @@ public class RoboThink {
             OutputData.rightMotorVal=-1*rightMultiplier*(InputData.rightDriverStick[1]*InputData.rightDriverStick[1]);
         }
 
+         if(InputData.bAutoShootAndCatch==true){
+             catchAndShoot();
+         }
+         
          if(InputData.bPower==true){
             OutputData.bPullPin=InputData.bManualPin;
             OutputData.bStartShooter=InputData.bManualShoot;
