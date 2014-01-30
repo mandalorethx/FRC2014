@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj.Timer;
  * @author FRCUser
  */
 public class RoboThink {
-       
-    public static final double kMAX_MOTOR_POWER = 0.9;
 
     public static final int kCATCH_WAITING = 0;
     public static final int kCATCH_EXTEND = 1;
@@ -88,7 +86,11 @@ public class RoboThink {
           fLeftLastError = 0;
           fRightLastError = 0;
       }
-
+      
+      ScreenOutput.clrLine( 0 );
+      ScreenOutput.screenWrite("Left Motor Speed: " + fLeftMotorSpeed, 0);
+      ScreenOutput.clrLine( 1 );
+      ScreenOutput.screenWrite("Right Motor Speed: " + fRightMotorSpeed, 1);
     }
    
     public void fire(){
@@ -102,7 +104,7 @@ public class RoboThink {
         }
     }
     public double CalcMotorSpeed(int encoderCount, double encoderTime){
-        double speed = 0;
+        double speed;
         speed = (double)encoderCount/(double)FRCConfig.kENCODER_PPR;
         speed/= ((double)encoderTime/60000);
         return speed;    
@@ -133,21 +135,21 @@ public class RoboThink {
         if(fLeftMotorSpeed < (1.0- FRCConfig.kMAX_ERROR) * expectPowerLeft || fLeftMotorSpeed > (1+FRCConfig.kMAX_ERROR) *expectPowerLeft){
             double dif = (expectPowerLeft - fLeftMotorSpeed) / expectPowerLeft;
             OutputData.leftMotorVal += dif;
-            if(OutputData.leftMotorVal < -1*kMAX_MOTOR_POWER){
-                OutputData.leftMotorVal = -1*kMAX_MOTOR_POWER;
+            if(OutputData.leftMotorVal < -1*FRCConfig.kMAX_MOTOR_POWER){
+                OutputData.leftMotorVal = -1*FRCConfig.kMAX_MOTOR_POWER;
             }
-            if(OutputData.leftMotorVal > kMAX_MOTOR_POWER){
-                OutputData.leftMotorVal = kMAX_MOTOR_POWER;
+            if(OutputData.leftMotorVal > FRCConfig.kMAX_MOTOR_POWER){
+                OutputData.leftMotorVal = FRCConfig.kMAX_MOTOR_POWER;
             }
         }
         if(fRightMotorSpeed < (1.0- FRCConfig.kMAX_ERROR) * expectPowerRight || fRightMotorSpeed > (1+FRCConfig.kMAX_ERROR) *expectPowerRight){
             double dif = (expectPowerRight - fRightMotorSpeed) / expectPowerRight;
             OutputData.rightMotorVal += dif;
-            if(OutputData.rightMotorVal < -1*kMAX_MOTOR_POWER){
-                OutputData.rightMotorVal = -1*kMAX_MOTOR_POWER;
+            if(OutputData.rightMotorVal < -1*FRCConfig.kMAX_MOTOR_POWER){
+                OutputData.rightMotorVal = -1*FRCConfig.kMAX_MOTOR_POWER;
             }
-            if(OutputData.rightMotorVal > kMAX_MOTOR_POWER){
-                OutputData.rightMotorVal = kMAX_MOTOR_POWER;
+            if(OutputData.rightMotorVal > FRCConfig.kMAX_MOTOR_POWER){
+                OutputData.rightMotorVal = FRCConfig.kMAX_MOTOR_POWER;
             }
         }
     }
