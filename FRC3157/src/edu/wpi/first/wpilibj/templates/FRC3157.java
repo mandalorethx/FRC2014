@@ -48,8 +48,8 @@ public class FRC3157 extends IterativeRobot {
         InputData.reset();
         OutputData.reset();
         
-        output.initialize(FRCConfig.kLEFT_MOTOR_SLOT, FRCConfig.kRIGHT_MOTOR_SLOT);
-        input.initialize(FRCConfig.kLEFT_DRIVER_STICK, FRCConfig.kRIGHT_DRIVER_STICK, FRCConfig.kCO_DRIVER_STICK);
+        output.initialize(FRCConfig.SLOT_LEFT_MOTOR, FRCConfig.SLOT_RIGHT_MOTOR);
+        input.initialize(FRCConfig.SLOT_LEFT_DRIVER_JOYSTICK, FRCConfig.SLOT_RIGHT_DRIVER_JOYSTICK, FRCConfig.SLOT_CO_DRIVER_JOYSTICK);
     }
 
     public void autonomousInit(){

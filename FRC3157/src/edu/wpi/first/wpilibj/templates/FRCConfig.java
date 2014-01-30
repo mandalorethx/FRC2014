@@ -26,28 +26,22 @@ public class FRCConfig {
     public static double kMIN_SHOOTER_POWER = 0.7;
     public static double kSLEEP_TIME = 500.0;
     public static double kENCODER_PPR = 1440; // I am 85-90% sure this is correct based on model number.
-    public static int kCALIBRATE_BUTTON = 0;
-    public static int kLEFT_ENCODER_PORT_1= 0;
-    public static int kLEFT_ENCODER_PORT_2= 1;
-    public static int kRIGHT_ENCODER_PORT_1= 2;
-    public static int kRIGHT_ENCODER_PORT_2= 3;
-    public static double fMaxShooterPower = 0.9;
-    public static int dLeftMotorSlot = 0;
-    public static int dRightMotorSlot = 1;
-    public static int dLeftDriverPort = 0;
-    public static int dRightDriverPort = 1;
-    public static int dCoDriverPort = 2;
+    public static int SLOT_LEFT_ENCODER_1= 0;
+    public static int SLOT_LEFT_ENCODER_2= 1;
+    public static int SLOT_RIGHT_ENCODER_1= 2;
+    public static int SLOT_RIGHT_ENCODER_2= 3;
+    public static double fMAX_SHOOTER_POWER = 0.9;
     public static double kMAX_MOTOR_POWER = 0.9;
-    public static int kLEFT_MOTOR_SLOT = 0;
-    public static int kRIGHT_MOTOR_SLOT = 1;
-    public static int kLEFT_DRIVER_STICK=0;
-    public static int kRIGHT_DRIVER_STICK=1;
-    public static int kCO_DRIVER_STICK=2;
-    public static int dPressureSlot=0;
-    public static int dRelaySlot=1;
-    public static int dLeftShooterSlot=2;
-    public static int dRightShooterSlot=3;
-    public static int dPinShooterSlot=4;
+    public static int SLOT_LEFT_MOTOR = 0;
+    public static int SLOT_RIGHT_MOTOR = 1;
+    public static int SLOT_LEFT_DRIVER_JOYSTICK=0;
+    public static int SLOT_RIGHT_DRIVER_JOYSTICK=1;
+    public static int SLOT_CO_DRIVER_JOYSTICK=2;
+    public static int SLOT_PRESSURE=0;
+    public static int SLOT_COMPRESSOR_RELAY=1;
+    public static int SLOT_LEFT_SHOOTER=2;
+    public static int SLOT_RIGHT_SHOOTER=3;
+    public static int SLOT_PIN_SHOOTER=4;
     public static int btnDRIVE_STRAIGHT = 0;
     public static int btnMAGIC_SHOOT_CATCH = 2;
     public static int btnSHOOTER = 0;
@@ -97,17 +91,7 @@ public class FRCConfig {
                     String value=line.substring(delim+1,line.length()-1);
                     
                     if(varName.equals("fMaxShooterPower")){
-                        fMaxShooterPower=Double.parseDouble(value);
-                    }else if(varName.equals("dLeftMotorSlot")){
-                        dLeftMotorSlot=Integer.parseInt(value);
-                    }else if(varName.equals("dRightMotorSlot")){
-                        dRightMotorSlot=Integer.parseInt(value);
-                    }else if(varName.equals("dLeftDriverPort")){
-                        dLeftDriverPort=Integer.parseInt(value);
-                    }else if(varName.equals("dRightDriverPort")){
-                        dRightDriverPort=Integer.parseInt(value);
-                    }else if(varName.equals("dcoDriverPort")){
-                        dCoDriverPort=Integer.parseInt(value);
+                        fMAX_SHOOTER_POWER=Double.parseDouble(value);
                     }else if(varName.equals("kMAX_MOTOR_SPEED")){
                         kMAX_MOTOR_SPEED=Integer.parseInt(value);
                     }else if(varName.equals("kMAX_ERROR")){
@@ -120,38 +104,36 @@ public class FRCConfig {
                         kSLEEP_TIME=Integer.parseInt(value);
                     }else if(varName.equals("kENCODER_PPR")){
                         kENCODER_PPR=Integer.parseInt(value);
-                    }else if(varName.equals("kCALIBRATE_BUTTON")){
-                        kCALIBRATE_BUTTON=Integer.parseInt(value);
                     }else if(varName.equals("kLEFT_ENCODER_PORT_1")){
-                        kLEFT_ENCODER_PORT_1=Integer.parseInt(value);
+                        SLOT_LEFT_ENCODER_1=Integer.parseInt(value);
                     }else if(varName.equals("kLEFT_ENCODER_PORT_2")){
-                        kLEFT_ENCODER_PORT_2=Integer.parseInt(value);
+                        SLOT_LEFT_ENCODER_2=Integer.parseInt(value);
                     }else if(varName.equals("kRIGHT_ENCODER_PORT_1")){
-                        kRIGHT_ENCODER_PORT_1=Integer.parseInt(value);
+                        SLOT_RIGHT_ENCODER_1=Integer.parseInt(value);
                     }else if(varName.equals("kRIGHT_ENCODER_PORT_2")){
-                        kRIGHT_ENCODER_PORT_2=Integer.parseInt(value);
+                        SLOT_RIGHT_ENCODER_2=Integer.parseInt(value);
                     }else if(varName.equals("kMAX_MOTOR_POWER")){
                         kMAX_MOTOR_POWER=Integer.parseInt(value);
                     }else if(varName.equals("kLEFT_MOTOR_SLOT")){
-                        kLEFT_MOTOR_SLOT=Integer.parseInt(value);
+                        SLOT_LEFT_MOTOR=Integer.parseInt(value);
                     }else if(varName.equals("kRIGHT_MOTOR_SLOT")){
-                        kRIGHT_MOTOR_SLOT=Integer.parseInt(value);
+                        SLOT_RIGHT_MOTOR=Integer.parseInt(value);
                     }else if(varName.equals("kLEFT_DRIVER_STICK")){
-                        kLEFT_DRIVER_STICK=Integer.parseInt(value);
+                        SLOT_LEFT_DRIVER_JOYSTICK=Integer.parseInt(value);
                     }else if(varName.equals("kRIGHT_DRIVER_STICK=1;")){
-                        kRIGHT_DRIVER_STICK=Integer.parseInt(value);
+                        SLOT_RIGHT_DRIVER_JOYSTICK=Integer.parseInt(value);
                     }else if(varName.equals("kCO_DRIVER_STICK")){
-                        kCO_DRIVER_STICK=Integer.parseInt(value);
+                        SLOT_CO_DRIVER_JOYSTICK=Integer.parseInt(value);
                     }else if(varName.equals("dPressureSlot")){
-                        dPressureSlot=Integer.parseInt(value);
+                        SLOT_PRESSURE=Integer.parseInt(value);
                     }else if(varName.equals("dRelaySlot")){
-                        dRelaySlot=Integer.parseInt(value);
+                        SLOT_COMPRESSOR_RELAY=Integer.parseInt(value);
                     }else if(varName.equals("dLeftShooterSlot")){
-                        dLeftShooterSlot=Integer.parseInt(value);
+                        SLOT_LEFT_SHOOTER=Integer.parseInt(value);
                     }else if(varName.equals("dRightShooterSlot")){
-                        dRightShooterSlot=Integer.parseInt(value);
+                        SLOT_RIGHT_SHOOTER=Integer.parseInt(value);
                     }else if(varName.equals("dPinShooterSlot")){
-                        dPinShooterSlot=Integer.parseInt(value);
+                        SLOT_PIN_SHOOTER=Integer.parseInt(value);
                     }else if(varName.equals("kDRIVE_STRAIGHT_BUTTON")){
                         btnDRIVE_STRAIGHT=Integer.parseInt(value);
                     }else if(varName.equals("kMAGIC_SHOOT_CATCH")){

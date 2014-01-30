@@ -31,11 +31,11 @@ public class RoboOutput {
     public void initialize( int left, int right ){
         this.driveLeft=new Victor( left );
         this.driveRight=new Victor( right );
-        this.airCompressor=new Compressor( FRCConfig.dPressureSlot,FRCConfig.dRelaySlot );
+        this.airCompressor=new Compressor( FRCConfig.SLOT_PRESSURE,FRCConfig.SLOT_COMPRESSOR_RELAY );
         this.airCompressor.start();
-        this.leftShooter=new Solenoid( FRCConfig.dLeftShooterSlot );
-        this.rightShooter=new Solenoid( FRCConfig.dRightShooterSlot );
-        this.pinShooter=new Solenoid( FRCConfig.dPinShooterSlot );
+        this.leftShooter=new Solenoid( FRCConfig.SLOT_LEFT_SHOOTER );
+        this.rightShooter=new Solenoid( FRCConfig.SLOT_RIGHT_SHOOTER );
+        this.pinShooter=new Solenoid( FRCConfig.SLOT_PIN_SHOOTER );
     }
     
     public void setOutputs(){

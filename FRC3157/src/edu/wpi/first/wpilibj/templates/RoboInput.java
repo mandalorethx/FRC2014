@@ -33,8 +33,8 @@ public class RoboInput {
         encoderTimer = new Timer();
         encoderTimer.start();
         
-        this.leftMotorEncoder=new Encoder( FRCConfig.kLEFT_ENCODER_PORT_1,FRCConfig.kLEFT_ENCODER_PORT_2);
-        this.rightMotorEncoder=new Encoder( FRCConfig.kRIGHT_ENCODER_PORT_1,FRCConfig.kRIGHT_ENCODER_PORT_2);
+        this.leftMotorEncoder=new Encoder( FRCConfig.SLOT_LEFT_ENCODER_1,FRCConfig.SLOT_LEFT_ENCODER_2);
+        this.rightMotorEncoder=new Encoder( FRCConfig.SLOT_RIGHT_ENCODER_1,FRCConfig.SLOT_RIGHT_ENCODER_2);
         this.leftMotorEncoder.start();
         this.rightMotorEncoder.start();
     }
