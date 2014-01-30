@@ -80,6 +80,11 @@ public class RoboThink {
           fLeftLastError = 0;
           fRightLastError = 0;
       }
+      if(FRCConfig.kSTEER_P==0 && FRCConfig.kSTEER_I==0 && FRCConfig.kSTEER_D==0){
+          steerStraight2();
+      }else{
+          steerStraight();
+      }
     }
    
     public void fire(){
