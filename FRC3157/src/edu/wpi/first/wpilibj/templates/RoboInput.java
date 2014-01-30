@@ -50,25 +50,25 @@ public class RoboInput {
         InputData.coDriverStick[1]=this.coDrive.getY();
         InputData.coDriverStick[2]=this.coDrive.getZ();
         
-        InputData.shooterButtonPressed=this.coDrive.getRawButton(FRCConfig.kSHOOTER_BUTTON);
-        InputData.grabberButttonPressed=this.coDrive.getRawButton(FRCConfig.kGRABBER_BUTTON);
+        InputData.shooterButtonPressed=this.coDrive.getRawButton(FRCConfig.btnSHOOTER);
+        InputData.grabberButttonPressed=this.coDrive.getRawButton(FRCConfig.btnGRABBER);
         getEncoderVals();
    
-        InputData.bManualShoot=this.coDrive.getRawButton(FRCConfig.kMANUAL_SHOOTER);
-        InputData.bManualPin=this.coDrive.getRawButton(FRCConfig.kMANUAL_PIN);
+        InputData.bManualShoot=this.coDrive.getRawButton(FRCConfig.btnMANUAL_SHOOTER);
+        InputData.bManualPin=this.coDrive.getRawButton(FRCConfig.btnMANUAL_PIN);
         
-        if(this.coDrive.getRawButton(FRCConfig.kMANUAL_ON)){
+        if(this.coDrive.getRawButton(FRCConfig.btnMANUAL_ON)){
             InputData.bPower = true;
-        }else if(this.coDrive.getRawButton(FRCConfig.kMANUAL_OFF)){
+        }else if(this.coDrive.getRawButton(FRCConfig.btnMANUAL_OFF)){
             InputData.bPower = false;
         }
         
         
-        InputData.bDriveStraightPressed=this.leftDrive.getRawButton(FRCConfig.kDRIVE_STRAIGHT_BUTTON)||this.rightDrive.getRawButton(FRCConfig.kDRIVE_STRAIGHT_BUTTON);
-        InputData.bAutoShootAndCatch=this.leftDrive.getRawButton(FRCConfig.kMAGIC_SHOOT_CATCH)||this.rightDrive.getRawButton(FRCConfig.kMAGIC_SHOOT_CATCH);
+        InputData.bDriveStraightPressed=this.leftDrive.getRawButton(FRCConfig.btnDRIVE_STRAIGHT)||this.rightDrive.getRawButton(FRCConfig.btnDRIVE_STRAIGHT);
+        InputData.bAutoShootAndCatch=this.leftDrive.getRawButton(FRCConfig.btnMAGIC_SHOOT_CATCH)||this.rightDrive.getRawButton(FRCConfig.btnMAGIC_SHOOT_CATCH);
     
-        InputData.bAutoturnLeft=this.leftDrive.getRawButton(FRCConfig.kAUTOTURN_LEFT)||this.rightDrive.getRawButton(FRCConfig.kAUTOTURN_LEFT);
-        InputData.bAutoturnRight=this.leftDrive.getRawButton(FRCConfig.kAUTOTURN_RIGHT)||this.rightDrive.getRawButton(FRCConfig.kAUTOTURN_RIGHT);
+        InputData.bAutoturnLeft=this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_LEFT)||this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_LEFT);
+        InputData.bAutoturnRight=this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT)||this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT);
     }
     
     public void getEncoderVals(){

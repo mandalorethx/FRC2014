@@ -48,19 +48,19 @@ public class FRCConfig {
     public static int dLeftShooterSlot=2;
     public static int dRightShooterSlot=3;
     public static int dPinShooterSlot=4;
-    public static int kDRIVE_STRAIGHT_BUTTON = 0;
-    public static int kMAGIC_SHOOT_CATCH = 2;
-    public static int kSHOOTER_BUTTON = 0;
-    public static int kGRABBER_BUTTON = 3;
-    public static int kMANUAL_SHOOTER = 4;
-    public static int kMANUAL_PIN = 5;
-    public static int kMANUAL_ON = 6;
-    public static int kMANUAL_OFF = 7;
+    public static int btnDRIVE_STRAIGHT = 0;
+    public static int btnMAGIC_SHOOT_CATCH = 2;
+    public static int btnSHOOTER = 0;
+    public static int btnGRABBER = 3;
+    public static int btnMANUAL_SHOOTER = 4;
+    public static int btnMANUAL_PIN = 5;
+    public static int btnMANUAL_ON = 6;
+    public static int btnMANUAL_OFF = 7;
     public static double kSTEER_P = 0;
     public static double kSTEER_I = 0;
     public static double kSTEER_D = 0;
-    public static int kAUTOTURN_LEFT = 3;
-    public static int kAUTOTURN_RIGHT = 4;
+    public static int btnAUTOTURN_LEFT = 3;
+    public static int btnAUTOTURN_RIGHT = 4;
     public static double kAUTON_DELAY = 0;
     public static double kAUTON_MOVE_DELAY=3000;
     public static double kAUTON_MOVE_TIME=2000;
@@ -153,21 +153,21 @@ public class FRCConfig {
                     }else if(varName.equals("dPinShooterSlot")){
                         dPinShooterSlot=Integer.parseInt(value);
                     }else if(varName.equals("kDRIVE_STRAIGHT_BUTTON")){
-                        kDRIVE_STRAIGHT_BUTTON=Integer.parseInt(value);
+                        btnDRIVE_STRAIGHT=Integer.parseInt(value);
                     }else if(varName.equals("kMAGIC_SHOOT_CATCH")){
-                        kMAGIC_SHOOT_CATCH=Integer.parseInt(value);
+                        btnMAGIC_SHOOT_CATCH=Integer.parseInt(value);
                     }else if(varName.equals("kSHOOTER_BUTTON")){
-                        kSHOOTER_BUTTON=Integer.parseInt(value);
+                        btnSHOOTER=Integer.parseInt(value);
                     }else if(varName.equals("kGRABBER_BUTTON")){
-                        kGRABBER_BUTTON=Integer.parseInt(value);
+                        btnGRABBER=Integer.parseInt(value);
                     }else if(varName.equals("kMANUAL_SHOOTER")){
-                        kMANUAL_SHOOTER=Integer.parseInt(value);
+                        btnMANUAL_SHOOTER=Integer.parseInt(value);
                     }else if(varName.equals("kMANUAL_PIN")){
-                        kMANUAL_PIN=Integer.parseInt(value);
+                        btnMANUAL_PIN=Integer.parseInt(value);
                     }else if(varName.equals("kMANUAL_ON")){
-                        kMANUAL_ON=Integer.parseInt(value);
+                        btnMANUAL_ON=Integer.parseInt(value);
                     }else if(varName.equals("kMANUAL_OFF")){
-                        kMANUAL_OFF=Integer.parseInt(value);
+                        btnMANUAL_OFF=Integer.parseInt(value);
                     }else if(varName.equals("kSTEER_I")){
                         kSTEER_I=Double.parseDouble(value);
                     }else if(varName.equals("kSTEER_P")){
@@ -175,9 +175,9 @@ public class FRCConfig {
                     }else if(varName.equals("kSTEER_D")){
                         kSTEER_D=Double.parseDouble(value);
                     }else if(varName.equals("kAUTOTURN_LEFT")){
-                        kAUTOTURN_LEFT=Integer.parseInt(value);
+                        btnAUTOTURN_LEFT=Integer.parseInt(value);
                     }else if(varName.equals("kAUTOTURN_RIGHT")){
-                        kAUTOTURN_RIGHT=Integer.parseInt(value);
+                        btnAUTOTURN_RIGHT=Integer.parseInt(value);
                     }else if(varName.equals("kAUTON_DELAY")){
                         kAUTON_DELAY=Double.parseDouble(value);
                     }else if(varName.equals("kAUTON_MOVE_DELAY")){
