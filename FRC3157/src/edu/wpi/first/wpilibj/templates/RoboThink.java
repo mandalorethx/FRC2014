@@ -77,18 +77,18 @@ public class RoboThink {
       fLeftMotorSpeed=CalcMotorSpeed(InputData.leftMotorEncoderVal, InputData.fLeftEncoderTime);
       
       if(InputData.bDriveStraightPressed == true){
-          steerStraight();
+        if(FRCConfig.kSTEER_P==0 && FRCConfig.kSTEER_I==0 && FRCConfig.kSTEER_D==0){
+            steerStraight();
+        }else{
+          steerStraightPID();
+        }
       }else{
           fLeftError = 0;
           fRightError = 0;
           fLeftLastError = 0;
           fRightLastError = 0;
       }
-      if(FRCConfig.kSTEER_P==0 && FRCConfig.kSTEER_I==0 && FRCConfig.kSTEER_D==0){
-          steerStraight2();
-      }else{
-          steerStraight();
-      }
+
     }
    
     public void fire(){
@@ -108,7 +108,7 @@ public class RoboThink {
         return speed;    
     }
     
-    public void steerStraight() {
+    public void steerStraightPID() {
         double expectPower = (OutputData.leftMotorVal*FRCConfig.kMAX_MOTOR_SPEED + OutputData.rightMotorVal*FRCConfig.kMAX_MOTOR_SPEED) / 2.0;
         
         double currErrorLeft = expectPower-fLeftMotorSpeed;
@@ -126,7 +126,7 @@ public class RoboThink {
         fRightError += currErrorRight;
     }
     
-    public void steerStraight2(){
+    public void steerStraight(){
         double expectPowerLeft = OutputData.leftMotorVal*FRCConfig.kMAX_MOTOR_SPEED;
         double expectPowerRight = OutputData.rightMotorVal*FRCConfig.kMAX_MOTOR_SPEED;
         
