@@ -20,6 +20,7 @@ import javax.microedition.io.Connector;
 public class FRCConfig {
     
     public static final String CONFIG_FILE = "FRC_CONFIG.txt";
+    
     public static double kMAX_MOTOR_SPEED = 100;
     public static double kMAX_ERROR = 0.1;
     public static double kMAX_SHOOTER_POWER = 0.9;
@@ -42,6 +43,7 @@ public class FRCConfig {
     public static int SLOT_LEFT_SHOOTER=2;
     public static int SLOT_RIGHT_SHOOTER=3;
     public static int SLOT_PIN_SHOOTER=4;
+    
     public static int btnDRIVE_STRAIGHT = 0;
     public static int btnMAGIC_SHOOT_CATCH = 2;
     public static int btnSHOOTER = 0;
