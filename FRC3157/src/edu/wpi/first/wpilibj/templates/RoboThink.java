@@ -21,9 +21,7 @@ public class RoboThink {
     public static final int kCATCH_RETRACT = 2;
     public static final int kCATCH_SLEEP = 3;
     public static int dCatchStep = 0;
-    public static final double kFIRING_TIME = 500;
-    public static final double kMOTOR_SPEED = 0.9;
-    public static final double kMOVE_TIME = 2000;
+    
     
     public static double leftMultiplier=-1*FRCConfig.kMAX_SHOOTER_POWER;
     public static double rightMultiplier=FRCConfig.kMAX_SHOOTER_POWER;
@@ -155,25 +153,25 @@ public class RoboThink {
                 dCatchStep++;
                 break;
             case kCATCH_RETRACT:
-                if(thinkTimer.get() >= kFIRING_TIME){
+                if(thinkTimer.get() >= FRCConfig.kFIRING_TIME){
                     InputData.shooterButtonPressed = false;
-                    InputData.leftDriverStick[1] = kMOTOR_SPEED;
-                    InputData.rightDriverStick[1] = kMOTOR_SPEED;
+                    InputData.leftDriverStick[1] = FRCConfig.kMOTOR_SPEED;
+                    InputData.rightDriverStick[1] = FRCConfig.kMOTOR_SPEED;
                     thinkTimer.reset();
                     dCatchStep++;
                 }else{ 
                     InputData.shooterButtonPressed = true;
                 }break;
             case kCATCH_SLEEP:
-                if(thinkTimer.get() >= kMOVE_TIME){
+                if(thinkTimer.get() >= FRCConfig.kMOVE_TIME){
                     InputData.leftDriverStick[1] = 0;
                     InputData.rightDriverStick[1] = 0;
                     thinkTimer.reset();
                     thinkTimer.stop();
                     dCatchStep = kCATCH_WAITING;
                 }else{
-                    InputData.leftDriverStick[1] = kMOTOR_SPEED;
-                    InputData.rightDriverStick[1] = kMOTOR_SPEED;
+                    InputData.leftDriverStick[1] = FRCConfig.kMOTOR_SPEED;
+                    InputData.rightDriverStick[1] = FRCConfig.kMOTOR_SPEED;
                 }break;
         }
     }

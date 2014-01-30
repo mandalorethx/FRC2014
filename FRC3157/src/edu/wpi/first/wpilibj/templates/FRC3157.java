@@ -26,13 +26,6 @@ public class FRC3157 extends IterativeRobot {
     public static final int kAUTON_MOVE=3;
     public static final int kAUTON_SLEEP=4;
     
-    public static final double kAUTON_DELAY=0;
-    public static final double kAUTON_MOVE_DELAY=3000;
-    public static final double kAUTON_MOVE_TIME=2000;
-    public static final double kAUTON_FIRE_TIME=1000;
-    
-    public static final boolean kRUN_AUTONOMOUS = true;
-    
     public Timer autonTimer;
     public int dAutonState;
     public static RoboInput input;
@@ -69,27 +62,27 @@ public class FRC3157 extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        if( !kRUN_AUTONOMOUS ) {
+        if( !FRCConfig.kRUN_AUTONOMOUS ) {
             return;
         }
         
         switch(dAutonState){
             case kAUTON_WAIT:
-                if (autonTimer.get()>=kAUTON_DELAY){
+                if (autonTimer.get()>=FRCConfig.kAUTON_DELAY){
                     dAutonState++;
                     autonTimer.reset();
                 }
                 break;
             case kAUTON_FIRE:
                 InputData.shooterButtonPressed=true;
-                if(autonTimer.get()>=kAUTON_FIRE_TIME){
+                if(autonTimer.get()>=FRCConfig.kAUTON_FIRE_TIME){
                     dAutonState++;
                     autonTimer.reset();
                     InputData.shooterButtonPressed=false;
                 }
                 break;
             case kAUTON_WAIT_2:
-                if(autonTimer.get()>=kAUTON_MOVE_DELAY){
+                if(autonTimer.get()>=FRCConfig.kAUTON_MOVE_DELAY){
                     dAutonState++;
                     autonTimer.reset();
                 }
@@ -98,7 +91,7 @@ public class FRC3157 extends IterativeRobot {
                 InputData.leftDriverStick[1]=1.0;
                 InputData.rightDriverStick[1]=1.0;
                 InputData.bDriveStraightPressed=true;
-                if(autonTimer.get()>=kAUTON_MOVE_TIME){
+                if(autonTimer.get()>=FRCConfig.kAUTON_MOVE_TIME){
                     dAutonState++;
                     autonTimer.reset();
                 }

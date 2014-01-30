@@ -61,6 +61,14 @@ public class FRCConfig {
     public static double kSTEER_D = 0;
     public static int kAUTOTURN_LEFT = 3;
     public static int kAUTOTURN_RIGHT = 4;
+    public static double kAUTON_DELAY = 0;
+    public static double kAUTON_MOVE_DELAY=3000;
+    public static double kAUTON_MOVE_TIME=2000;
+    public static double kAUTON_FIRE_TIME=1000;
+    public static boolean kRUN_AUTONOMOUS = true;
+    public static double kFIRING_TIME = 500;
+    public static double kMOTOR_SPEED = 0.9;
+    public static double kMOVE_TIME = 2000;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -170,6 +178,22 @@ public class FRCConfig {
                         kAUTOTURN_LEFT=Integer.parseInt(value);
                     }else if(varName.equals("kAUTOTURN_RIGHT")){
                         kAUTOTURN_RIGHT=Integer.parseInt(value);
+                    }else if(varName.equals("kAUTON_DELAY")){
+                        kAUTON_DELAY=Double.parseDouble(value);
+                    }else if(varName.equals("kAUTON_MOVE_DELAY")){
+                        kAUTON_MOVE_DELAY=Double.parseDouble(value);
+                    }else if(varName.equals("kAUTON_MOVE_TIME")){
+                        kAUTON_MOVE_TIME=Double.parseDouble(value);
+                    }else if(varName.equals("kAUTON_FIRE_TIME")){
+                        kAUTON_FIRE_TIME=Double.parseDouble(value);
+                    }else if(varName.equals("kRUN_AUTONOMOUS")){
+                        kRUN_AUTONOMOUS = value.toLowerCase().equals("true");
+                    }else if(varName.equals("kFIRING_TIME")){
+                        kFIRING_TIME = Double.parseDouble(value);
+                    }else if(varName.equals("kMOTOR_SPEED")){
+                        kMOTOR_SPEED = Double.parseDouble(value);
+                    }else if(varName.equals("kMOVE_TIME")){
+                        kMOVE_TIME = Double.parseDouble(value);
                     }
                 }
             }return true;

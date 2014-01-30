@@ -22,14 +22,7 @@ public class RoboInput {
     
     public Encoder leftMotorEncoder;
     public Encoder rightMotorEncoder;
-    
-    public static final int kDRIVE_STRAIGHT_BUTTON = 0;
-    
-    public static final int kMAGIC_SHOOT_CATCH = 2;
-    
-    public static int kSHOOTER_BUTTON=0;
-    public static int kGRABBER_BUTTON=3;
-    
+      
     public Timer encoderTimer;
     
     public void initialize( int leftDrive, int rightDrive, int coDrive ){
@@ -57,8 +50,8 @@ public class RoboInput {
         InputData.coDriverStick[1]=this.coDrive.getY();
         InputData.coDriverStick[2]=this.coDrive.getZ();
         
-        InputData.shooterButtonPressed=this.coDrive.getRawButton(kSHOOTER_BUTTON);
-        InputData.grabberButttonPressed=this.coDrive.getRawButton(kGRABBER_BUTTON);
+        InputData.shooterButtonPressed=this.coDrive.getRawButton(FRCConfig.kSHOOTER_BUTTON);
+        InputData.grabberButttonPressed=this.coDrive.getRawButton(FRCConfig.kGRABBER_BUTTON);
         getEncoderVals();
    
         InputData.bManualShoot=this.coDrive.getRawButton(FRCConfig.kMANUAL_SHOOTER);
@@ -71,8 +64,8 @@ public class RoboInput {
         }
         
         
-        InputData.bDriveStraightPressed=this.leftDrive.getRawButton(kDRIVE_STRAIGHT_BUTTON)||this.rightDrive.getRawButton(kDRIVE_STRAIGHT_BUTTON);
-        InputData.bAutoShootAndCatch=this.leftDrive.getRawButton(kMAGIC_SHOOT_CATCH)||this.rightDrive.getRawButton(kMAGIC_SHOOT_CATCH);
+        InputData.bDriveStraightPressed=this.leftDrive.getRawButton(FRCConfig.kDRIVE_STRAIGHT_BUTTON)||this.rightDrive.getRawButton(FRCConfig.kDRIVE_STRAIGHT_BUTTON);
+        InputData.bAutoShootAndCatch=this.leftDrive.getRawButton(FRCConfig.kMAGIC_SHOOT_CATCH)||this.rightDrive.getRawButton(FRCConfig.kMAGIC_SHOOT_CATCH);
     
         InputData.bAutoturnLeft=this.leftDrive.getRawButton(FRCConfig.kAUTOTURN_LEFT)||this.rightDrive.getRawButton(FRCConfig.kAUTOTURN_LEFT);
         InputData.bAutoturnRight=this.leftDrive.getRawButton(FRCConfig.kAUTOTURN_RIGHT)||this.rightDrive.getRawButton(FRCConfig.kAUTOTURN_RIGHT);
