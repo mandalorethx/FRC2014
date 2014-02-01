@@ -101,10 +101,12 @@ public class RoboInput {
         if( InputData.bManualShoot ) {
             FRCLogger.getInstance().logInfo("Manual Shoot Pressed");
         }
+        /*
         InputData.bManualPin=this.coDrive.getRawButton(FRCConfig.btnMANUAL_PIN);
         if( InputData.bManualPin ) {
             FRCLogger.getInstance().logInfo("Manual Pin Pressed");
         }
+        */
         if(this.coDrive.getRawButton(FRCConfig.btnMANUAL_ON)){
             InputData.bPower = true;
             FRCLogger.getInstance().logInfo("Manual On");
