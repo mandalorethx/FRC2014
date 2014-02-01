@@ -87,30 +87,57 @@ public class RoboInput {
         InputData.coDriverStick[2]=this.coDrive.getZ();
         
         InputData.shooterButtonPressed=this.coDrive.getRawButton(FRCConfig.btnSHOOTER);
+        if( InputData.shooterButtonPressed ) {
+            FRCLogger.getInstance().logInfo( "Shooter Button Pressed" );
+        }
         InputData.grabberButttonPressed=this.coDrive.getRawButton(FRCConfig.btnGRABBER);
+        if( InputData.grabberButttonPressed ) {
+            FRCLogger.getInstance().logInfo("Grabber Button Pressed");
+        }
         getEncoderVals();
    
         InputData.bManualShoot=this.coDrive.getRawButton(FRCConfig.btnMANUAL_SHOOTER);
+        if( InputData.bManualShoot ) {
+            FRCLogger.getInstance().logInfo("Manual Shoot Pressed");
+        }
         InputData.bManualPin=this.coDrive.getRawButton(FRCConfig.btnMANUAL_PIN);
-        
+        if( InputData.bManualPin ) {
+            FRCLogger.getInstance().logInfo("Manual Pin Pressed");
+        }
         if(this.coDrive.getRawButton(FRCConfig.btnMANUAL_ON)){
             InputData.bPower = true;
+            FRCLogger.getInstance().logInfo("Manual On");
         }else if(this.coDrive.getRawButton(FRCConfig.btnMANUAL_OFF)){
             InputData.bPower = false;
+            FRCLogger.getInstance().logInfo("Manual Off");
         }
         
         
         InputData.bDriveStraightPressed=this.leftDrive.getRawButton(FRCConfig.btnDRIVE_STRAIGHT)||this.rightDrive.getRawButton(FRCConfig.btnDRIVE_STRAIGHT);
+        if(InputData.bDriveStraightPressed) {
+            FRCLogger.getInstance().logInfo("Drive Straight Pressed");
+        }
         InputData.bAutoShootAndCatch=this.leftDrive.getRawButton(FRCConfig.btnMAGIC_SHOOT_CATCH)||this.rightDrive.getRawButton(FRCConfig.btnMAGIC_SHOOT_CATCH);
-    
+        if(InputData.bAutoShootAndCatch) {
+            FRCLogger.getInstance().logInfo("Shoot and Catch Button Pressed");
+        }
         InputData.bAutoturnLeft=this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_LEFT)||this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_LEFT);
+        if( InputData.bAutoturnLeft ) {
+            FRCLogger.getInstance().logInfo("Drove Left");
+        }
         InputData.bAutoturnRight=this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT)||this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT);
+        if( InputData.bAutoturnRight) {
+            FRCLogger.getInstance().logInfo("Drove Right");
+        }
    
         InputData.bShooterRet=this.shooterSwitchRet.get();
+        if( InputData.bShooterRet ) {
+            FRCLogger.getInstance().logInfo("Shooter Retracted");
+        }
     }
     
     /**
-     * Populates inputData's encoder properties
+     * Populates InputData's encoder properties
      */
     public void getEncoderVals(){
         InputData.leftMotorEncoderVal=leftMotorEncoder.get();
