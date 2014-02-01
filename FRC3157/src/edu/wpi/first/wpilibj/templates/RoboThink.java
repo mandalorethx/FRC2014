@@ -78,7 +78,7 @@ public class RoboThink {
          }
          
          if(InputData.bPower==true){
-            OutputData.bPullPin=InputData.bManualPin;
+            //OutputData.bPullPin=InputData.bManualPin;
             OutputData.bStartShooter=InputData.bManualShoot;
         }else{
             fire();
