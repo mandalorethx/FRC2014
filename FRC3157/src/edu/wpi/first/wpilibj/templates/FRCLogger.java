@@ -70,7 +70,7 @@ public class FRCLogger {
     {
         try{
             fc = (FileConnection)Connector.open(
-                    "File:///" + LOG_FILE, Connector.WRITE);
+                    "file:///" + LOG_FILE, Connector.WRITE);
             outStream=fc.openDataOutputStream();
            
             hasError = false;   // Be explicit!
@@ -92,12 +92,18 @@ public class FRCLogger {
                     fc = null;
                 }
             }
-            catch(IOException ioe) {}
+            catch(IOException ioe) {
+                System.out.println("unable to close log");
+                System.out.println(ioe.getMessage());
+            }
+            System.out.println("unable to open log");
+            System.out.println(e.getMessage());
             return;
         }
         
         outStreamWriter = new OutputStreamWriter(outStream);
         outBuffer = new BufferedWriter(outStreamWriter);
+        clock = new Timer();
         clock.start();
     }
     

@@ -39,7 +39,9 @@ public class FRC3157 extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        System.out.println("robotInit Start");
         FRCConfig.initialize();
+        FRCLogger.getInstance().logInfo("test log");
         
         input=new RoboInput();
         think=new RoboThink();
@@ -50,6 +52,7 @@ public class FRC3157 extends IterativeRobot {
         
         output.initialize(FRCConfig.SLOT_LEFT_MOTOR, FRCConfig.SLOT_RIGHT_MOTOR);
         input.initialize(FRCConfig.SLOT_LEFT_DRIVER_JOYSTICK, FRCConfig.SLOT_RIGHT_DRIVER_JOYSTICK, FRCConfig.SLOT_CO_DRIVER_JOYSTICK);
+        System.out.println("robotInit End");
     }
 
     public void autonomousInit(){
