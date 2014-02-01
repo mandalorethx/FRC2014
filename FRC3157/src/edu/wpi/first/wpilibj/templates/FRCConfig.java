@@ -77,6 +77,7 @@ public class FRCConfig {
     public static double kDISTANCE_P = 0;
     public static double kDISTANCE_I = 0;
     public static double kDISTANCE_D = 0;
+    public static int btnAUTO_DISTANCE = 0;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -209,6 +210,8 @@ public class FRCConfig {
                         kDISTANCE_I = Integer.parseInt(value);
                     }else if(varName.equals("kDISTANCE_D")) {
                         kDISTANCE_I = Integer.parseInt(value);
+                    }else if(varName.equals("btnAUTO_DISTANCE")) {
+                        btnAUTO_DISTANCE = Integer.parseInt(value);
                     }
                 }
             }return true;
