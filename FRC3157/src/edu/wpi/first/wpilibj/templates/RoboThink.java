@@ -240,4 +240,20 @@ public class RoboThink {
                 }break;
         }
     }
+    
+    /**
+     * Moves the robot closer towards or farther away based on a
+     * consumed distance
+     * @param distance - the length to travel (can be positive or negative)
+     * @return the power to the motors
+     */
+    public double adjustPosition(int distance)
+    {
+        // (Naive implementation)
+        if (distance > 0)
+            return FRCConfig.kMAX_MOTOR_POWER;
+        else if (distance < 0)
+            return -1 * FRCConfig.kMAX_SHOOTER_POWER;
+        return 0;
+    }
 }
