@@ -4,9 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package edu.wpi.first.wpilibj.templates;
-
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -19,21 +17,20 @@ import edu.wpi.first.wpilibj.Timer;
  * directory.
  */
 public class FRC3157 extends IterativeRobot {
-    
-    public static final int kAUTON_WAIT=0;
-    public static final int kAUTON_FIRE=1;
-    public static final int kAUTON_WAIT_2=2;
-    public static final int kAUTON_MOVE=3;
-    public static final int kAUTON_SLEEP=4;
-    
+
+    public static final int kAUTON_WAIT = 0;
+    public static final int kAUTON_FIRE = 1;
+    public static final int kAUTON_WAIT_2 = 2;
+    public static final int kAUTON_MOVE = 3;
+    public static final int kAUTON_SLEEP = 4;
+
     public Timer autonTimer;
     public int dAutonState;
     public static RoboInput input;
     public static RoboThink think;
     public static RoboOutput output;
-    
+
     // This is a test line!
-    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -41,68 +38,67 @@ public class FRC3157 extends IterativeRobot {
     public void robotInit() {
         System.out.println("robotInit Start");
         FRCConfig.initialize();
-        FRCLogger.getInstance().logInfo("test log");
-        
-        input=new RoboInput();
-        think=new RoboThink();
-        output=new RoboOutput();
-        
+
+        input = new RoboInput();
+        think = new RoboThink();
+        output = new RoboOutput();
+
         InputData.reset();
         OutputData.reset();
-        
+
         output.initialize(FRCConfig.SLOT_LEFT_MOTOR, FRCConfig.SLOT_RIGHT_MOTOR);
         input.initialize(FRCConfig.SLOT_LEFT_DRIVER_JOYSTICK, FRCConfig.SLOT_RIGHT_DRIVER_JOYSTICK, FRCConfig.SLOT_CO_DRIVER_JOYSTICK);
         System.out.println("robotInit End");
     }
 
-    public void autonomousInit(){
-        autonTimer=new Timer();
+    public void autonomousInit() {
+        autonTimer = new Timer();
         autonTimer.start();
-        dAutonState=0;
+        dAutonState = 0;
     }
-    
+
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        if( !FRCConfig.kRUN_AUTONOMOUS ) {
+        if (!FRCConfig.kRUN_AUTONOMOUS) {
             return;
         }
-        
-        switch(dAutonState){
+
+        switch (dAutonState) {
             case kAUTON_WAIT:
-                if (autonTimer.get()>=FRCConfig.kAUTON_DELAY){
+                if (autonTimer.get() >= FRCConfig.kAUTON_DELAY) {
                     dAutonState++;
                     autonTimer.reset();
                 }
                 break;
             case kAUTON_FIRE:
-                InputData.shooterButtonPressed=true;
-                if(autonTimer.get()>=FRCConfig.kAUTON_FIRE_TIME){
+                InputData.shooterButtonPressed = true;
+                if (autonTimer.get() >= FRCConfig.kAUTON_FIRE_TIME) {
                     dAutonState++;
                     autonTimer.reset();
-                    InputData.shooterButtonPressed=false;
+                    InputData.shooterButtonPressed = false;
                 }
                 break;
             case kAUTON_WAIT_2:
-                if(autonTimer.get()>=FRCConfig.kAUTON_MOVE_DELAY){
+                if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_DELAY) {
                     dAutonState++;
                     autonTimer.reset();
                 }
                 break;
             case kAUTON_MOVE:
-                InputData.leftDriverStick[1]=1.0;
-                InputData.rightDriverStick[1]=1.0;
-                InputData.bDriveStraightPressed=true;
-                if(autonTimer.get()>=FRCConfig.kAUTON_MOVE_TIME){
+                InputData.leftDriverStick[1] = 1.0;
+                InputData.rightDriverStick[1] = 1.0;
+                InputData.bDriveStraightPressed = true;
+                if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_TIME) {
                     dAutonState++;
                     autonTimer.reset();
                 }
-                break;  
+                break;
             case kAUTON_SLEEP:
-                InputData.leftDriverStick[1]=0;
-                InputData.rightDriverStick[1]=0;
-                InputData.bDriveStraightPressed=false;
+                InputData.leftDriverStick[1] = 0;
+                InputData.rightDriverStick[1] = 0;
+                InputData.bDriveStraightPressed = false;
                 autonTimer.stop();
                 break;
             default:
@@ -110,15 +106,15 @@ public class FRC3157 extends IterativeRobot {
                 FRCLogger.getInstance().logError("unknown autonTime");
                 break;
         }
-        
+
         think.processInputs();
         output.setOutputs();
     }
 
     public void teleopInit() {
-        
+
     }
-    
+
     /**
      * This function is called periodically during operator control
      */
@@ -127,12 +123,12 @@ public class FRC3157 extends IterativeRobot {
         think.processInputs();
         output.setOutputs();
     }
-    
+
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    
+
     }
-    
+
 }
