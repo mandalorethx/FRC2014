@@ -118,18 +118,13 @@ public class RoboThink {
     */
     public void fire(){
         if(InputData.shooterButtonPressed){
-            OutputData.bPullPin=true;
+            OutputData.bStartShooter=true;
             ScreenOutput.clrLine(2);
-            ScreenOutput.screenWrite("Fire Step: Pulling Pin (trigger pulled)", 2);
-        }else if(!InputData.bShooterRet){
+            ScreenOutput.screenWrite("Fire Step: Firing Pistons (trigger pulled)", 2);
+        }else{
             OutputData.bStartShooter=false;
             ScreenOutput.clrLine(2);
             ScreenOutput.screenWrite("Fire Step: Retracting (Switch not hit)", 2);
-        }else{
-            OutputData.bPullPin=false;
-            OutputData.bStartShooter=true;
-            ScreenOutput.clrLine(2);
-            ScreenOutput.screenWrite("Fire Step: Waiting (Charging Pstons)", 2);
         }
     }
     /**
@@ -149,16 +144,20 @@ public class RoboThink {
      * uses PID values as defined in FRCConfig file
      */
     public void steerStraightPID() {
-        double expectPower = (OutputData.leftMotorVal*FRCConfig.kMAX_MOTOR_SPEED + OutputData.rightMotorVal*FRCConfig.kMAX_MOTOR_SPEED) / 2.0;
+        //double expectPower = (OutputData.leftMotorVal*FRCConfig.kMAX_MOTOR_SPEED + OutputData.rightMotorVal*FRCConfig.kMAX_MOTOR_SPEED) / 2.0;
+        double expectPower = (OutputData.leftMotorVal +
+                OutputData.rightMotorVal)/2.0;
+        double leftPower = fLeftMotorSpeed/FRCConfig.kMAX_MOTOR_SPEED;
+        double rightPower = fRightMotorSpeed/FRCConfig.kMAX_MOTOR_SPEED;
         
-        double currErrorLeft = expectPower-fLeftMotorSpeed;
-        double currErrorRight = expectPower-fRightMotorSpeed;
+        double currErrorLeft = expectPower-leftPower;
+        double currErrorRight = expectPower-rightPower;
         
         double leftCorrect = FRCConfig.kSTEER_P*currErrorLeft+FRCConfig.kSTEER_I*fLeftLastError+FRCConfig.kSTEER_D*fLeftError;
         double rightCorrect = FRCConfig.kSTEER_P*currErrorRight+FRCConfig.kSTEER_I*fRightLastError+FRCConfig.kSTEER_D*fRightError;
         
-        OutputData.leftMotorVal += leftCorrect;
-        OutputData.rightMotorVal += rightCorrect;
+        OutputData.leftMotorVal = leftCorrect;
+        OutputData.rightMotorVal = rightCorrect;
         
         fLeftLastError = currErrorLeft;
         fRightLastError = currErrorRight;
