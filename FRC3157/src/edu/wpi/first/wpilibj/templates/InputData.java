@@ -104,6 +104,7 @@ public class InputData {
      * Are we turning right automatically (as opposed to manually turning?)
      */
     public static boolean bAutoturnRight = false;
+    public static FRCImage camProcessor;
     
     /**
      * Sets all fields to 0 or false

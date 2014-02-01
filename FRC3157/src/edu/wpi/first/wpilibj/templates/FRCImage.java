@@ -7,6 +7,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.CriteriaCollection;
@@ -83,6 +84,8 @@ public class FRCImage {
 	int horizontalTargets[] = new int[MAX_PARTICLES];
 	int verticalTargetCount, horizontalTargetCount;
         
+        camera = AxisCamera.getInstance();
+        
         if (ENABLE_VISION) {
             try {
                 /**
@@ -91,9 +94,19 @@ public class FRCImage {
                  * level directory in the flash memory on the cRIO. The file name in this case is "testImage.jpg"
                  * 
                  */
-                //ColorImage image = camera.getImage();     // comment if using stored images
-                ColorImage image;                           // next 2 lines read image from flash on cRIO
-                image = new RGBImage("/testImage.jpg");		// get the sample image from the cRIO flash
+                ColorImage image = null;     
+                try {
+                    image = camera.getImage(); // comment if using stored images
+                } catch (AxisCameraException ex) {
+                    ex.printStackTrace();
+                } catch (NIVisionException ex) {
+                    ex.printStackTrace();
+                }
+                if( image == null ) {
+                    return 0;
+                }
+                // ColorImage image;                           // next 2 lines read image from flash on cRIO
+                // image = new RGBImage("/testImage.jpg");		// get the sample image from the cRIO flash
                 BinaryImage thresholdImage = image.thresholdHSV(105, 137, 230, 255, 133, 183);   // keep only green objects
                 //thresholdImage.write("/threshold.bmp");
                 BinaryImage filteredImage = thresholdImage.particleFilter(cc);           // filter out small particles
