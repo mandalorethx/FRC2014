@@ -15,7 +15,10 @@ import javax.microedition.io.Connector;
 
 /**
  * An implementation of the config file for the robot
- * these are also defined and set equal to values in FRC_CONFIG.txt
+ * These variables are in FRC_CONFIG.txt
+ * In FRC_CONFIG.txt:no space between = signs
+ * = signs in FRC_CONFIG.txt are used as a delimiter between variable and value
+ * In FRC_CONFIG.txt:each variable is separated by an enter
  * @author Programming Subteam
  */
 public class FRCConfig {
@@ -27,7 +30,8 @@ public class FRCConfig {
     public static double kMAX_SHOOTER_POWER = 0.9;
     public static double kMIN_SHOOTER_POWER = 0.7;
     public static double kSLEEP_TIME = 500.0;
-    public static double kENCODER_PPR = 1440; // I am 85-90% sure this is correct based on model number.
+    // I am 85-90% sure this is correct based on model number.
+    public static double kENCODER_PPR = 1440; 
     public static int SLOT_LEFT_ENCODER_1= 0;
     public static int SLOT_LEFT_ENCODER_2= 1;
     public static int SLOT_RIGHT_ENCODER_1= 2;
@@ -79,6 +83,7 @@ public class FRCConfig {
     
     /**
      * Initializes the static variables for the config class
+     * opens file, reads it, and can then be used as variables in the project
      * @return true if the config file is successfully loaded; false otherwise
      */
     public static boolean initialize(){
