@@ -70,6 +70,7 @@ public class RoboInput {
         this.leftMotorEncoder.start();
         this.rightMotorEncoder.start();
         this.shooterSwitchRet=new DigitalInput(FRCConfig.SLOT_SHOOTER_SWITCH);
+        InputData.camProcessor=new FRCImage();
     }
     
     /**
