@@ -50,6 +50,8 @@ public class RoboThink {
     public double fRightLastError = 0;
     public double fLeftError = 0;
     public double fRightError = 0;
+    public double fLastDistanceError=0;
+    public double fDistanceError=0;
     
     public RoboThink(){
         thinkTimer = new Timer();
@@ -247,13 +249,24 @@ public class RoboThink {
      * @param distance - the length to travel (can be positive or negative)
      * @return the power to the motors
      */
-    public double adjustPosition(int distance)
+    public double adjustPosition(double distance)
     {
         // (Naive implementation)
         if (distance > 0)
             return FRCConfig.kMAX_MOTOR_POWER;
         else if (distance < 0)
-            return -1 * FRCConfig.kMAX_SHOOTER_POWER;
+            return -1 * FRCConfig.kMAX_MOTOR_POWER;   
         return 0;
+    }
+    public double adjustPositionPID(double distance)
+    {
+        double motorPower=FRCConfig.kDISTANCE_P*distance+FRCConfig.kDISTANCE_I*
+        fLastDistanceError+FRCConfig.kDISTANCE_D*fDistanceError;
+        if(motorPower>FRCConfig.kMAX_MOTOR_POWER) {
+            motorPower=FRCConfig.kMAX_MOTOR_POWER;
+        }else if(motorPower<-1*FRCConfig.kMAX_MOTOR_POWER) {
+            motorPower=FRCConfig.kMAX_MOTOR_POWER;
+        }
+        return motorPower;
     }
 }
