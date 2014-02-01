@@ -65,6 +65,9 @@ public class FRCConfig {
     public static double kFIRING_TIME = 500;
     public static double kMOTOR_SPEED = 0.9;
     public static double kMOVE_TIME = 2000;
+    public static int SLOT_ANALOG = 0;
+    public static int SLOT_DIO = 1;
+    public static int SLOT_DO = 2;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -178,6 +181,12 @@ public class FRCConfig {
                         kMOTOR_SPEED = Double.parseDouble(value);
                     }else if(varName.equals("kMOVE_TIME")){
                         kMOVE_TIME = Double.parseDouble(value);
+                    }else if(varName.equals("SLOT_ANALOG")){
+                        SLOT_ANALOG = Integer.parseInt(value);
+                    }else if(varName.equals("SLOT_DIO")){
+                        SLOT_DIO = Integer.parseInt(value);
+                    }else if(varName.equals("SLOT_DO")){
+                        SLOT_DO = Integer.parseInt(value);
                     }
                 }
             }return true;
