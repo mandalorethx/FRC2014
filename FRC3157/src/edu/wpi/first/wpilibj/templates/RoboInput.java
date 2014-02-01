@@ -91,7 +91,7 @@ public class RoboInput {
         getEncoderVals();
    
         InputData.bManualShoot=this.coDrive.getRawButton(FRCConfig.btnMANUAL_SHOOTER);
-        InputData.bManualPin=this.coDrive.getRawButton(FRCConfig.btnMANUAL_PIN);
+        //InputData.bManualPin=this.coDrive.getRawButton(FRCConfig.btnMANUAL_PIN);
         
         if(this.coDrive.getRawButton(FRCConfig.btnMANUAL_ON)){
             InputData.bPower = true;

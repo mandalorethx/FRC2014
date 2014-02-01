@@ -30,7 +30,7 @@ public class OutputData {
     /**
      * Should we pull the pin
      */
-    public static boolean bPullPin=false;
+    //public static boolean bPullPin=false;
     
     /**
      * Value the left grabber motor will be set to
@@ -51,7 +51,7 @@ public class OutputData {
         
         bStartShooter=false;
         
-        bPullPin=false;
+        //bPullPin=false;
         
         leftGrabberVal=0;
         rightGrabberVal=0;

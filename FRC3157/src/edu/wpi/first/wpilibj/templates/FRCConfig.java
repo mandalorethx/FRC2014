@@ -47,14 +47,14 @@ public class FRCConfig {
     public static int SLOT_COMPRESSOR_RELAY=1;
     public static int SLOT_LEFT_SHOOTER=2;
     public static int SLOT_RIGHT_SHOOTER=3;
-    public static int SLOT_PIN_SHOOTER=4;
+    //public static int SLOT_PIN_SHOOTER=4;
     
     public static int btnDRIVE_STRAIGHT = 0;
     public static int btnMAGIC_SHOOT_CATCH = 2;
     public static int btnSHOOTER = 0;
     public static int btnGRABBER = 3;
     public static int btnMANUAL_SHOOTER = 4;
-    public static int btnMANUAL_PIN = 5;
+    //public static int btnMANUAL_PIN = 5;
     public static int btnMANUAL_ON = 6;
     public static int btnMANUAL_OFF = 7;
     public static double kSTEER_P = 0;
@@ -144,8 +144,10 @@ public class FRCConfig {
                         SLOT_LEFT_SHOOTER=Integer.parseInt(value);
                     }else if(varName.equals("dRightShooterSlot")){
                         SLOT_RIGHT_SHOOTER=Integer.parseInt(value);
+                    /*
                     }else if(varName.equals("dPinShooterSlot")){
-                        SLOT_PIN_SHOOTER=Integer.parseInt(value);
+                       SLOT_PIN_SHOOTER=Integer.parseInt(value);
+                    */
                     }else if(varName.equals("kDRIVE_STRAIGHT_BUTTON")){
                         btnDRIVE_STRAIGHT=Integer.parseInt(value);
                     }else if(varName.equals("kMAGIC_SHOOT_CATCH")){
@@ -156,8 +158,10 @@ public class FRCConfig {
                         btnGRABBER=Integer.parseInt(value);
                     }else if(varName.equals("kMANUAL_SHOOTER")){
                         btnMANUAL_SHOOTER=Integer.parseInt(value);
+                    /*
                     }else if(varName.equals("kMANUAL_PIN")){
                         btnMANUAL_PIN=Integer.parseInt(value);
+                    */
                     }else if(varName.equals("kMANUAL_ON")){
                         btnMANUAL_ON=Integer.parseInt(value);
                     }else if(varName.equals("kMANUAL_OFF")){
