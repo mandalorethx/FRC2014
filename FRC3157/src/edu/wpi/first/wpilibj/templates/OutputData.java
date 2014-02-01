@@ -7,7 +7,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 /**
- *
+ * 
  * @author FRCUser
  */
 public class OutputData {
@@ -21,7 +21,7 @@ public class OutputData {
     public static double leftGrabberVal=0;
     public static double rightGrabberVal=0;
     
-    
+     
     public static void reset() {
         leftMotorVal=0;
         rightMotorVal=0;

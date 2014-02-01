@@ -15,6 +15,7 @@ import javax.microedition.io.Connector;
 
 /**
  * An implementation of the config file for the robot
+ * these are also defined and set equal to values in FRC_CONFIG.txt
  * @author Programming Subteam
  */
 public class FRCConfig {
