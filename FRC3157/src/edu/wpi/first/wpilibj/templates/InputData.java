@@ -88,7 +88,7 @@ public class InputData {
     /**
      * Is the pin locked?
      */
-    public static boolean bManualPin = false;
+    //public static boolean bManualPin = false;
     
     /**
      * Are we shooting manually?
