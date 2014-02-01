@@ -6,6 +6,7 @@
 
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
@@ -45,6 +46,10 @@ public class RoboInput {
      * Timer for the encoder
      */
     public Timer encoderTimer;
+    /**
+     * Checks if shooter is fully retracted
+     */
+    public DigitalInput shooterSwitchRet;
     
     /**
      * Initializes the RoboInput object with specified joystick inputs
@@ -64,6 +69,7 @@ public class RoboInput {
         this.rightMotorEncoder=new Encoder( FRCConfig.SLOT_RIGHT_ENCODER_1,FRCConfig.SLOT_RIGHT_ENCODER_2);
         this.leftMotorEncoder.start();
         this.rightMotorEncoder.start();
+        this.shooterSwitchRet=new DigitalInput(FRCConfig.SLOT_SHOOTER_SWITCH);
     }
     
     /**
@@ -99,6 +105,8 @@ public class RoboInput {
     
         InputData.bAutoturnLeft=this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_LEFT)||this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_LEFT);
         InputData.bAutoturnRight=this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT)||this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT);
+   
+        InputData.bShooterRet=this.shooterSwitchRet.get();
     }
     
     /**
