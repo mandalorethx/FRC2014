@@ -96,11 +96,17 @@ public class RoboThink {
     public void fire(){
         if(InputData.shooterButtonPressed){
             OutputData.bPullPin=true;
+            ScreenOutput.clrLine(2);
+            ScreenOutput.screenWrite("Fire Step: Pulling Pin (trigger pulled)", 2);
         }else if(!InputData.bShooterRet){
             OutputData.bStartShooter=false;
+            ScreenOutput.clrLine(2);
+            ScreenOutput.screenWrite("Fire Step: Retracting (Switch not hit)", 2);
         }else{
             OutputData.bPullPin=false;
             OutputData.bStartShooter=true;
+            ScreenOutput.clrLine(2);
+            ScreenOutput.screenWrite("Fire Step: Waiting (Charging Pstons)", 2);
         }
     }
     public double CalcMotorSpeed(int encoderCount, double encoderTime){
