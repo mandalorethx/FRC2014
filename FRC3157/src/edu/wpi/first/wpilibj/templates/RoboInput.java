@@ -11,20 +11,47 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
- * @author FRCUser
+ * loads all inputs into inpuData for roboThink
+ * @author Programming Subteam
  */
 public class RoboInput {
     
+    /**
+     * The left joystick
+     */
     public Joystick leftDrive;
+    
+    /**
+     * The right joystick
+     */
     public Joystick rightDrive;
+    
+    /**
+     * The co-driver joystick
+     */
     public Joystick coDrive;
     
+    /**
+     * Measures the speed of the left motor
+     */
     public Encoder leftMotorEncoder;
+    
+    /**
+     * Measures the speed of the right motor
+     */
     public Encoder rightMotorEncoder;
-      
+    
+    /**
+     * Timer for the encoder
+     */
     public Timer encoderTimer;
     
+    /**
+     * Initializes the RoboInput object with specified joystick inputs
+     * @param leftDrive - left driver joystick input
+     * @param rightDrive - right driver joystick input
+     * @param coDrive - co-driver joystick input
+     */
     public void initialize( int leftDrive, int rightDrive, int coDrive ){
         this.leftDrive=new Joystick( leftDrive );
         this.rightDrive=new Joystick( rightDrive );
@@ -39,6 +66,9 @@ public class RoboInput {
         this.rightMotorEncoder.start();
     }
     
+    /**
+     * Populate input variables
+     */
     public void gatherInputs(){
         InputData.leftDriverStick[0]=this.leftDrive.getX();
         InputData.leftDriverStick[1]=this.leftDrive.getY();
@@ -71,6 +101,9 @@ public class RoboInput {
         InputData.bAutoturnRight=this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT)||this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT);
     }
     
+    /**
+     * Populates inputData's encoder properties
+     */
     public void getEncoderVals(){
         InputData.leftMotorEncoderVal=leftMotorEncoder.get();
         InputData.rightMotorEncoderVal=rightMotorEncoder.get();
