@@ -68,6 +68,7 @@ public class FRCConfig {
     public static int SLOT_ANALOG = 0;
     public static int SLOT_DIO = 1;
     public static int SLOT_DO = 2;
+    public static int SLOT_SHOOTER_SWITCH = 0;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -187,6 +188,8 @@ public class FRCConfig {
                         SLOT_DIO = Integer.parseInt(value);
                     }else if(varName.equals("SLOT_DO")){
                         SLOT_DO = Integer.parseInt(value);
+                    }else if(varName.equals("SLOT_SHOOTER_SWITCH")){
+                        SLOT_SHOOTER_SWITCH = Integer.parseInt(value);
                     }
                 }
             }return true;
