@@ -47,6 +47,7 @@ public class FRC3157 extends IterativeRobot {
         autonTimer = new Timer();
         autonTimer.start();
         dAutonState = 0;
+        InputData.bTestMode = false;
     }
 
     /**
@@ -104,7 +105,7 @@ public class FRC3157 extends IterativeRobot {
     }
 
     public void teleopInit() {
-
+        InputData.bTestMode = false;
     }
 
     /**
@@ -116,11 +117,17 @@ public class FRC3157 extends IterativeRobot {
         output.setOutputs();
     }
 
+    public void testInit(){
+        InputData.bTestMode = true;
+    }
+    
     /**
      * This function is called periodically during test mode
-     */
+     */    
     public void testPeriodic() {
-
+        input.gatherInputs();
+        think.processInputs();
+        output.setOutputs();        
     }
     
     public void configInit(){

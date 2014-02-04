@@ -27,7 +27,9 @@ public class RoboOutput {
 
     public Victor grabberLeft; //Controls the grabber arms to pick up the ball
     public Victor grabberRight; //Controls the grabber arms to pick up the ball
-
+    
+    
+    
     /**
      * Initializing variables, and starts the air compressor
      *
