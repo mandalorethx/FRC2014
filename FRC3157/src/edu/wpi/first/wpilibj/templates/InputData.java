@@ -107,6 +107,8 @@ public class InputData {
 
     public static boolean bDistanceCorrect = false;
 
+    public static boolean bTestMode = false;
+    
     /**
      * Sets all fields to 0 or false
      */
