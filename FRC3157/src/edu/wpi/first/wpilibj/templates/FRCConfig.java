@@ -79,6 +79,11 @@ public class FRCConfig {
     public static int btnAUTO_DISTANCE = 0;
     public static int btnCONFIG_RELOAD_1 = 8;
     public static int btnCONFIG_RELOAD_2 = 9;
+    public static int btnINCREASE_WAIT_TIME = 5;
+    public static int btnDECREASE_WAIT_TIME = 4;
+    public static int btnSTART_AUTON_MODE = 3;
+    public static int btnSTOP_AUTON_MODE = 2;
+    
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -216,6 +221,14 @@ public class FRCConfig {
                         btnCONFIG_RELOAD_1 = Integer.parseInt(value);
                     } else if (varName.equals("btnCONFIG_RELOAD_2")){
                         btnCONFIG_RELOAD_2 = Integer.parseInt(value);
+                    }else if (varName.equals("btnINCREASE_WAIT_TIME")){
+                        btnINCREASE_WAIT_TIME = Integer.parseInt(value);
+                    }else if (varName.equals("btnDECREASE_WAIT_TIME")){
+                        btnDECREASE_WAIT_TIME = Integer.parseInt(value);
+                    }else if (varName.equals("btnSTART_AUTON_MODE")){
+                        btnSTART_AUTON_MODE = Integer.parseInt(value);
+                    }else if (varName.equals("btn STOP_AUTON_MODE")){
+                        btnSTOP_AUTON_MODE = Integer.parseInt(value);
                     }
                 }
             }

@@ -41,7 +41,11 @@ public class FRC3157 extends IterativeRobot {
         System.out.println("robotInit End");
     }
     public void disabledPeriodic(){
-        
+        if( input.coDrive.getRawButton(FRCConfig.btnSTART_AUTON_MODE )){
+            FRCConfig.kRUN_AUTONOMOUS = true;
+        }else if( input.coDrive.getRawButton( FRCConfig.btnSTOP_AUTON_MODE)){
+            FRCConfig.kRUN_AUTONOMOUS = false;
+        }
     }
     public void autonomousInit() {
         autonTimer = new Timer();
