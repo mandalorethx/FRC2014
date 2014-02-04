@@ -77,7 +77,9 @@ public class FRCConfig {
     public static double kDISTANCE_I = 0;
     public static double kDISTANCE_D = 0;
     public static int btnAUTO_DISTANCE = 0;
-
+    public static int btnCONFIG_RELOAD_1 = 8;
+    public static int btnCONFIG_RELOAD_2 = 9;
+    
     private static FileConnection fc;
     private static DataInputStream inStream;
     private static BufferedReader inBuffer;
@@ -210,6 +212,10 @@ public class FRCConfig {
                         kDISTANCE_I = Integer.parseInt(value);
                     } else if (varName.equals("btnAUTO_DISTANCE")) {
                         btnAUTO_DISTANCE = Integer.parseInt(value);
+                    } else if (varName.equals("btnCONFIG_RELOAD_1")){
+                        btnCONFIG_RELOAD_1 = Integer.parseInt(value);
+                    } else if (varName.equals("btnCONFIG_RELOAD_2")){
+                        btnCONFIG_RELOAD_2 = Integer.parseInt(value);
                     }
                 }
             }
