@@ -142,6 +142,8 @@ public class RoboInput {
         if (InputData.bShooterRet) {
             FRCLogger.getInstance().logInfo("Shooter Retracted");
         }
+        
+        InputData.bGrabberExtendButtonPressed = this.coDrive.getRawButton(FRCConfig.btnGRABBER_EXTEND);
     }
 
     /**

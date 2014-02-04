@@ -42,6 +42,8 @@ public class OutputData {
      */
     public static double rightGrabberVal=0;
     
+    public static boolean bLeftGrabberExtend=false;
+    public static boolean bRightGrabberExtend=false;
     /**
      * Sets all fields to 0 or false respectively
      */
