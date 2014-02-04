@@ -112,6 +112,9 @@ public class RoboThink {
             fLeftLastError = 0;
             fRightLastError = 0;
         }
+        
+        OutputData.bLeftGrabberExtend = InputData.bGrabberExtendButtonPressed;
+        OutputData.bRightGrabberExtend = InputData.bGrabberExtendButtonPressed;
 
         ScreenOutput.clrLine(0);
         ScreenOutput.screenWrite("Left Motor Speed: " + fLeftMotorSpeed, 0);

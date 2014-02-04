@@ -23,6 +23,8 @@ public class RoboOutput {
     public Compressor airCompressor; //Air compressor for shooting
     public Solenoid leftShooter; //Controls the state of the air compressor
     public Solenoid rightShooter; //Controls the state of the air compressor
+    public Solenoid grabberLeftExtend;
+    public Solenoid grabberRightExtend;
     //public Solenoid pinShooter; //Locking mechanism for the shooter arms
 
     public Victor grabberLeft; //Controls the grabber arms to pick up the ball
@@ -43,6 +45,8 @@ public class RoboOutput {
         this.airCompressor.start();
         this.leftShooter = new Solenoid(FRCConfig.SLOT_LEFT_SHOOTER);
         this.rightShooter = new Solenoid(FRCConfig.SLOT_RIGHT_SHOOTER);
+        this.grabberLeftExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND_1);
+        this.grabberRightExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND_2);
         //this.pinShooter=new Solenoid( FRCConfig.SLOT_PIN_SHOOTER );
     }
 
@@ -62,6 +66,9 @@ public class RoboOutput {
 
         this.leftShooter.set(OutputData.bStartShooter);
         this.rightShooter.set(OutputData.bStartShooter);
+        
+        this.grabberLeftExtend.set(OutputData.bLeftGrabberExtend);
+        this.grabberRightExtend.set(OutputData.bRightGrabberExtend);
         //this.pinShooter.set(OutputData.bPullPin);
     }
 }

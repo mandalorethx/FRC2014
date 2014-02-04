@@ -39,6 +39,7 @@ public class InputData {
      * Is the grabber button pressed?
      */
     public static boolean grabberButttonPressed = false;
+    public static boolean bGrabberExtendButtonPressed = false;
 
     /**
      * Is the shooter extracted

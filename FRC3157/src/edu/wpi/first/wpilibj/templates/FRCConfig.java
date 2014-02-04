@@ -86,6 +86,7 @@ public class FRCConfig {
     public static double kAUTON_DELAY_STEP = 500;
     public static int SLOT_GRABBER_EXTEND_1 = 1;
     public static int SLOT_GRABBER_EXTEND_2 = 2;
+    public static int btnGRABBER_EXTEND = 10;
     
     
     private static FileConnection fc;
@@ -238,6 +239,8 @@ public class FRCConfig {
                         SLOT_GRABBER_EXTEND_1 = Integer.parseInt(value);
                     } else if (varName.equals("SLOT_GRABBER_EXTEND_2")){
                         SLOT_GRABBER_EXTEND_2 = Integer.parseInt(value);
+                    } else if (varName.equals("btnGRABBER_EXTEND")){
+                        btnGRABBER_EXTEND = Integer.parseInt(value);
                     }
                 }
             }
