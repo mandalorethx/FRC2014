@@ -117,6 +117,9 @@ public class RoboThink {
         ScreenOutput.screenWrite("Left Motor Speed: " + fLeftMotorSpeed, 0);
         ScreenOutput.clrLine(1);
         ScreenOutput.screenWrite("Right Motor Speed: " + fRightMotorSpeed, 1);
+   
+        //Sets motor value for testing purposes
+        testMode();
     }
 
     /**
@@ -283,5 +286,12 @@ public class RoboThink {
             motorPower = FRCConfig.kMAX_MOTOR_POWER;
         }
         return motorPower;
+    }
+    
+    public void testMode(){
+        if(InputData.bTestMode == true){
+            OutputData.leftMotorVal = 0;
+            OutputData.rightMotorVal = 0;
+        }
     }
 }
