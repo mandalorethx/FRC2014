@@ -67,6 +67,16 @@ public class FRC3157 extends IterativeRobot {
         }else if(input.coDrive.getRawButton(FRCConfig.btnDECREASE_WAIT_TIME)&&decreaseLastState == true){
             decreaseLastState=false;
         }
+        
+        if( FRCConfig.kRUN_AUTONOMOUS ) {
+            ScreenOutput.clrLine( 0 );
+            ScreenOutput.screenWrite("Autonomous is Enabled", 0);
+        }else{
+            ScreenOutput.clrLine( 0 );
+            ScreenOutput.screenWrite("Autonomous is Disabled", 0);
+        }
+        ScreenOutput.clrLine( 1 );
+        ScreenOutput.screenWrite("Wait Time: " + FRCConfig.kAUTON_DELAY_STEP, 1);
     }
     
     public void autonomousInit() {
