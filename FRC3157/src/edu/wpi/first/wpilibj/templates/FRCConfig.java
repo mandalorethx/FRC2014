@@ -79,6 +79,8 @@ public class FRCConfig {
     public static int btnAUTO_DISTANCE = 0;
     public static int btnCONFIG_RELOAD_1 = 8;
     public static int btnCONFIG_RELOAD_2 = 9;
+    public static int SLOT_GRABBER_EXTEND_1 = 1;
+    public static int SLOT_GRABBER_EXTEND_2 = 2;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -216,6 +218,10 @@ public class FRCConfig {
                         btnCONFIG_RELOAD_1 = Integer.parseInt(value);
                     } else if (varName.equals("btnCONFIG_RELOAD_2")){
                         btnCONFIG_RELOAD_2 = Integer.parseInt(value);
+                    } else if (varName.equals("SLOT_GRABBER_EXTEND_1")){
+                        SLOT_GRABBER_EXTEND_1 = Integer.parseInt(value);
+                    } else if (varName.equals("SLOT_GRABBER_EXTEND_2")){
+                        SLOT_GRABBER_EXTEND_2 = Integer.parseInt(value);
                     }
                 }
             }
