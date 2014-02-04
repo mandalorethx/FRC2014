@@ -23,7 +23,9 @@ public class FRC3157 extends IterativeRobot {
     public static final int kAUTON_WAIT_2 = 2;
     public static final int kAUTON_MOVE = 3;
     public static final int kAUTON_SLEEP = 4;
-
+    public static boolean decreaseLastState = false;
+    public static boolean increaseLastState = false;
+    
     public Timer autonTimer;
     public int dAutonState;
     public static RoboInput input;
@@ -46,6 +48,24 @@ public class FRC3157 extends IterativeRobot {
             FRCConfig.kRUN_AUTONOMOUS = true;
         }else if( input.coDrive.getRawButton(FRCConfig.btnSTOP_AUTON_MODE)){
             FRCConfig.kRUN_AUTONOMOUS = false;
+        }
+        if( input.coDrive.getRawButton(FRCConfig.btnCONFIG_RELOAD_1) && ( input.coDrive.getRawButton(FRCConfig.btnCONFIG_RELOAD_2)) ) {
+            configInit();
+        }
+        if(input.coDrive.getRawButton(FRCConfig.btnINCREASE_WAIT_TIME)&&increaseLastState == false){
+            increaseLastState=true;
+            FRCConfig.kAUTON_DELAY += FRCConfig.kAUTON_DELAY_STEP; 
+        }else if(input.coDrive.getRawButton(FRCConfig.btnINCREASE_WAIT_TIME)&&increaseLastState == true){
+            increaseLastState=false;
+        }
+        if(input.coDrive.getRawButton(FRCConfig.btnDECREASE_WAIT_TIME)&&decreaseLastState == false){
+            decreaseLastState=true;
+            FRCConfig.kAUTON_DELAY += -1.0 * FRCConfig.kAUTON_DELAY_STEP;
+            if(FRCConfig.kAUTON_DELAY_STEP <= 0){
+                FRCConfig.kAUTON_DELAY_STEP = 0;
+            }
+        }else if(input.coDrive.getRawButton(FRCConfig.btnDECREASE_WAIT_TIME)&&decreaseLastState == true){
+            decreaseLastState=false;
         }
     }
     

@@ -83,6 +83,7 @@ public class FRCConfig {
     public static int btnDECREASE_WAIT_TIME = 4;
     public static int btnSTART_AUTON_MODE = 3;
     public static int btnSTOP_AUTON_MODE = 2;
+    public static double kAUTON_DELAY_STEP = 500;
     public static int SLOT_GRABBER_EXTEND_1 = 1;
     public static int SLOT_GRABBER_EXTEND_2 = 2;
     public static int btnGRABBER_EXTEND = 10;
@@ -230,8 +231,10 @@ public class FRCConfig {
                         btnDECREASE_WAIT_TIME = Integer.parseInt(value);
                     }else if (varName.equals("btnSTART_AUTON_MODE")){
                         btnSTART_AUTON_MODE = Integer.parseInt(value);
-                    }else if (varName.equals("btn STOP_AUTON_MODE")){
+                    }else if (varName.equals("btnSTOP_AUTON_MODE")){
                         btnSTOP_AUTON_MODE = Integer.parseInt(value);
+                    }else if (varName.equals("kAUTON_DELAY_STEP")){
+                        kAUTON_DELAY_STEP = Integer.parseInt(value);
                     } else if (varName.equals("SLOT_GRABBER_EXTEND_1")){
                         SLOT_GRABBER_EXTEND_1 = Integer.parseInt(value);
                     } else if (varName.equals("SLOT_GRABBER_EXTEND_2")){
