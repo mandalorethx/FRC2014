@@ -29,8 +29,8 @@ public class RoboThink {
     /*
      these define the directions for the motors and may need to be changed
      */
-    public static double leftMultiplier = -1 * FRCConfig.kMAX_SHOOTER_POWER;
-    public static double rightMultiplier = FRCConfig.kMAX_SHOOTER_POWER;
+    public static double fLeftMultiplier = -1 * FRCConfig.kMAX_SHOOTER_POWER;
+    public static double fRightMultiplier = FRCConfig.kMAX_SHOOTER_POWER;
 
     /**
      * this is a general timer for RoboThink functions
@@ -62,15 +62,15 @@ public class RoboThink {
      * OutputData
      */
     public void processInputs() {
-        if (InputData.leftDriverStick[1] > 0) {
-            OutputData.leftMotorVal = leftMultiplier * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]);
+        if (InputData.leftDriverStick[1] > 0) { 
+            OutputData.leftMotorVal = fLeftMultiplier * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         } else {
-            OutputData.leftMotorVal = -1 * leftMultiplier * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]);
+            OutputData.leftMotorVal = -1 * fLeftMultiplier * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         }
         if (InputData.rightDriverStick[1] > 0) {
-            OutputData.rightMotorVal = rightMultiplier * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]);
+            OutputData.rightMotorVal = fRightMultiplier * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         } else {
-            OutputData.rightMotorVal = -1 * rightMultiplier * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]);
+            OutputData.rightMotorVal = -1 * fRightMultiplier * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         }
 
         if (InputData.bAutoShootAndCatch == true) {
