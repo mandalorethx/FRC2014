@@ -94,6 +94,9 @@ public class FRC3157 extends IterativeRobot {
             return;
         }
 
+        input.getEncoderVals();
+        InputData.bDriveStraightPressed = true;
+        
         switch (dAutonState) {
             case kAUTON_WAIT:
                 if (autonTimer.get() >= FRCConfig.kAUTON_DELAY) {
