@@ -170,15 +170,19 @@ public class FRC3157 extends IterativeRobot {
      
         FRCConfig.initialize();
 
-        input = new RoboInput();
-        think = new RoboThink();
-        output = new RoboOutput();
+        if( input == null ) {
+            input = new RoboInput();
+            input.initialize(FRCConfig.SLOT_LEFT_DRIVER_JOYSTICK, FRCConfig.SLOT_RIGHT_DRIVER_JOYSTICK, FRCConfig.SLOT_CO_DRIVER_JOYSTICK);
+        }if( think == null ) {
+            think = new RoboThink();
+        }if( output == null ) {
+            output = new RoboOutput();
+            output.initialize(FRCConfig.SLOT_LEFT_MOTOR, FRCConfig.SLOT_RIGHT_MOTOR);
+        }
 
         InputData.reset();
         OutputData.reset();
-
-        output.initialize(FRCConfig.SLOT_LEFT_MOTOR, FRCConfig.SLOT_RIGHT_MOTOR);
-        input.initialize(FRCConfig.SLOT_LEFT_DRIVER_JOYSTICK, FRCConfig.SLOT_RIGHT_DRIVER_JOYSTICK, FRCConfig.SLOT_CO_DRIVER_JOYSTICK);
+                
           
     }
 
