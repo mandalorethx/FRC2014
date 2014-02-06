@@ -45,8 +45,7 @@ public class RoboOutput {
         this.airCompressor.start();
         this.leftShooter = new Solenoid(FRCConfig.SLOT_LEFT_SHOOTER);
         this.rightShooter = new Solenoid(FRCConfig.SLOT_RIGHT_SHOOTER);
-        this.grabberLeftExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND_1);
-        this.grabberRightExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND_2);
+        this.grabberLeftExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND);
         //this.pinShooter=new Solenoid( FRCConfig.SLOT_PIN_SHOOTER );
     }
 
