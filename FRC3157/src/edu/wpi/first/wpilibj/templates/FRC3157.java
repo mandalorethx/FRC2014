@@ -28,9 +28,9 @@ public class FRC3157 extends IterativeRobot {
     
     public Timer autonTimer;
     public int dAutonState;
-    public static RoboInput input;
-    public static RoboThink think;
-    public static RoboOutput output;
+    public static RoboInput input = null;
+    public static RoboThink think = null;
+    public static RoboOutput output = null;
 
     // This is a test line!
     /**
@@ -40,6 +40,7 @@ public class FRC3157 extends IterativeRobot {
     public void robotInit() {
         System.out.println("robotInit Start");
         configInit();
+        ScreenOutput.initDriverStationScreen();
         System.out.println("robotInit End");
     }
     

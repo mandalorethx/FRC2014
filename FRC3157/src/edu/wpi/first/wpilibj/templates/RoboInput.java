@@ -67,18 +67,47 @@ public class RoboInput {
         encoderTimer = new Timer();
         encoderTimer.start();
         
-        this.leftMotorEncoder = new Encoder(FRCConfig.SLOT_LEFT_ENCODER_1, FRCConfig.SLOT_LEFT_ENCODER_2);
-        this.rightMotorEncoder = new Encoder(FRCConfig.SLOT_RIGHT_ENCODER_1, FRCConfig.SLOT_RIGHT_ENCODER_2);
-        this.leftMotorEncoder.start();
-        this.rightMotorEncoder.start();
-        this.shooterSwitchRet = new DigitalInput(FRCConfig.SLOT_SHOOTER_SWITCH);
-        InputData.camProcessor = new FRCImage();
+        try{
+            this.leftMotorEncoder = new Encoder(FRCConfig.SLOT_LEFT_ENCODER_1, FRCConfig.SLOT_LEFT_ENCODER_2);
+            this.leftMotorEncoder.start();
+        }catch(Exception e){
+            System.out.println("unable to connect to the left Encoder");
+            FRCLogger.getInstance().logError("unable to connect to the left Encoder");
+            e.printStackTrace();
+            
+        }
+        try{
+            this.rightMotorEncoder = new Encoder(FRCConfig.SLOT_RIGHT_ENCODER_1, FRCConfig.SLOT_RIGHT_ENCODER_2);
+            this.rightMotorEncoder.start();
+        }catch(Exception e){
+            System.out.println("unable to connect to the right Encoder");
+            FRCLogger.getInstance().logError("unable to connect to the right Encoder");
+            e.printStackTrace();
+        }
+     
+        
+        try {
+            this.shooterSwitchRet = new DigitalInput(FRCConfig.SLOT_SHOOTER_SWITCH);
+        } catch (Exception e) {
+            System.out.println("unable to connect to the shooter switch");
+            FRCLogger.getInstance().logError("unable to connect to the shooter switch");
+            e.printStackTrace();
+        }
+        
+        try {
+            InputData.camProcessor = new FRCImage();
+        } catch( Exception e ) {
+            System.out.println("unable to connect to the camera");
+            FRCLogger.getInstance().logError("unable to connect to the camera");
+            e.printStackTrace();
+        }
     }
 
     /**
      * Populate input variables
      */
     public void gatherInputs() {
+        
         InputData.leftDriverStick[0] = this.leftDrive.getX();
         InputData.leftDriverStick[1] = this.leftDrive.getY();
         InputData.leftDriverStick[2] = this.leftDrive.getZ();
@@ -138,7 +167,11 @@ public class RoboInput {
             FRCLogger.getInstance().logInfo("Distance Correction");
         }
         
-        InputData.bShooterRet = this.shooterSwitchRet.get();
+        try {
+            InputData.bShooterRet = this.shooterSwitchRet.get();
+        } catch( Exception e) {
+            
+        }
         if (InputData.bShooterRet) {
             FRCLogger.getInstance().logInfo("Shooter Retracted");
         }
@@ -150,12 +183,16 @@ public class RoboInput {
      * Populates InputData's encoder properties
      */
     public void getEncoderVals() {
-        InputData.leftMotorEncoderVal = leftMotorEncoder.get();
-        InputData.rightMotorEncoderVal = rightMotorEncoder.get();
-        InputData.fLeftEncoderTime = encoderTimer.get();
-        InputData.fRightEncoderTime = encoderTimer.get();
-        leftMotorEncoder.reset();
-        rightMotorEncoder.reset();
-        encoderTimer.reset();
+        try {
+            InputData.leftMotorEncoderVal = leftMotorEncoder.get();
+            InputData.rightMotorEncoderVal = rightMotorEncoder.get();
+            InputData.fLeftEncoderTime = encoderTimer.get();
+            InputData.fRightEncoderTime = encoderTimer.get();
+            leftMotorEncoder.reset();
+            rightMotorEncoder.reset();
+            encoderTimer.reset();
+        } catch( Exception e) {
+            
+        }
     }
 }

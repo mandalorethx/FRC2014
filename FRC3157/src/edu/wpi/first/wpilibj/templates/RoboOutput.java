@@ -39,13 +39,53 @@ public class RoboOutput {
      * @param right Motor #
      */
     public void initialize(int left, int right) {
-        this.driveLeft = new Victor(left);
-        this.driveRight = new Victor(right);
-        this.airCompressor = new Compressor(FRCConfig.SLOT_PRESSURE, +FRCConfig.SLOT_COMPRESSOR_RELAY);
-        this.airCompressor.start();
-        this.leftShooter = new Solenoid(FRCConfig.SLOT_LEFT_SHOOTER);
+        System.out.println("Left: " + left + " Right: " + right);
+        try{
+            this.driveLeft = new Victor(left);
+        }catch(Exception e){
+            System.out.println("unable to connect to left drive motor");
+            FRCLogger.getInstance().logError("unable to connect to left drive motor");
+            e.printStackTrace();
+        }
+        try{
+            this.driveRight = new Victor(right);
+        }catch(Exception e){
+            System.out.println("unable to connect to right drive motor");
+            FRCLogger.getInstance().logError("unable to connect to right drive motor");
+            e.printStackTrace();
+        }
+        
+        try{
+            this.airCompressor = new Compressor(FRCConfig.SLOT_PRESSURE, +FRCConfig.SLOT_COMPRESSOR_RELAY);
+            this.airCompressor.start();
+        }catch(Exception e){
+            System.out.print("unable to connect to air compressor");
+            FRCLogger.getInstance().logError("unable to connect to air compressor");
+            e.printStackTrace();
+        }
+        
+        try{
+            this.leftShooter = new Solenoid(FRCConfig.SLOT_LEFT_SHOOTER);
+        }catch(Exception e){
+            System.out.println("unable to connect to left Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to left Solenoid");
+            e.printStackTrace();
+        }
+        try{
         this.rightShooter = new Solenoid(FRCConfig.SLOT_RIGHT_SHOOTER);
+        }catch(Exception e){
+            System.out.println("unable to connect to right Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to right Solenoid");
+            e.printStackTrace();
+        }
+        
+        try{
         this.grabberLeftExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND);
+        }catch(Exception e){
+            System.out.println("unable to connect to middle Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to middle Solenoid");
+            e.printStackTrace();
+        }
         //this.pinShooter=new Solenoid( FRCConfig.SLOT_PIN_SHOOTER );
     }
 
@@ -54,20 +94,35 @@ public class RoboOutput {
      * to off or on Turns the shooter pin off or on
      */
     public void setOutputs() {
+        
+        System.out.println( "Left: " + OutputData.leftMotorVal + "|| Right: " + OutputData.rightMotorVal);
+        
         this.driveLeft.set(OutputData.leftMotorVal);
         this.driveRight.set(OutputData.rightMotorVal);
         /*
          this.shooterLeft.set(OutputData.leftShooterVal);
          this.shooterRight.set(OutputData.rightShooterVal);
          */
-        this.grabberLeft.set(OutputData.leftGrabberVal);
-        this.grabberRight.set(OutputData.rightGrabberVal);
+        try {
+            this.grabberLeft.set(OutputData.leftGrabberVal);
+            this.grabberRight.set(OutputData.rightGrabberVal);
+        } catch( Exception e ) {
+            
+        }
 
-        this.leftShooter.set(OutputData.bStartShooter);
-        this.rightShooter.set(OutputData.bStartShooter);
+        try {
+            this.leftShooter.set(OutputData.bStartShooter);
+            this.rightShooter.set(OutputData.bStartShooter);
+        } catch( Exception e) {
+            
+        }
         
-        this.grabberLeftExtend.set(OutputData.bLeftGrabberExtend);
-        this.grabberRightExtend.set(OutputData.bRightGrabberExtend);
+        try {
+            this.grabberLeftExtend.set(OutputData.bLeftGrabberExtend);
+            this.grabberRightExtend.set(OutputData.bRightGrabberExtend);
+        } catch( Exception e) {
+            
+        }
         //this.pinShooter.set(OutputData.bPullPin);
     }
 }

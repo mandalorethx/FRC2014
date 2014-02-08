@@ -37,8 +37,8 @@ public class FRCConfig {
     public static int SLOT_RIGHT_ENCODER_2 = 3;
     public static double fMAX_SHOOTER_POWER = 0.9;
     public static double kMAX_MOTOR_POWER = 0.9;
-    public static int SLOT_LEFT_MOTOR = 0;
-    public static int SLOT_RIGHT_MOTOR = 1;
+    public static int SLOT_LEFT_MOTOR = 1;
+    public static int SLOT_RIGHT_MOTOR = 2;
     public static int SLOT_LEFT_DRIVER_JOYSTICK = 0;
     public static int SLOT_RIGHT_DRIVER_JOYSTICK = 1;
     public static int SLOT_CO_DRIVER_JOYSTICK = 2;
@@ -105,6 +105,7 @@ public class FRCConfig {
         try {
             while (!fileDone) {
                 String line = inBuffer.readLine();
+                System.out.println( line );
                 if (line == null) {
                     fileDone = true;
                     break;

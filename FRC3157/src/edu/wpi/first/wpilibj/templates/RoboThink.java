@@ -62,6 +62,15 @@ public class RoboThink {
      * OutputData
      */
     public void processInputs() {
+        try {
+            ScreenOutput.clrLine(4);
+            ScreenOutput.screenWrite("Left: " + InputData.leftDriverStick[1], 4);
+            ScreenOutput.clrLine(5);
+            ScreenOutput.screenWrite("Right: " + InputData.rightDriverStick[1], 5);
+        } catch(Exception e) {
+            
+        }
+        
         if (InputData.leftDriverStick[1] > 0) { 
             OutputData.leftMotorVal = fLeftMultiplier * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         } else {
@@ -91,6 +100,7 @@ public class RoboThink {
             OutputData.leftGrabberVal = 0;
             OutputData.rightGrabberVal = 0;
         }
+        
         fRightMotorSpeed = CalcMotorSpeed(InputData.rightMotorEncoderVal, InputData.fRightEncoderTime);
         fLeftMotorSpeed = CalcMotorSpeed(InputData.leftMotorEncoderVal, InputData.fLeftEncoderTime);
 
@@ -116,13 +126,16 @@ public class RoboThink {
         OutputData.bLeftGrabberExtend = InputData.bGrabberExtendButtonPressed;
         OutputData.bRightGrabberExtend = InputData.bGrabberExtendButtonPressed;
 
+        OutputData.leftMotorVal = 0.2;
+        OutputData.rightMotorVal = 0.2;
+        
         ScreenOutput.clrLine(0);
         ScreenOutput.screenWrite("Left Motor Speed: " + fLeftMotorSpeed, 0);
         ScreenOutput.clrLine(1);
         ScreenOutput.screenWrite("Right Motor Speed: " + fRightMotorSpeed, 1);
    
         //Sets motor value for testing purposes
-        testMode();
+         // testMode(); - TDOD add back in
     }
 
     /**
