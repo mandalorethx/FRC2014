@@ -241,7 +241,7 @@ public class FRCConfig {
                             btnGRABBER_EXTEND = Integer.parseInt(value);
                         }else{
                             System.out.println("No variable found: " + line);
-                            FRCLogger.getInstance().logError("No variabe found: " + line);
+                            FRCLogger.getInstance().logError("No variable found: " + line);
                         }
                     } catch ( Exception e ) {
                         System.out.println("Unable to parse line: " + line);
