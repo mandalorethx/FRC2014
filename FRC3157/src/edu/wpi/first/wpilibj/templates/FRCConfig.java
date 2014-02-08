@@ -157,10 +157,6 @@ public class FRCConfig {
                         SLOT_LEFT_SHOOTER = Integer.parseInt(value);
                     } else if (varName.equals("dRightShooterSlot")) {
                         SLOT_RIGHT_SHOOTER = Integer.parseInt(value);
-                        /*
-                         }else if(varName.equals("dPinShooterSlot")){
-                         SLOT_PIN_SHOOTER=Integer.parseInt(value);
-                         */
                     } else if (varName.equals("kDRIVE_STRAIGHT_BUTTON")) {
                         btnDRIVE_STRAIGHT = Integer.parseInt(value);
                     } else if (varName.equals("kMAGIC_SHOOT_CATCH")) {
@@ -171,10 +167,6 @@ public class FRCConfig {
                         btnGRABBER = Integer.parseInt(value);
                     } else if (varName.equals("kMANUAL_SHOOTER")) {
                         btnMANUAL_SHOOTER = Integer.parseInt(value);
-                        /*
-                         }else if(varName.equals("kMANUAL_PIN")){
-                         btnMANUAL_PIN=Integer.parseInt(value);
-                         */
                     } else if (varName.equals("kMANUAL_ON")) {
                         btnMANUAL_ON = Integer.parseInt(value);
                     } else if (varName.equals("kMANUAL_OFF")) {
