@@ -66,6 +66,8 @@ public class RoboInput {
      * @param coDrive - co-driver joystick input
      */
     public void initialize(int leftDrive, int rightDrive, int coDrive) {
+        System.out.println( "Left: " + leftDrive + " Right: " + rightDrive + " Co: " + coDrive );
+        
         this.leftDrive = new Joystick(leftDrive);
         this.rightDrive = new Joystick(rightDrive);
         this.coDrive = new Joystick(coDrive);
@@ -120,9 +122,11 @@ public class RoboInput {
         InputData.leftDriverStick[0] = this.leftDrive.getX();
         InputData.leftDriverStick[1] = this.leftDrive.getY();
         InputData.leftDriverStick[2] = this.leftDrive.getZ();
+        
         InputData.rightDriverStick[0] = this.rightDrive.getX();
         InputData.rightDriverStick[1] = this.rightDrive.getY();
         InputData.rightDriverStick[2] = this.rightDrive.getZ();
+        
         InputData.coDriverStick[0] = this.coDrive.getX();
         InputData.coDriverStick[1] = this.coDrive.getY();
         InputData.coDriverStick[2] = this.coDrive.getZ();
@@ -141,12 +145,6 @@ public class RoboInput {
         if (InputData.bManualShoot) {
             FRCLogger.getInstance().logInfo("Manual Shoot Pressed");
         }
-        /*
-         InputData.bManualPin=this.coDrive.getRawButton(FRCConfig.btnMANUAL_PIN);
-         if( InputData.bManualPin ) {
-         FRCLogger.getInstance().logInfo("Manual Pin Pressed");
-         }
-         */
         if (this.coDrive.getRawButton(FRCConfig.btnMANUAL_ON)) {
             InputData.bPower = true;
             FRCLogger.getInstance().logInfo("Manual On");
@@ -176,7 +174,7 @@ public class RoboInput {
             FRCLogger.getInstance().logInfo("Distance Correction");
         }
         
-        if(bShooterSwitchFound = true){
+        if(bShooterSwitchFound == true){
             InputData.bShooterRet = this.shooterSwitchRet.get();
         }
      

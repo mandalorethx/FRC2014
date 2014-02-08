@@ -147,19 +147,22 @@ public class FRCConfig {
                             SLOT_LEFT_MOTOR = Integer.parseInt(value);
                         } else if (varName.equals("kRIGHT_MOTOR_SLOT")) {
                             SLOT_RIGHT_MOTOR = Integer.parseInt(value);
-                        } else if (varName.equals("kLEFT_DRIVER_STICK")) {
+                        } else if (varName.equals("SLOT_LEFT_DRIVER_JOYSTICK")) {
                             SLOT_LEFT_DRIVER_JOYSTICK = Integer.parseInt(value);
-                        } else if (varName.equals("kRIGHT_DRIVER_STICK=1;")) {
+                           System.out.println("Left Joystick: " + SLOT_LEFT_DRIVER_JOYSTICK);
+                        } else if (varName.equals("SLOT_RIGHT_DRIVER_JOYSTICK")) {
                             SLOT_RIGHT_DRIVER_JOYSTICK = Integer.parseInt(value);
-                        } else if (varName.equals("kCO_DRIVER_STICK")) {
+                            System.out.println("Right Joystick: " + SLOT_RIGHT_DRIVER_JOYSTICK);
+                        } else if (varName.equals("SLOT_CO_DRIVER_JOYSTICK")) {
                             SLOT_CO_DRIVER_JOYSTICK = Integer.parseInt(value);
-                        } else if (varName.equals("dPressureSlot")) {
+                            System.out.println("Co Joystick: " + SLOT_CO_DRIVER_JOYSTICK);
+                        } else if (varName.equals("SLOT_PRESSURE")) {
                             SLOT_PRESSURE = Integer.parseInt(value);
-                        } else if (varName.equals("dRelaySlot")) {
+                        } else if (varName.equals("SLOT_COMPRESSOR_RELAY")) {
                             SLOT_COMPRESSOR_RELAY = Integer.parseInt(value);
-                        } else if (varName.equals("dLeftShooterSlot")) {
+                        } else if (varName.equals("SLOT_LEFT_SHOOTER")) {
                             SLOT_LEFT_SHOOTER = Integer.parseInt(value);
-                        } else if (varName.equals("dRightShooterSlot")) {
+                        } else if (varName.equals("SLOT_RIGHT_SHOOTER")) {
                             SLOT_RIGHT_SHOOTER = Integer.parseInt(value);
                         } else if (varName.equals("kDRIVE_STRAIGHT_BUTTON")) {
                             btnDRIVE_STRAIGHT = Integer.parseInt(value);
