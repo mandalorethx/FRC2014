@@ -105,132 +105,139 @@ public class FRCConfig {
         try {
             while (!fileDone) {
                 String line = inBuffer.readLine();
-                System.out.println( line );
+                // System.out.println( line );
                 if (line == null) {
                     fileDone = true;
                     break;
                 }
                 int delim = line.indexOf("=");
+                int eol = line.indexOf( ";" );
                 if (delim != -1) {
                     String varName = line.substring(0, delim);
-                    String value = line.substring(delim + 1, line.length() - 1);
+                    String value = line.substring(delim + 1, eol);
 
-                    if (varName.equals("fMaxShooterPower")) {
-                        fMAX_SHOOTER_POWER = Double.parseDouble(value);
-                    } else if (varName.equals("kMAX_MOTOR_SPEED")) {
-                        kMAX_MOTOR_SPEED = Double.parseDouble(value);
-                    } else if (varName.equals("kMAX_ERROR")) {
-                        kMAX_ERROR = Double.parseDouble(value);
-                    } else if (varName.equals("kMAX_SHOOTER_POWER")) {
-                        kMAX_SHOOTER_POWER = Double.parseDouble(value);
-                    } else if (varName.equals("kMIN_SHOOTER_POWER")) {
-                        kMIN_SHOOTER_POWER = Double.parseDouble(value);
-                    } else if (varName.equals("kSLEEP_TIME")) {
-                        kSLEEP_TIME = Double.parseDouble(value);
-                    } else if (varName.equals("kENCODER_PPR")) {
-                        kENCODER_PPR = Double.parseDouble(value);
-                    } else if (varName.equals("kLEFT_ENCODER_PORT_1")) {
-                        SLOT_LEFT_ENCODER_1 = Integer.parseInt(value);
-                    } else if (varName.equals("kLEFT_ENCODER_PORT_2")) {
-                        SLOT_LEFT_ENCODER_2 = Integer.parseInt(value);
-                    } else if (varName.equals("kRIGHT_ENCODER_PORT_1")) {
-                        SLOT_RIGHT_ENCODER_1 = Integer.parseInt(value);
-                    } else if (varName.equals("kRIGHT_ENCODER_PORT_2")) {
-                        SLOT_RIGHT_ENCODER_2 = Integer.parseInt(value);
-                    } else if (varName.equals("kMAX_MOTOR_POWER")) {
-                        kMAX_MOTOR_POWER = Double.parseDouble(value);
-                    } else if (varName.equals("kLEFT_MOTOR_SLOT")) {
-                        SLOT_LEFT_MOTOR = Integer.parseInt(value);
-                    } else if (varName.equals("kRIGHT_MOTOR_SLOT")) {
-                        SLOT_RIGHT_MOTOR = Integer.parseInt(value);
-                    } else if (varName.equals("kLEFT_DRIVER_STICK")) {
-                        SLOT_LEFT_DRIVER_JOYSTICK = Integer.parseInt(value);
-                    } else if (varName.equals("kRIGHT_DRIVER_STICK=1;")) {
-                        SLOT_RIGHT_DRIVER_JOYSTICK = Integer.parseInt(value);
-                    } else if (varName.equals("kCO_DRIVER_STICK")) {
-                        SLOT_CO_DRIVER_JOYSTICK = Integer.parseInt(value);
-                    } else if (varName.equals("dPressureSlot")) {
-                        SLOT_PRESSURE = Integer.parseInt(value);
-                    } else if (varName.equals("dRelaySlot")) {
-                        SLOT_COMPRESSOR_RELAY = Integer.parseInt(value);
-                    } else if (varName.equals("dLeftShooterSlot")) {
-                        SLOT_LEFT_SHOOTER = Integer.parseInt(value);
-                    } else if (varName.equals("dRightShooterSlot")) {
-                        SLOT_RIGHT_SHOOTER = Integer.parseInt(value);
-                    } else if (varName.equals("kDRIVE_STRAIGHT_BUTTON")) {
-                        btnDRIVE_STRAIGHT = Integer.parseInt(value);
-                    } else if (varName.equals("kMAGIC_SHOOT_CATCH")) {
-                        btnMAGIC_SHOOT_CATCH = Integer.parseInt(value);
-                    } else if (varName.equals("kSHOOTER_BUTTON")) {
-                        btnSHOOTER = Integer.parseInt(value);
-                    } else if (varName.equals("kGRABBER_BUTTON")) {
-                        btnGRABBER = Integer.parseInt(value);
-                    } else if (varName.equals("kMANUAL_SHOOTER")) {
-                        btnMANUAL_SHOOTER = Integer.parseInt(value);
-                    } else if (varName.equals("kMANUAL_ON")) {
-                        btnMANUAL_ON = Integer.parseInt(value);
-                    } else if (varName.equals("kMANUAL_OFF")) {
-                        btnMANUAL_OFF = Integer.parseInt(value);
-                    } else if (varName.equals("kSTEER_I")) {
-                        kSTEER_I = Double.parseDouble(value);
-                    } else if (varName.equals("kSTEER_P")) {
-                        kSTEER_P = Double.parseDouble(value);
-                    } else if (varName.equals("kSTEER_D")) {
-                        kSTEER_D = Double.parseDouble(value);
-                    } else if (varName.equals("kAUTOTURN_LEFT")) {
-                        btnAUTOTURN_LEFT = Integer.parseInt(value);
-                    } else if (varName.equals("kAUTOTURN_RIGHT")) {
-                        btnAUTOTURN_RIGHT = Integer.parseInt(value);
-                    } else if (varName.equals("kAUTON_DELAY")) {
-                        kAUTON_DELAY = Double.parseDouble(value);
-                    } else if (varName.equals("kAUTON_MOVE_DELAY")) {
-                        kAUTON_MOVE_DELAY = Double.parseDouble(value);
-                    } else if (varName.equals("kAUTON_MOVE_TIME")) {
-                        kAUTON_MOVE_TIME = Double.parseDouble(value);
-                    } else if (varName.equals("kAUTON_FIRE_TIME")) {
-                        kAUTON_FIRE_TIME = Double.parseDouble(value);
-                    } else if (varName.equals("kRUN_AUTONOMOUS")) {
-                        kRUN_AUTONOMOUS = value.toLowerCase().equals("true");
-                    } else if (varName.equals("kFIRING_TIME")) {
-                        kFIRING_TIME = Double.parseDouble(value);
-                    } else if (varName.equals("kMOTOR_SPEED")) {
-                        kMOTOR_SPEED = Double.parseDouble(value);
-                    } else if (varName.equals("kMOVE_TIME")) {
-                        kMOVE_TIME = Double.parseDouble(value);
-                    } else if (varName.equals("SLOT_ANALOG")) {
-                        SLOT_ANALOG = Integer.parseInt(value);
-                    } else if (varName.equals("SLOT_DIO")) {
-                        SLOT_DIO = Integer.parseInt(value);
-                    } else if (varName.equals("SLOT_DO")) {
-                        SLOT_DO = Integer.parseInt(value);
-                    } else if (varName.equals("SLOT_SHOOTER_SWITCH")) {
-                        SLOT_SHOOTER_SWITCH = Integer.parseInt(value);
-                    } else if (varName.equals("kDISTANCE_P")) {
-                        kDISTANCE_P = Double.parseDouble(value);
-                    } else if (varName.equals("kDISTANCE_I")) {
-                        kDISTANCE_I = Double.parseDouble(value);
-                    } else if (varName.equals("kDISTANCE_D")) {
-                        kDISTANCE_I = Double.parseDouble(value);
-                    } else if (varName.equals("btnAUTO_DISTANCE")) {
-                        btnAUTO_DISTANCE = Integer.parseInt(value);
-                    } else if (varName.equals("btnCONFIG_RELOAD_1")){
-                        btnCONFIG_RELOAD_1 = Integer.parseInt(value);
-                    } else if (varName.equals("btnCONFIG_RELOAD_2")){
-                        btnCONFIG_RELOAD_2 = Integer.parseInt(value);
-                    }else if (varName.equals("btnINCREASE_WAIT_TIME")){
-                        btnINCREASE_WAIT_TIME = Integer.parseInt(value);
-                    }else if (varName.equals("btnDECREASE_WAIT_TIME")){
-                        btnDECREASE_WAIT_TIME = Integer.parseInt(value);
-                    }else if (varName.equals("btnSTART_AUTON_MODE")){
-                        btnSTART_AUTON_MODE = Integer.parseInt(value);
-                    }else if (varName.equals("btnSTOP_AUTON_MODE")){
-                        btnSTOP_AUTON_MODE = Integer.parseInt(value);
-                    }else if (varName.equals("kAUTON_DELAY_STEP")){
-                        kAUTON_DELAY_STEP = Double.parseDouble(value);
-                    } else if (varName.equals("SLOT_GRABBER_EXTEND")){
-                        SLOT_GRABBER_EXTEND = Integer.parseInt(value);
-                    } else if (varName.equals("btnGRABBER_EXTEND")){
-                        btnGRABBER_EXTEND = Integer.parseInt(value);
+                    try {
+                        if (varName.equals("fMaxShooterPower")) {
+                            fMAX_SHOOTER_POWER = Double.parseDouble(value);
+                        } else if (varName.equals("kMAX_MOTOR_SPEED")) {
+                            kMAX_MOTOR_SPEED = Double.parseDouble(value);
+                        } else if (varName.equals("kMAX_ERROR")) {
+                            kMAX_ERROR = Double.parseDouble(value);
+                        } else if (varName.equals("kMAX_SHOOTER_POWER")) {
+                            kMAX_SHOOTER_POWER = Double.parseDouble(value);
+                        } else if (varName.equals("kMIN_SHOOTER_POWER")) {
+                            kMIN_SHOOTER_POWER = Double.parseDouble(value);
+                        } else if (varName.equals("kSLEEP_TIME")) {
+                            kSLEEP_TIME = Double.parseDouble(value);
+                        } else if (varName.equals("kENCODER_PPR")) {
+                            kENCODER_PPR = Double.parseDouble(value);
+                        } else if (varName.equals("kLEFT_ENCODER_PORT_1")) {
+                            SLOT_LEFT_ENCODER_1 = Integer.parseInt(value);
+                        } else if (varName.equals("kLEFT_ENCODER_PORT_2")) {
+                            SLOT_LEFT_ENCODER_2 = Integer.parseInt(value);
+                        } else if (varName.equals("kRIGHT_ENCODER_PORT_1")) {
+                            SLOT_RIGHT_ENCODER_1 = Integer.parseInt(value);
+                        } else if (varName.equals("kRIGHT_ENCODER_PORT_2")) {
+                            SLOT_RIGHT_ENCODER_2 = Integer.parseInt(value);
+                        } else if (varName.equals("kMAX_MOTOR_POWER")) {
+                            kMAX_MOTOR_POWER = Double.parseDouble(value);
+                        } else if (varName.equals("kLEFT_MOTOR_SLOT")) {
+                            SLOT_LEFT_MOTOR = Integer.parseInt(value);
+                        } else if (varName.equals("kRIGHT_MOTOR_SLOT")) {
+                            SLOT_RIGHT_MOTOR = Integer.parseInt(value);
+                        } else if (varName.equals("kLEFT_DRIVER_STICK")) {
+                            SLOT_LEFT_DRIVER_JOYSTICK = Integer.parseInt(value);
+                        } else if (varName.equals("kRIGHT_DRIVER_STICK=1;")) {
+                            SLOT_RIGHT_DRIVER_JOYSTICK = Integer.parseInt(value);
+                        } else if (varName.equals("kCO_DRIVER_STICK")) {
+                            SLOT_CO_DRIVER_JOYSTICK = Integer.parseInt(value);
+                        } else if (varName.equals("dPressureSlot")) {
+                            SLOT_PRESSURE = Integer.parseInt(value);
+                        } else if (varName.equals("dRelaySlot")) {
+                            SLOT_COMPRESSOR_RELAY = Integer.parseInt(value);
+                        } else if (varName.equals("dLeftShooterSlot")) {
+                            SLOT_LEFT_SHOOTER = Integer.parseInt(value);
+                        } else if (varName.equals("dRightShooterSlot")) {
+                            SLOT_RIGHT_SHOOTER = Integer.parseInt(value);
+                        } else if (varName.equals("kDRIVE_STRAIGHT_BUTTON")) {
+                            btnDRIVE_STRAIGHT = Integer.parseInt(value);
+                        } else if (varName.equals("kMAGIC_SHOOT_CATCH")) {
+                            btnMAGIC_SHOOT_CATCH = Integer.parseInt(value);
+                        } else if (varName.equals("kSHOOTER_BUTTON")) {
+                            btnSHOOTER = Integer.parseInt(value);
+                        } else if (varName.equals("kGRABBER_BUTTON")) {
+                            btnGRABBER = Integer.parseInt(value);
+                        } else if (varName.equals("kMANUAL_SHOOTER")) {
+                            btnMANUAL_SHOOTER = Integer.parseInt(value);
+                        } else if (varName.equals("kMANUAL_ON")) {
+                            btnMANUAL_ON = Integer.parseInt(value);
+                        } else if (varName.equals("kMANUAL_OFF")) {
+                            btnMANUAL_OFF = Integer.parseInt(value);
+                        } else if (varName.equals("kSTEER_I")) {
+                            kSTEER_I = Double.parseDouble(value);
+                        } else if (varName.equals("kSTEER_P")) {
+                            kSTEER_P = Double.parseDouble(value);
+                        } else if (varName.equals("kSTEER_D")) {
+                            kSTEER_D = Double.parseDouble(value);
+                        } else if (varName.equals("kAUTOTURN_LEFT")) {
+                            btnAUTOTURN_LEFT = Integer.parseInt(value);
+                        } else if (varName.equals("kAUTOTURN_RIGHT")) {
+                            btnAUTOTURN_RIGHT = Integer.parseInt(value);
+                        } else if (varName.equals("kAUTON_DELAY")) {
+                            kAUTON_DELAY = Double.parseDouble(value);
+                        } else if (varName.equals("kAUTON_MOVE_DELAY")) {
+                            kAUTON_MOVE_DELAY = Double.parseDouble(value);
+                        } else if (varName.equals("kAUTON_MOVE_TIME")) {
+                            kAUTON_MOVE_TIME = Double.parseDouble(value);
+                        } else if (varName.equals("kAUTON_FIRE_TIME")) {
+                            kAUTON_FIRE_TIME = Double.parseDouble(value);
+                        } else if (varName.equals("kRUN_AUTONOMOUS")) {
+                            kRUN_AUTONOMOUS = value.toLowerCase().equals("true");
+                        } else if (varName.equals("kFIRING_TIME")) {
+                            kFIRING_TIME = Double.parseDouble(value);
+                        } else if (varName.equals("kMOTOR_SPEED")) {
+                            kMOTOR_SPEED = Double.parseDouble(value);
+                        } else if (varName.equals("kMOVE_TIME")) {
+                            kMOVE_TIME = Double.parseDouble(value);
+                        } else if (varName.equals("SLOT_ANALOG")) {
+                            SLOT_ANALOG = Integer.parseInt(value);
+                        } else if (varName.equals("SLOT_DIO")) {
+                            SLOT_DIO = Integer.parseInt(value);
+                        } else if (varName.equals("SLOT_DO")) {
+                            SLOT_DO = Integer.parseInt(value);
+                        } else if (varName.equals("SLOT_SHOOTER_SWITCH")) {
+                            SLOT_SHOOTER_SWITCH = Integer.parseInt(value);
+                        } else if (varName.equals("kDISTANCE_P")) {
+                            kDISTANCE_P = Double.parseDouble(value);
+                        } else if (varName.equals("kDISTANCE_I")) {
+                            kDISTANCE_I = Double.parseDouble(value);
+                        } else if (varName.equals("kDISTANCE_D")) {
+                            kDISTANCE_I = Double.parseDouble(value);
+                        } else if (varName.equals("btnAUTO_DISTANCE")) {
+                            btnAUTO_DISTANCE = Integer.parseInt(value);
+                        } else if (varName.equals("btnCONFIG_RELOAD_1")){
+                            btnCONFIG_RELOAD_1 = Integer.parseInt(value);
+                        } else if (varName.equals("btnCONFIG_RELOAD_2")){
+                            btnCONFIG_RELOAD_2 = Integer.parseInt(value);
+                        }else if (varName.equals("btnINCREASE_WAIT_TIME")){
+                            btnINCREASE_WAIT_TIME = Integer.parseInt(value);
+                        }else if (varName.equals("btnDECREASE_WAIT_TIME")){
+                            btnDECREASE_WAIT_TIME = Integer.parseInt(value);
+                        }else if (varName.equals("btnSTART_AUTON_MODE")){
+                            btnSTART_AUTON_MODE = Integer.parseInt(value);
+                        }else if (varName.equals("btnSTOP_AUTON_MODE")){
+                            btnSTOP_AUTON_MODE = Integer.parseInt(value);
+                        }else if (varName.equals("kAUTON_DELAY_STEP")){
+                            kAUTON_DELAY_STEP = Double.parseDouble(value);
+                        } else if (varName.equals("SLOT_GRABBER_EXTEND")){
+                            SLOT_GRABBER_EXTEND = Integer.parseInt(value);
+                        } else if (varName.equals("btnGRABBER_EXTEND")){
+                            btnGRABBER_EXTEND = Integer.parseInt(value);
+                        }
+                    } catch ( Exception e ) {
+                        System.out.println("Unable to parse line: " + line);
+                        System.out.println( "\tvarName: " + varName + " = " + value );
+                        System.out.println( "\t" + e.toString() );
                     }
                 }
             }
