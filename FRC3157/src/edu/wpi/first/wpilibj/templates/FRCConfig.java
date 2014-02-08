@@ -119,7 +119,7 @@ public class FRCConfig {
                     String value = line.substring(delim + 1, eol);
 
                     try {
-                        if (varName.equals("fMaxShooterPower")) {
+                        if (varName.equals("fMAX_SHOOTER_POWER")) {
                             fMAX_SHOOTER_POWER = Double.parseDouble(value);
                         } else if (varName.equals("kMAX_MOTOR_SPEED")) {
                             kMAX_MOTOR_SPEED = Double.parseDouble(value);
@@ -245,6 +245,7 @@ public class FRCConfig {
             }
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         } finally {
             closeFile();
