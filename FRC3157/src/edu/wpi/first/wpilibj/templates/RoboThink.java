@@ -126,14 +126,11 @@ public class RoboThink {
         OutputData.bLeftGrabberExtend = InputData.bGrabberExtendButtonPressed;
         OutputData.bRightGrabberExtend = InputData.bGrabberExtendButtonPressed;
 
-        OutputData.leftMotorVal = 0.2;
-        OutputData.rightMotorVal = 0.2;
-        
         ScreenOutput.clrLine(0);
         ScreenOutput.screenWrite("Left Motor Speed: " + fLeftMotorSpeed, 0);
         ScreenOutput.clrLine(1);
         ScreenOutput.screenWrite("Right Motor Speed: " + fRightMotorSpeed, 1);
-   
+        
         //Sets motor value for testing purposes
          // testMode(); - TDOD add back in
     }

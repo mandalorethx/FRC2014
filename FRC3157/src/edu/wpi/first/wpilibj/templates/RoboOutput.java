@@ -6,6 +6,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalModule;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -47,20 +48,31 @@ public class RoboOutput {
      */
     public void initialize(int left, int right) {
         System.out.println("Left: " + left + " Right: " + right);
+        
+        try {
+            DigitalModule digiMod = DigitalModule.getInstance(DigitalModule.getDefaultDigitalModule());
+        } catch( Exception e) {
+            System.out.println("***UNABLE TO FIND DIGITAL MODULE!***");
+        }
+        
+        System.out.println("Creating Victors NOW: ");
+        
         try{
-            this.driveLeft = new Victor(left);
+            System.out.println("\tLeft: ");
+            this.driveLeft = new Victor(left,DigitalModule.getDefaultDigitalModule());
             bLeftDriveFound = true;
         }catch(Exception e){
-            System.out.println("unable to connect to left drive motor");
-            FRCLogger.getInstance().logError("unable to connect to left drive motor");
+            System.out.println("unable to connect to left drive motor: " + e.toString());
+            FRCLogger.getInstance().logError("unable to connect to left drive motor: " + e.toString());
             bLeftDriveFound = false;
         }
         try{
-            this.driveRight = new Victor(right);
+            System.out.println("\tRight: ");
+            this.driveRight = new Victor(right,DigitalModule.getDefaultDigitalModule());
             bRightDriveFound = true;
         }catch(Exception e){
-            System.out.println("unable to connect to right drive motor");
-            FRCLogger.getInstance().logError("unable to connect to right drive motor");
+            System.out.println("unable to connect to right drive motor: " + e.toString());
+            FRCLogger.getInstance().logError("unable to connect to right drive motor: " + e.toString());
             bRightDriveFound = false;
         }
         
@@ -95,8 +107,8 @@ public class RoboOutput {
             this.grabberLeft = new Victor(FRCConfig.SLOT_LEFT_GRABBER_MOTOR);
             bLeftGrabberFound = true;
         }catch(Exception e){
-            System.out.println("unable to connect to left motor Victor");
-            FRCLogger.getInstance().logError("unable to connect to left motor Victor");
+            System.out.println("unable to connect to left grabber motor Victor");
+            FRCLogger.getInstance().logError("unable to connect to left grabber motor Victor");
             bLeftGrabberFound = false;
         }
         
@@ -104,8 +116,8 @@ public class RoboOutput {
             this.grabberRight = new Victor(FRCConfig.SLOT_RIGHT_GRABBER_MOTOR);
             bRightGrabberFound = true;
         }catch(Exception e){
-            System.out.println("unable to connect to right motor Victor");
-            FRCLogger.getInstance().logError("unable to connect to right motor Victor");
+            System.out.println("unable to connect to right grabber motor Victor");
+            FRCLogger.getInstance().logError("unable to connect to right grabber motor Victor");
             bRightGrabberFound = false;
         }
         
@@ -126,20 +138,27 @@ public class RoboOutput {
      */
     public void setOutputs() {
         
-        // System.out.println( "Left: " + OutputData.leftMotorVal + "|| Right: " + OutputData.rightMotorVal);
+        // System.out.println( "Left In: " + OutputData.leftMotorVal + "|| Right In: " + OutputData.rightMotorVal);
         
         this.driveLeft.set(OutputData.leftMotorVal);
         this.driveRight.set(OutputData.rightMotorVal);
+        
+        // System.out.println( "Left Out: " + this.driveLeft.get() + "|| Right Out: " + this.driveRight.get());
         /*
          this.shooterLeft.set(OutputData.leftShooterVal);
          this.shooterRight.set(OutputData.rightShooterVal);
          */
+        
         if(bLeftGrabberFound && bRightGrabberFound == true){
             this.grabberLeft.set(OutputData.leftGrabberVal);
             this.grabberRight.set(OutputData.rightGrabberVal);
         }
 
         if(bLeftShooterFound && bRightShooterFound == true){
+            if( OutputData.bStartShooter ) {
+                System.out.println("Starting Shooter TRUE");
+            }
+
             this.leftShooter.set(OutputData.bStartShooter);
             this.rightShooter.set(OutputData.bStartShooter);
         }

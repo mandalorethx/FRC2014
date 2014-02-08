@@ -134,29 +134,26 @@ public class FRCConfig {
                             kSLEEP_TIME = Double.parseDouble(value);
                         } else if (varName.equals("kENCODER_PPR")) {
                             kENCODER_PPR = Double.parseDouble(value);
-                        } else if (varName.equals("kLEFT_ENCODER_PORT_1")) {
+                        } else if (varName.equals("SLOT_LEFT_ENCODER_1")) {
                             SLOT_LEFT_ENCODER_1 = Integer.parseInt(value);
-                        } else if (varName.equals("kLEFT_ENCODER_PORT_2")) {
+                        } else if (varName.equals("SLOT_LEFT_ENCODER_2")) {
                             SLOT_LEFT_ENCODER_2 = Integer.parseInt(value);
-                        } else if (varName.equals("kRIGHT_ENCODER_PORT_1")) {
+                        } else if (varName.equals("SLOT_RIGHT_ENCODER_1")) {
                             SLOT_RIGHT_ENCODER_1 = Integer.parseInt(value);
-                        } else if (varName.equals("kRIGHT_ENCODER_PORT_2")) {
+                        } else if (varName.equals("SLOT_RIGHT_ENCODER_2")) {
                             SLOT_RIGHT_ENCODER_2 = Integer.parseInt(value);
                         } else if (varName.equals("kMAX_MOTOR_POWER")) {
                             kMAX_MOTOR_POWER = Double.parseDouble(value);
-                        } else if (varName.equals("kLEFT_MOTOR_SLOT")) {
+                        } else if (varName.equals("SLOT_LEFT_MOTOR")) {
                             SLOT_LEFT_MOTOR = Integer.parseInt(value);
-                        } else if (varName.equals("kRIGHT_MOTOR_SLOT")) {
+                        } else if (varName.equals("SLOT_RIGHT_MOTOR")) {
                             SLOT_RIGHT_MOTOR = Integer.parseInt(value);
                         } else if (varName.equals("SLOT_LEFT_DRIVER_JOYSTICK")) {
                             SLOT_LEFT_DRIVER_JOYSTICK = Integer.parseInt(value);
-                           System.out.println("Left Joystick: " + SLOT_LEFT_DRIVER_JOYSTICK);
                         } else if (varName.equals("SLOT_RIGHT_DRIVER_JOYSTICK")) {
                             SLOT_RIGHT_DRIVER_JOYSTICK = Integer.parseInt(value);
-                            System.out.println("Right Joystick: " + SLOT_RIGHT_DRIVER_JOYSTICK);
                         } else if (varName.equals("SLOT_CO_DRIVER_JOYSTICK")) {
                             SLOT_CO_DRIVER_JOYSTICK = Integer.parseInt(value);
-                            System.out.println("Co Joystick: " + SLOT_CO_DRIVER_JOYSTICK);
                         } else if (varName.equals("SLOT_PRESSURE")) {
                             SLOT_PRESSURE = Integer.parseInt(value);
                         } else if (varName.equals("SLOT_COMPRESSOR_RELAY")) {
@@ -165,19 +162,19 @@ public class FRCConfig {
                             SLOT_LEFT_SHOOTER = Integer.parseInt(value);
                         } else if (varName.equals("SLOT_RIGHT_SHOOTER")) {
                             SLOT_RIGHT_SHOOTER = Integer.parseInt(value);
-                        } else if (varName.equals("kDRIVE_STRAIGHT_BUTTON")) {
+                        } else if (varName.equals("btnDRIVE_STRAIGHT")) {
                             btnDRIVE_STRAIGHT = Integer.parseInt(value);
-                        } else if (varName.equals("kMAGIC_SHOOT_CATCH")) {
+                        } else if (varName.equals("btnMAGIC_SHOOT_CATCH")) {
                             btnMAGIC_SHOOT_CATCH = Integer.parseInt(value);
-                        } else if (varName.equals("kSHOOTER_BUTTON")) {
+                        } else if (varName.equals("btnSHOOTER")) {
                             btnSHOOTER = Integer.parseInt(value);
-                        } else if (varName.equals("kGRABBER_BUTTON")) {
+                        } else if (varName.equals("btnGRABBER")) {
                             btnGRABBER = Integer.parseInt(value);
-                        } else if (varName.equals("kMANUAL_SHOOTER")) {
+                        } else if (varName.equals("btnMANUAL_SHOOTER")) {
                             btnMANUAL_SHOOTER = Integer.parseInt(value);
-                        } else if (varName.equals("kMANUAL_ON")) {
+                        } else if (varName.equals("btnMANUAL_ON")) {
                             btnMANUAL_ON = Integer.parseInt(value);
-                        } else if (varName.equals("kMANUAL_OFF")) {
+                        } else if (varName.equals("btnMANUAL_OFF")) {
                             btnMANUAL_OFF = Integer.parseInt(value);
                         } else if (varName.equals("kSTEER_I")) {
                             kSTEER_I = Double.parseDouble(value);
@@ -185,9 +182,9 @@ public class FRCConfig {
                             kSTEER_P = Double.parseDouble(value);
                         } else if (varName.equals("kSTEER_D")) {
                             kSTEER_D = Double.parseDouble(value);
-                        } else if (varName.equals("kAUTOTURN_LEFT")) {
+                        } else if (varName.equals("btnAUTOTURN_LEFT")) {
                             btnAUTOTURN_LEFT = Integer.parseInt(value);
-                        } else if (varName.equals("kAUTOTURN_RIGHT")) {
+                        } else if (varName.equals("btnAUTOTURN_RIGHT")) {
                             btnAUTOTURN_RIGHT = Integer.parseInt(value);
                         } else if (varName.equals("kAUTON_DELAY")) {
                             kAUTON_DELAY = Double.parseDouble(value);
