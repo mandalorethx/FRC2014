@@ -7,6 +7,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import com.sun.squawk.io.BufferedWriter;
+import com.sun.squawk.io.j2me.file.Protocol;
 import com.sun.squawk.microedition.io.FileConnection;
 import edu.wpi.first.wpilibj.Timer;
 import java.io.DataOutputStream;
@@ -29,7 +30,8 @@ public class FRCLogger {
     public static final int WARNING = 3;
     public static final int ERROR = 4;
     
-    private static final String LOG_FILE = "FRC_LOG.txt";
+    private static final String LOG_FILE = "FRC_LOG";
+    private static final String LOG_EXT = ".log";
     
     private FileConnection fc;
     private DataOutputStream outStream;
@@ -69,8 +71,9 @@ public class FRCLogger {
     private void initialize()
     {
         try{
+            String fileName = manageLogFile();
             fc = (FileConnection)Connector.open(
-                    "file:///" + LOG_FILE, Connector.WRITE);
+                    "file:///" + fileName, Connector.WRITE);
             outStream=fc.openDataOutputStream();
            
             hasError = false;   // Be explicit!
@@ -105,6 +108,69 @@ public class FRCLogger {
         outBuffer = new BufferedWriter(outStreamWriter);
         clock = new Timer();
         clock.start();
+    }
+    
+    /**
+     * Determines which log file to write to and cleans up the log created
+     * 2 iterations ago.
+     * @return the log file name to write
+     */
+    private String manageLogFile()
+    {
+        String log1 = LOG_FILE + "_1" + LOG_EXT;
+        String log2 = LOG_FILE + "_2" + LOG_EXT;
+        String log3 = LOG_FILE + "_3" + LOG_EXT;
+        boolean log1Exists = Protocol.exists(log1);
+        boolean log2Exists = Protocol.exists(log2);
+        boolean log3Exists = Protocol.exists(log3);
+        
+        Protocol p = new Protocol();
+        
+        if (log3Exists && log1Exists)
+        {
+            try
+            {
+                p.open("file", ":///" + log3, Connector.WRITE, false);
+                p.delete();
+            } catch(IOException ioe) {
+                try { p.close(); }
+                catch(IOException ioe2) {}
+            }
+            
+            return log2;
+        }
+        
+        else if (log2Exists && log3Exists)
+        {
+            try
+            {
+                p.open("file", ":///" + log2, Connector.WRITE, false);
+                p.delete();
+            } catch(IOException ioe) {
+                try { p.close(); }
+                catch(IOException ioe2) {}
+            }
+            
+            return log1;
+        }
+        
+        else if (log1Exists && log2Exists)
+        {
+            try
+            {
+                p.open("file", ":///" + log1, Connector.WRITE, false);
+                p.delete();
+            } catch(IOException ioe) {
+                try { p.close(); }
+                catch(IOException ioe2) {}
+            }
+            return log3;
+        }
+        
+        else
+        {
+            return log1;
+        }        
     }
     
     /**
