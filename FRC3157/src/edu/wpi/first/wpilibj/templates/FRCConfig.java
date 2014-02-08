@@ -24,13 +24,13 @@ public class FRCConfig {
 
     public static final String CONFIG_FILE = "FRC_CONFIG.txt";
 
-    public static double kMAX_MOTOR_SPEED = 100;
+    public static double kMAX_MOTOR_SPEED = 100.0;
     public static double kMAX_ERROR = 0.1;
     public static double kMAX_SHOOTER_POWER = 0.9;
     public static double kMIN_SHOOTER_POWER = 0.7;
     public static double kSLEEP_TIME = 500.0;
     // I am 85-90% sure this is correct based on model number.
-    public static double kENCODER_PPR = 1440;
+    public static double kENCODER_PPR = 1440.0;
     public static int SLOT_LEFT_ENCODER_1 = 0;
     public static int SLOT_LEFT_ENCODER_2 = 1;
     public static int SLOT_RIGHT_ENCODER_1 = 2;
@@ -58,26 +58,26 @@ public class FRCConfig {
     //public static int btnMANUAL_PIN = 5;
     public static int btnMANUAL_ON = 6;
     public static int btnMANUAL_OFF = 7;
-    public static double kSTEER_P = 0;
-    public static double kSTEER_I = 0;
-    public static double kSTEER_D = 0;
+    public static double kSTEER_P = 0.0;
+    public static double kSTEER_I = 0.0;
+    public static double kSTEER_D = 0.0;
     public static int btnAUTOTURN_LEFT = 3;
     public static int btnAUTOTURN_RIGHT = 4;
-    public static double kAUTON_DELAY = 0;
+    public static double kAUTON_DELAY = 0.0;
     public static double kAUTON_MOVE_DELAY = 3000;
     public static double kAUTON_MOVE_TIME = 2000;
     public static double kAUTON_FIRE_TIME = 1000;
     public static boolean kRUN_AUTONOMOUS = true;
-    public static double kFIRING_TIME = 500;
+    public static double kFIRING_TIME = 500.0;
     public static double kMOTOR_SPEED = 0.9;
-    public static double kMOVE_TIME = 2000;
+    public static double kMOVE_TIME = 2000.0;
     public static int SLOT_ANALOG = 0;
     public static int SLOT_DIO = 1;
     public static int SLOT_DO = 2;
     public static int SLOT_SHOOTER_SWITCH = 0;
-    public static double kDISTANCE_P = 0;
-    public static double kDISTANCE_I = 0;
-    public static double kDISTANCE_D = 0;
+    public static double kDISTANCE_P = 0.0;
+    public static double kDISTANCE_I = 0.0;
+    public static double kDISTANCE_D = 0.0;
     public static int btnAUTO_DISTANCE = 0;
     public static int btnCONFIG_RELOAD_1 = 8;
     public static int btnCONFIG_RELOAD_2 = 9;
@@ -85,7 +85,7 @@ public class FRCConfig {
     public static int btnDECREASE_WAIT_TIME = 4;
     public static int btnSTART_AUTON_MODE = 3;
     public static int btnSTOP_AUTON_MODE = 2;
-    public static double kAUTON_DELAY_STEP = 500;
+    public static double kAUTON_DELAY_STEP = 500.0;
     public static int SLOT_GRABBER_EXTEND = 1;
     public static int btnGRABBER_EXTEND = 10;
     
@@ -120,17 +120,17 @@ public class FRCConfig {
                     if (varName.equals("fMaxShooterPower")) {
                         fMAX_SHOOTER_POWER = Double.parseDouble(value);
                     } else if (varName.equals("kMAX_MOTOR_SPEED")) {
-                        kMAX_MOTOR_SPEED = Integer.parseInt(value);
+                        kMAX_MOTOR_SPEED = Double.parseDouble(value);
                     } else if (varName.equals("kMAX_ERROR")) {
-                        kMAX_ERROR = Integer.parseInt(value);
+                        kMAX_ERROR = Double.parseDouble(value);
                     } else if (varName.equals("kMAX_SHOOTER_POWER")) {
-                        kMAX_SHOOTER_POWER = Integer.parseInt(value);
+                        kMAX_SHOOTER_POWER = Double.parseDouble(value);
                     } else if (varName.equals("kMIN_SHOOTER_POWER")) {
-                        kMIN_SHOOTER_POWER = Integer.parseInt(value);
+                        kMIN_SHOOTER_POWER = Double.parseDouble(value);
                     } else if (varName.equals("kSLEEP_TIME")) {
-                        kSLEEP_TIME = Integer.parseInt(value);
+                        kSLEEP_TIME = Double.parseDouble(value);
                     } else if (varName.equals("kENCODER_PPR")) {
-                        kENCODER_PPR = Integer.parseInt(value);
+                        kENCODER_PPR = Double.parseDouble(value);
                     } else if (varName.equals("kLEFT_ENCODER_PORT_1")) {
                         SLOT_LEFT_ENCODER_1 = Integer.parseInt(value);
                     } else if (varName.equals("kLEFT_ENCODER_PORT_2")) {
@@ -140,7 +140,7 @@ public class FRCConfig {
                     } else if (varName.equals("kRIGHT_ENCODER_PORT_2")) {
                         SLOT_RIGHT_ENCODER_2 = Integer.parseInt(value);
                     } else if (varName.equals("kMAX_MOTOR_POWER")) {
-                        kMAX_MOTOR_POWER = Integer.parseInt(value);
+                        kMAX_MOTOR_POWER = Double.parseDouble(value);
                     } else if (varName.equals("kLEFT_MOTOR_SLOT")) {
                         SLOT_LEFT_MOTOR = Integer.parseInt(value);
                     } else if (varName.equals("kRIGHT_MOTOR_SLOT")) {
@@ -208,11 +208,11 @@ public class FRCConfig {
                     } else if (varName.equals("SLOT_SHOOTER_SWITCH")) {
                         SLOT_SHOOTER_SWITCH = Integer.parseInt(value);
                     } else if (varName.equals("kDISTANCE_P")) {
-                        kDISTANCE_P = Integer.parseInt(value);
+                        kDISTANCE_P = Double.parseDouble(value);
                     } else if (varName.equals("kDISTANCE_I")) {
-                        kDISTANCE_I = Integer.parseInt(value);
+                        kDISTANCE_I = Double.parseDouble(value);
                     } else if (varName.equals("kDISTANCE_D")) {
-                        kDISTANCE_I = Integer.parseInt(value);
+                        kDISTANCE_I = Double.parseDouble(value);
                     } else if (varName.equals("btnAUTO_DISTANCE")) {
                         btnAUTO_DISTANCE = Integer.parseInt(value);
                     } else if (varName.equals("btnCONFIG_RELOAD_1")){
@@ -228,7 +228,7 @@ public class FRCConfig {
                     }else if (varName.equals("btnSTOP_AUTON_MODE")){
                         btnSTOP_AUTON_MODE = Integer.parseInt(value);
                     }else if (varName.equals("kAUTON_DELAY_STEP")){
-                        kAUTON_DELAY_STEP = Integer.parseInt(value);
+                        kAUTON_DELAY_STEP = Double.parseDouble(value);
                     } else if (varName.equals("SLOT_GRABBER_EXTEND")){
                         SLOT_GRABBER_EXTEND = Integer.parseInt(value);
                     } else if (varName.equals("btnGRABBER_EXTEND")){
