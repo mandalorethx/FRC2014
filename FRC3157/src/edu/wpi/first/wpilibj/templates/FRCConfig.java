@@ -7,6 +7,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import com.sun.squawk.io.BufferedReader;
 import com.sun.squawk.microedition.io.FileConnection;
+import com.sun.squawk.peripheral.INorFlashSector;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -238,6 +239,9 @@ public class FRCConfig {
                             SLOT_GRABBER_EXTEND = Integer.parseInt(value);
                         } else if (varName.equals("btnGRABBER_EXTEND")){
                             btnGRABBER_EXTEND = Integer.parseInt(value);
+                        }else{
+                            System.out.println("No variable found: " + line);
+                            FRCLogger.getInstance().logError("No variabe found: " + line);
                         }
                     } catch ( Exception e ) {
                         System.out.println("Unable to parse line: " + line);
