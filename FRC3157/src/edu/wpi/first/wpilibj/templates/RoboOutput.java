@@ -30,7 +30,14 @@ public class RoboOutput {
     public Victor grabberLeft; //Controls the grabber arms to pick up the ball
     public Victor grabberRight; //Controls the grabber arms to pick up the ball
     
-    
+    public static boolean bLeftDriveFound = false;
+    public static boolean bRightDriveFound = false;
+    public static boolean bAirCompressorFound = false;
+    public static boolean bLeftShooterFound = false;
+    public static boolean bRightShooterFound = false;
+    public static boolean bGrabberExtenderFound = false;
+    public static boolean bLeftGrabberFound = false;
+    public static boolean bRightGrabberFound = false;
     
     /**
      * Initializing variables, and starts the air compressor
@@ -42,49 +49,73 @@ public class RoboOutput {
         System.out.println("Left: " + left + " Right: " + right);
         try{
             this.driveLeft = new Victor(left);
+            bLeftDriveFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to left drive motor");
             FRCLogger.getInstance().logError("unable to connect to left drive motor");
-            e.printStackTrace();
+            bLeftDriveFound = false;
         }
         try{
             this.driveRight = new Victor(right);
+            bRightDriveFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to right drive motor");
             FRCLogger.getInstance().logError("unable to connect to right drive motor");
-            e.printStackTrace();
+            bRightDriveFound = false;
         }
         
         try{
             this.airCompressor = new Compressor(FRCConfig.SLOT_PRESSURE, +FRCConfig.SLOT_COMPRESSOR_RELAY);
             this.airCompressor.start();
+            bAirCompressorFound = true;
         }catch(Exception e){
             System.out.print("unable to connect to air compressor");
             FRCLogger.getInstance().logError("unable to connect to air compressor");
-            e.printStackTrace();
+            bAirCompressorFound = true;
         }
         
         try{
             this.leftShooter = new Solenoid(FRCConfig.SLOT_LEFT_SHOOTER);
+            bLeftShooterFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to left Solenoid");
             FRCLogger.getInstance().logError("unable to connect to left Solenoid");
-            e.printStackTrace();
+            bRightShooterFound = false;
         }
         try{
-        this.rightShooter = new Solenoid(FRCConfig.SLOT_RIGHT_SHOOTER);
+            this.rightShooter = new Solenoid(FRCConfig.SLOT_RIGHT_SHOOTER);
+            bRightShooterFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to right Solenoid");
             FRCLogger.getInstance().logError("unable to connect to right Solenoid");
-            e.printStackTrace();
+            bRightShooterFound = false;
         }
         
         try{
-        this.grabberLeftExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND);
+            this.grabberLeft = new Victor(FRCConfig.SLOT_LEFT_GRABBER_MOTOR);
+            bLeftGrabberFound = true;
+        }catch(Exception e){
+            System.out.println("unable to connect to left motor Victor");
+            FRCLogger.getInstance().logError("unable to connect to left motor Victor");
+            bLeftGrabberFound = false;
+        }
+        
+        try{
+            this.grabberRight = new Victor(FRCConfig.SLOT_RIGHT_GRABBER_MOTOR);
+            bRightGrabberFound = true;
+        }catch(Exception e){
+            System.out.println("unable to connect to right motor Victor");
+            FRCLogger.getInstance().logError("unable to connect to right motor Victor");
+            bRightGrabberFound = false;
+        }
+        
+        try{
+            this.grabberLeftExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND);
+            bGrabberExtenderFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to middle Solenoid");
             FRCLogger.getInstance().logError("unable to connect to middle Solenoid");
-            e.printStackTrace();
+            bGrabberExtenderFound = false;
         }
         //this.pinShooter=new Solenoid( FRCConfig.SLOT_PIN_SHOOTER );
     }
@@ -95,7 +126,7 @@ public class RoboOutput {
      */
     public void setOutputs() {
         
-        System.out.println( "Left: " + OutputData.leftMotorVal + "|| Right: " + OutputData.rightMotorVal);
+        // System.out.println( "Left: " + OutputData.leftMotorVal + "|| Right: " + OutputData.rightMotorVal);
         
         this.driveLeft.set(OutputData.leftMotorVal);
         this.driveRight.set(OutputData.rightMotorVal);
@@ -103,25 +134,18 @@ public class RoboOutput {
          this.shooterLeft.set(OutputData.leftShooterVal);
          this.shooterRight.set(OutputData.rightShooterVal);
          */
-        try {
+        if(bLeftGrabberFound && bRightGrabberFound == true){
             this.grabberLeft.set(OutputData.leftGrabberVal);
             this.grabberRight.set(OutputData.rightGrabberVal);
-        } catch( Exception e ) {
-            
         }
 
-        try {
+        if(bLeftShooterFound && bRightShooterFound == true){
             this.leftShooter.set(OutputData.bStartShooter);
             this.rightShooter.set(OutputData.bStartShooter);
-        } catch( Exception e) {
-            
         }
         
-        try {
+        if(bGrabberExtenderFound = true){
             this.grabberLeftExtend.set(OutputData.bLeftGrabberExtend);
-            this.grabberRightExtend.set(OutputData.bRightGrabberExtend);
-        } catch( Exception e) {
-            
         }
         //this.pinShooter.set(OutputData.bPullPin);
     }

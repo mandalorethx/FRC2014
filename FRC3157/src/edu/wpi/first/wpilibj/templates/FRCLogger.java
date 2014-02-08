@@ -236,6 +236,7 @@ public class FRCLogger {
      */
     private void log(String msg, int level){
         // Can't do anything if there was a problem
+        System.out.println( msg );
         if( hasError )
         {
             initialize();
