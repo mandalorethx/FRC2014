@@ -95,7 +95,7 @@ public class RoboOutput {
      */
     public void setOutputs() {
         
-        System.out.println( "Left: " + OutputData.leftMotorVal + "|| Right: " + OutputData.rightMotorVal);
+        // System.out.println( "Left: " + OutputData.leftMotorVal + "|| Right: " + OutputData.rightMotorVal);
         
         this.driveLeft.set(OutputData.leftMotorVal);
         this.driveRight.set(OutputData.rightMotorVal);
