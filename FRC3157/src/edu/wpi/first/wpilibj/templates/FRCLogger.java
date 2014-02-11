@@ -31,7 +31,7 @@ public class FRCLogger {
     public static final int ERROR = 4;
     
     private static final String LOG_FILE = "FRC_LOG";
-    private static final String LOG_EXT = ".log";
+    private static final String LOG_EXT = ".txt";
     
     private FileConnection fc;
     private DataOutputStream outStream;
@@ -72,6 +72,7 @@ public class FRCLogger {
     {
         try{
             String fileName = manageLogFile();
+            System.out.println("Opening Log File: file:///" + fileName);
             fc = (FileConnection)Connector.open(
                     "file:///" + fileName, Connector.WRITE);
             outStream=fc.openDataOutputStream();
@@ -101,6 +102,7 @@ public class FRCLogger {
             }
             System.out.println("unable to open log");
             System.out.println(e.getMessage());
+            e.printStackTrace();
             return;
         }
         
@@ -136,7 +138,14 @@ public class FRCLogger {
                 try { p.close(); }
                 catch(IOException ioe2) {}
             }
-            
+            if( !log2Exists ) {
+                try {
+                    Protocol.create(log2);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } 
+            }
+            System.out.println( log2 + ":" + Protocol.exists(log2) );
             return log2;
         }
         
@@ -150,7 +159,14 @@ public class FRCLogger {
                 try { p.close(); }
                 catch(IOException ioe2) {}
             }
-            
+            if( !log1Exists ) {
+                try {
+                    Protocol.create(log1);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } 
+            }
+            System.out.println( log1 + ":" + Protocol.exists(log1) );
             return log1;
         }
         
@@ -164,11 +180,27 @@ public class FRCLogger {
                 try { p.close(); }
                 catch(IOException ioe2) {}
             }
+            if( !log3Exists ) {
+                try {
+                    Protocol.create(log3);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } 
+            }
+            System.out.println( log3 + ":" + Protocol.exists(log3) );
             return log3;
         }
         
         else
         {
+            if( !log1Exists ) {
+                try {
+                    Protocol.create(log1);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } 
+            }
+            System.out.println( log1 + ":" + Protocol.exists(log1) );
             return log1;
         }        
     }

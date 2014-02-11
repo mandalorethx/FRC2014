@@ -59,7 +59,7 @@ public class RoboOutput {
         
         try{
             System.out.println("\tLeft: ");
-            this.driveLeft = new Victor(left,DigitalModule.getDefaultDigitalModule());
+            this.driveLeft = new Victor(left);
             bLeftDriveFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to left drive motor: " + e.toString());
@@ -68,7 +68,7 @@ public class RoboOutput {
         }
         try{
             System.out.println("\tRight: ");
-            this.driveRight = new Victor(right,DigitalModule.getDefaultDigitalModule());
+            this.driveRight = new Victor(right);
             bRightDriveFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to right drive motor: " + e.toString());

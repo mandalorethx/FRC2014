@@ -236,6 +236,10 @@ public class FRCConfig {
                             SLOT_GRABBER_EXTEND = Integer.parseInt(value);
                         } else if (varName.equals("btnGRABBER_EXTEND")){
                             btnGRABBER_EXTEND = Integer.parseInt(value);
+                        } else if (varName.equals("SLOT_LEFT_GRABBER_MOTOR")) {
+                            SLOT_LEFT_GRABBER_MOTOR = Integer.parseInt(value);
+                        } else if (varName.equals("SLOT_RIGHT_GRABBER_MOTOR")) {
+                            SLOT_RIGHT_GRABBER_MOTOR = Integer.parseInt(value);
                         }else{
                             System.out.println("No variable found: " + line);
                             FRCLogger.getInstance().logError("No variable found: " + line);
