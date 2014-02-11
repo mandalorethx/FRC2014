@@ -48,8 +48,8 @@ public class FRCConfig {
     public static int SLOT_LEFT_SHOOTER = 2;
     public static int SLOT_RIGHT_SHOOTER = 3;
     //public static int SLOT_PIN_SHOOTER=4;
-    public static int SLOT_LEFT_GRABBER_MOTOR = 0;
-    public static int SLOT_RIGHT_GRABBER_MOTOR = 1;
+    public static int SLOT_LEFT_GRABBER_MOTOR = 3;
+    public static int SLOT_RIGHT_GRABBER_MOTOR = 4;
 
     public static int btnDRIVE_STRAIGHT = 0;
     public static int btnMAGIC_SHOOT_CATCH = 2;
