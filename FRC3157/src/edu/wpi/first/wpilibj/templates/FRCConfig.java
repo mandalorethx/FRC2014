@@ -89,7 +89,12 @@ public class FRCConfig {
     public static double kAUTON_DELAY_STEP = 500.0;
     public static int SLOT_GRABBER_EXTEND = 1;
     public static int btnGRABBER_EXTEND = 10;
-    
+    public static boolean EN_CAMERA = true;
+    public static boolean EN_LOG = true;
+    public static boolean EN_CONFIG = true;
+    public static boolean EN_SWITCHES = true;
+    public static int kLEFT_MOTOR_MULTIPLIER = -1;
+    public static int kRIGHT_MOTOR_MULTIPLIER = 1;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -103,6 +108,9 @@ public class FRCConfig {
      * @return true if the config file is successfully loaded; false otherwise
      */
     public static boolean initialize() {
+        if(!EN_CONFIG){
+            return false;
+        }
         openFile(CONFIG_FILE);
         boolean fileDone = false;
         try {
@@ -240,6 +248,18 @@ public class FRCConfig {
                             SLOT_LEFT_GRABBER_MOTOR = Integer.parseInt(value);
                         } else if (varName.equals("SLOT_RIGHT_GRABBER_MOTOR")) {
                             SLOT_RIGHT_GRABBER_MOTOR = Integer.parseInt(value);
+                        } else if (varName.equals("EN_CAMERA")){
+                            EN_CAMERA = value.toLowerCase().equals("true");
+                        } else if (varName.equals("EN_LOG")){
+                            EN_LOG = value.toLowerCase().equals("true");
+                        } else if (varName.equals("EN_CONFIG")){
+                            EN_CONFIG = value.toLowerCase().equals("true");
+                        } else if (varName.equals("EN_SWITCHES")){
+                            EN_SWITCHES = value.toLowerCase().equals("true");
+                        }else if (varName.equals("kLEFT_MOTOR_MULTIPLIER")){
+                            kLEFT_MOTOR_MULTIPLIER = Integer.parseInt(value);
+                        }else if (varName.equals("kRIGHT_MOTOR_MULTIPLIER")){
+                            kRIGHT_MOTOR_MULTIPLIER = Integer.parseInt(value);
                         }else{
                             System.out.println("No variable found: " + line);
                             FRCLogger.getInstance().logError("No variable found: " + line);

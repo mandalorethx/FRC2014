@@ -25,13 +25,7 @@ public class RoboThink {
      This one is the current step
      */
     public static int dCatchStep = 0;
-
-    /*
-     these define the directions for the motors and may need to be changed
-     */
-    public static double fLeftMultiplier = -1 * FRCConfig.kMAX_SHOOTER_POWER;
-    public static double fRightMultiplier = FRCConfig.kMAX_SHOOTER_POWER;
-
+    
     /**
      * this is a general timer for RoboThink functions
      */
@@ -72,14 +66,14 @@ public class RoboThink {
         }
         
         if (InputData.leftDriverStick[1] > 0) { 
-            OutputData.leftMotorVal = fLeftMultiplier * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
+            OutputData.leftMotorVal = FRCConfig.kLEFT_MOTOR_MULTIPLIER * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         } else {
-            OutputData.leftMotorVal = -1 * fLeftMultiplier * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
+            OutputData.leftMotorVal = -1 * FRCConfig.kLEFT_MOTOR_MULTIPLIER * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         }
         if (InputData.rightDriverStick[1] > 0) {
-            OutputData.rightMotorVal = fRightMultiplier * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
+            OutputData.rightMotorVal = FRCConfig.kRIGHT_MOTOR_MULTIPLIER * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         } else {
-            OutputData.rightMotorVal = -1 * fRightMultiplier * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
+            OutputData.rightMotorVal = -1 * FRCConfig.kRIGHT_MOTOR_MULTIPLIER * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         }
 
         if (InputData.bAutoShootAndCatch == true) {

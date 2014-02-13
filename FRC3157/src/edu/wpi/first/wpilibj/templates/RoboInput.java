@@ -96,8 +96,12 @@ public class RoboInput {
      
         
         try {
-            this.shooterSwitchRet = new DigitalInput(FRCConfig.SLOT_SHOOTER_SWITCH);
-            bShooterSwitchFound = true;
+            if(FRCConfig.EN_SWITCHES == true){
+                this.shooterSwitchRet = new DigitalInput(FRCConfig.SLOT_SHOOTER_SWITCH);
+                bShooterSwitchFound = true;
+            }else{
+                bShooterSwitchFound = false;
+            }
         } catch (Exception e) {
             System.out.println("unable to connect to the shooter switch");
             FRCLogger.getInstance().logError("unable to connect to the shooter switch");
@@ -105,8 +109,12 @@ public class RoboInput {
         }
         
         try {
-            InputData.camProcessor = new FRCImage();
-            bCameraFound = true;
+            if(FRCConfig.EN_CAMERA){
+                InputData.camProcessor = new FRCImage();
+                bCameraFound = true;
+            } else{
+                bCameraFound = false;
+            }
         } catch( Exception e ) {
             System.out.println("unable to connect to the camera");
             FRCLogger.getInstance().logError("unable to connect to the camera");
