@@ -43,8 +43,8 @@ public class FRCConfig {
     public static int SLOT_LEFT_DRIVER_JOYSTICK = 0;
     public static int SLOT_RIGHT_DRIVER_JOYSTICK = 1;
     public static int SLOT_CO_DRIVER_JOYSTICK = 2;
-    public static int SLOT_PRESSURE = 0;
-    public static int SLOT_COMPRESSOR_RELAY = 1;
+    public static int SLOT_PRESSURE = 1;
+    public static int SLOT_COMPRESSOR_RELAY = 2;
     public static int SLOT_LEFT_SHOOTER = 2;
     public static int SLOT_RIGHT_SHOOTER = 3;
     //public static int SLOT_PIN_SHOOTER=4;

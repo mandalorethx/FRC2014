@@ -202,8 +202,17 @@ public class RoboInput {
             InputData.rightMotorEncoderVal = rightMotorEncoder.get();
             InputData.fLeftEncoderTime = encoderTimer.get();
             InputData.fRightEncoderTime = encoderTimer.get();
-            leftMotorEncoder.reset();
-            rightMotorEncoder.reset();
+            
+            System.out.println("getRate: " + leftMotorEncoder.getRate() + " " + rightMotorEncoder.getRate() );
+            System.out.println("getRaw: " + leftMotorEncoder.getRaw() + " " + rightMotorEncoder.getRaw() );
+            System.out.println("get: " + leftMotorEncoder.get() + " " + rightMotorEncoder.get() );
+            
+            System.out.println("Left Val: " + InputData.leftMotorEncoderVal + " Right Val: " + InputData.rightMotorEncoderVal);
+            System.out.println("Left Time: " + InputData.fLeftEncoderTime + " Right Time: " + InputData.fRightEncoderTime);
+            
+            // leftMotorEncoder.reset();
+            // rightMotorEncoder.reset();
+            
             encoderTimer.reset();
         }
     }
