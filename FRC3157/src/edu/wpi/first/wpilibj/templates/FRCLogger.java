@@ -122,6 +122,7 @@ public class FRCLogger {
         String log1 = LOG_FILE + "_1" + LOG_EXT;
         String log2 = LOG_FILE + "_2" + LOG_EXT;
         String log3 = LOG_FILE + "_3" + LOG_EXT;
+        
         boolean log1Exists = Protocol.exists(log1);
         boolean log2Exists = Protocol.exists(log2);
         boolean log3Exists = Protocol.exists(log3);
@@ -140,14 +141,6 @@ public class FRCLogger {
                 } catch (IOException ioe2) {
                 }
             }
-            if (!log2Exists) {
-                try {
-                    Protocol.create(log2);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            System.out.println(log2 + ":" + Protocol.exists(log2));
             retLog = log2;
         } else if (log2Exists && log3Exists) {
             try {
@@ -159,14 +152,6 @@ public class FRCLogger {
                 } catch (IOException ioe2) {
                 }
             }
-            if (!log1Exists) {
-                try {
-                    Protocol.create(log1);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            System.out.println(log1 + ":" + Protocol.exists(log1));
             retLog = log1;
         } else if (log1Exists && log2Exists) {
             try {
@@ -178,66 +163,55 @@ public class FRCLogger {
                 } catch (IOException ioe2) {
                 }
             }
-            if (!log3Exists) {
-                try {
-                    Protocol.create(log3);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            System.out.println(log3 + ":" + Protocol.exists(log3));
+            retLog = log3;
+        } else if (log1Exists && log2Exists) {
+            retLog = log2;
+        } else if( log2Exists && !log3Exists ) {
             retLog = log3;
         } else {
-            if (!log1Exists) {
-                try {
-                    Protocol.create(log1);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            System.out.println(log1 + ":" + Protocol.exists(log1));
             retLog = log1;
         }
+        
         if (!Protocol.exists(retLog)) {
             try {
                 Protocol.create(retLog);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }
-        Protocol p2 = new Protocol();
-        System.out.println(retLog);
-        try {
-            p2.open("file", "//" + retLog, Connector.WRITE, false);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        OutputStream os = null;
-        try {
-            os = p2.openOutputStream();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        DataOutputStream dos = new DataOutputStream(os);
-        try {
-            dos.writeChars("***** FRC3157 Log File *****\n");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            dos.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            os.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            p2.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            Protocol p2 = new Protocol();
+            System.out.println(retLog);
+            try {
+                p2.open("file", "//" + retLog, Connector.WRITE, false);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            OutputStream os = null;
+            try {
+                os = p2.openOutputStream();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            DataOutputStream dos = new DataOutputStream(os);
+            try {
+                dos.writeChars("***** FRC3157 Log File *****\n");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                dos.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                os.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                p2.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
         return retLog;
     }
