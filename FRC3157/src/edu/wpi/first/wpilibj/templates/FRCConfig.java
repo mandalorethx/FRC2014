@@ -23,6 +23,8 @@ import javax.microedition.io.Connector;
  */
 public class FRCConfig {
 
+    public static FRCLogger logger = FRCLogger.getInstance();
+    
     public static final String CONFIG_FILE = "FRC_CONFIG.txt";
 
     public static double kMAX_MOTOR_SPEED = 100.0;
@@ -265,7 +267,7 @@ public class FRCConfig {
                             kRIGHT_MOTOR_MULTIPLIER = Integer.parseInt(value);
                         }else{
                             System.out.println("No variable found: " + line);
-                            FRCLogger.getInstance().logError("No variable found: " + line);
+                            logger.logError("No variable found: " + line);
                         }
                     } catch ( Exception e ) {
                         System.out.println("Unable to parse line: " + line);
