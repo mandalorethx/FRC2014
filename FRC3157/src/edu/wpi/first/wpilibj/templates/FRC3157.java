@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class FRC3157 extends IterativeRobot {
 
+    public static FRCLogger logger = FRCLogger.getInstance();
+    
     public static final int kAUTON_WAIT = 0;
     public static final int kAUTON_FIRE = 1;
     public static final int kAUTON_WAIT_2 = 2;
@@ -42,6 +44,14 @@ public class FRC3157 extends IterativeRobot {
         configInit();
         ScreenOutput.initDriverStationScreen();
         System.out.println("robotInit End");
+    }
+    
+    /**
+     * @Override
+     */
+    public void disabledInit()
+    {
+        logger.changePhase(FRCLogger.DISABLED);
     }
     
     public void disabledPeriodic(){
@@ -81,6 +91,7 @@ public class FRC3157 extends IterativeRobot {
     }
     
     public void autonomousInit() {
+        logger.changePhase(FRCLogger.AUTONOMOUS);
         autonTimer = new Timer();
         autonTimer.start();
         dAutonState = 0;
@@ -136,7 +147,7 @@ public class FRC3157 extends IterativeRobot {
                 break;
             default:
                 ScreenOutput.screenWrite("unknown AutonState");
-                FRCLogger.getInstance().logError("unknown autonTime");
+                logger.logError("unknown autonTime");
                 break;
         }
 
@@ -145,6 +156,7 @@ public class FRC3157 extends IterativeRobot {
     }
 
     public void teleopInit() {
+        logger.changePhase(FRCLogger.TELEOP);
         InputData.bTestMode = false;
     }
 

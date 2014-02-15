@@ -34,7 +34,7 @@ public class FRCLogger {
     
     public static final int DISABLED = 0;
     public static final int AUTONOMOUS = 1;
-    public static final int PERIODIC = 2;
+    public static final int TELEOP = 2;
 
     private static final String LOG_FILE = "FRC_LOG";
     private static final String LOG_EXT = ".txt";
@@ -274,7 +274,7 @@ public class FRCLogger {
      */
     public void changePhase(int phase)
     {
-        if(phase >= DISABLED && phase <= PERIODIC)
+        if(phase >= DISABLED && phase <= TELEOP)
             this.phase = phase;
     }
 
@@ -364,8 +364,8 @@ public class FRCLogger {
             case (AUTONOMOUS):
                 phaseName = "AUTONOMOUS";
                 break;
-            case (PERIODIC):
-                phaseName = "PERIODIC";
+            case (TELEOP):
+                phaseName = "TELEOP";
                 break;
         }
 
