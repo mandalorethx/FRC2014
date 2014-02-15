@@ -128,6 +128,45 @@ public class FRCLogger {
         else
         {
             Protocol.create(NEW_FILE);
+            Protocol p = null;
+            BufferedWriter out = null;
+            try
+            {
+                p = new Protocol();
+                out = new BufferedWriter(
+                    new OutputStreamWriter(
+                            ((FileConnection)p.open(
+                                    "file",
+                                    "//" + NEW_FILE,
+                                    Connector.WRITE,
+                                    false)).openDataOutputStream()));
+                out.write("<Insert Log File Here>");
+                out.flush();
+            } catch(IOException ioe)
+            {
+                throw ioe;
+            } finally {
+                if ( p != null )
+                {
+                    try
+                    {
+                        p.close();
+                    } catch(IOException e)
+                    {
+                        System.out.println("Unable to close protocol.");
+                    }
+                }
+                if ( out != null )
+                {
+                    try
+                    {
+                        out.close();
+                    } catch(IOException e)
+                    {
+                        System.out.println("Unable to close out stream.");
+                    }
+                }
+            }
         }
     }
     
