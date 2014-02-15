@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.Timer;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import javax.microedition.io.Connector;
 
@@ -38,7 +37,7 @@ public class FRCLogger {
     private static final String OLD_FILE = LOG_FILE + "_OLD" + LOG_EXT;
     private static final String NEW_FILE = LOG_FILE + "_NEW" + LOG_EXT;
 
-    private FileConnection fc;
+    //private FileConnection fc;
     private DataOutputStream outStream;
     private OutputStreamWriter outStreamWriter;
     private BufferedWriter outBuffer;
@@ -81,25 +80,21 @@ public class FRCLogger {
         try {
             manageLogFile();    // Will throw IOException if something happens
             
-            System.out.println("Opening Log File: file:///" + NEW_FILE);
-            fc = (FileConnection) Connector.open(
-                    "file:///" + NEW_FILE, Connector.WRITE);
-            outStream = fc.openDataOutputStream();
+            System.out.println("Opening Log File: file://" + NEW_FILE);
+            outStream = ((FileConnection) Connector.open(
+                    "file://" + NEW_FILE,
+                    Connector.WRITE)).openDataOutputStream();
 
             hasError = false;   // Be explicit!
         } catch (IOException e) {
             // Undo any connections made
             hasError = true;
-
+            System.out.println(e.getMessage());
+            
             try {
                 if (outStream != null) {
                     outStream.close();
                     outStream = null;
-                }
-
-                if (fc != null) {
-                    fc.close();
-                    fc = null;
                 }
             } catch (IOException ioe) {
                 System.out.println("unable to close log");
@@ -107,7 +102,6 @@ public class FRCLogger {
             }
             System.out.println("unable to open log");
             System.out.println(e.getMessage());
-            e.printStackTrace();
             return;
         }
 
@@ -181,15 +175,19 @@ public class FRCLogger {
     {
         BufferedWriter out = null;
         BufferedReader in = null;
+        Protocol p1 = null;
+        Protocol p2 = null;
         try
         {
-            Protocol p = new Protocol();
+            p1 = new Protocol();
+            p2 = new Protocol();
+            
             if (!Protocol.exists(toFile))
                 Protocol.create(toFile);
             
             in = new BufferedReader(
                     new InputStreamReader(
-                            ((FileConnection)p.open(
+                            ((FileConnection)p1.open(
                                     "file",
                                     "//" + fromFile,
                                     Connector.READ,
@@ -197,7 +195,7 @@ public class FRCLogger {
             
             out = new BufferedWriter(
                     new OutputStreamWriter(
-                            ((FileConnection)p.open(
+                            ((FileConnection)p2.open(
                                     "file",
                                     "//" + toFile,
                                     Connector.WRITE,
@@ -232,6 +230,24 @@ public class FRCLogger {
                 } catch(IOException e)
                 {
                     System.out.println("Unable to close the dest file!");
+                }
+            }
+            if (p1 != null)
+            {
+                try {
+                    p1.close();
+                } catch(IOException e)
+                {
+                    System.out.println("Unable to close the first protocol");
+                }
+            }
+            if (p2 != null)
+            {
+                try {
+                    p2.close();
+                } catch(IOException e)
+                {
+                    System.out.println("Unable to close the second protocol");
                 }
             }
         }
@@ -367,11 +383,6 @@ public class FRCLogger {
             if (outStream != null) {
                 outStream.close();
                 outStream = null;
-            }
-
-            if (fc != null) {
-                fc.close();
-                fc = null;
             }
         } catch (IOException ioe) {
         }
