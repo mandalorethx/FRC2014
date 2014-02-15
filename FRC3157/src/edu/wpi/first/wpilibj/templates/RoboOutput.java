@@ -144,7 +144,7 @@ public class RoboOutput {
      */
     public void setOutputs() {
         
-        // System.out.println( "Left In: " + OutputData.leftMotorVal + "|| Right In: " + OutputData.rightMotorVal);
+        System.out.println( "Left In: " + OutputData.leftMotorVal + "|| Right In: " + OutputData.rightMotorVal);
         
         this.driveLeft.set(OutputData.leftMotorVal);
         this.driveRight.set(OutputData.rightMotorVal);
@@ -172,11 +172,15 @@ public class RoboOutput {
         if(bGrabberExtenderFound = true){
             this.grabberLeftExtend.set(OutputData.bLeftGrabberExtend);
         }
+        
+        
         if(OutputData.bCarLockReverse == true){
             digiMod.setRelayReverse(1, true);
         }else{
             digiMod.setRelayReverse(1, false);
         }
+        
+        
     }
     
         //this.pinShooter.set(OutputData.bPullPin);
