@@ -106,40 +106,50 @@ public class FRC3157 extends IterativeRobot {
             return;
         }
 
-        input.getEncoderVals();
-        InputData.bDriveStraightPressed = true;
+        // input.getEncoderVals();
+        // InputData.bDriveStraightPressed = true;
         
         switch (dAutonState) {
             case kAUTON_WAIT:
-                if (autonTimer.get() >= FRCConfig.kAUTON_DELAY) {
+                ScreenOutput.clrScreen();
+                ScreenOutput.screenWrite("kAUTON_WAIT", 3);
+                if (autonTimer.get() >= FRCConfig.kAUTON_DELAY / 1000.0 ) {
                     dAutonState++;
                     autonTimer.reset();
                 }
                 break;
             case kAUTON_FIRE:
+                ScreenOutput.clrScreen();
+                ScreenOutput.screenWrite("kAUTON_FIRE: " + autonTimer.get(), 3);
                 InputData.shooterButtonPressed = true;
-                if (autonTimer.get() >= FRCConfig.kAUTON_FIRE_TIME) {
+                if (autonTimer.get() >= FRCConfig.kAUTON_FIRE_TIME / 1000.0) {
                     dAutonState++;
                     autonTimer.reset();
                     InputData.shooterButtonPressed = false;
                 }
                 break;
             case kAUTON_WAIT_2:
-                if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_DELAY) {
+                ScreenOutput.clrScreen();
+                ScreenOutput.screenWrite("kAUTON_WAIT2", 3);
+                if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_DELAY / 1000.0 ) {
                     dAutonState++;
                     autonTimer.reset();
                 }
                 break;
             case kAUTON_MOVE:
+                ScreenOutput.clrScreen();
+                ScreenOutput.screenWrite("kAUTON_MOVE", 3);
                 InputData.leftDriverStick[1] = 1.0;
                 InputData.rightDriverStick[1] = 1.0;
-                InputData.bDriveStraightPressed = true;
-                if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_TIME) {
+                // InputData.bDriveStraightPressed = true;
+                if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_TIME / 1000.0 ) {
                     dAutonState++;
                     autonTimer.reset();
                 }
                 break;
             case kAUTON_SLEEP:
+                ScreenOutput.clrScreen();
+                ScreenOutput.screenWrite("kAUTON_SLEEP", 3);
                 InputData.leftDriverStick[1] = 0;
                 InputData.rightDriverStick[1] = 0;
                 InputData.bDriveStraightPressed = false;
