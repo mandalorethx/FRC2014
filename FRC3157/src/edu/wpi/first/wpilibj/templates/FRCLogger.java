@@ -5,12 +5,14 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import com.sun.squawk.io.BufferedReader;
 import com.sun.squawk.io.BufferedWriter;
 import com.sun.squawk.io.j2me.file.Protocol;
 import com.sun.squawk.microedition.io.FileConnection;
 import edu.wpi.first.wpilibj.Timer;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import javax.microedition.io.Connector;
@@ -33,6 +35,8 @@ public class FRCLogger {
 
     private static final String LOG_FILE = "FRC_LOG";
     private static final String LOG_EXT = ".txt";
+    private static final String OLD_FILE = LOG_FILE + "_OLD" + LOG_EXT;
+    private static final String NEW_FILE = LOG_FILE + "_NEW" + LOG_EXT;
 
     private FileConnection fc;
     private DataOutputStream outStream;
@@ -75,10 +79,11 @@ public class FRCLogger {
             return;
         }
         try {
-            String fileName = manageLogFile();
-            System.out.println("Opening Log File: file:///" + fileName);
+            manageLogFile();    // Will throw IOException if something happens
+            
+            System.out.println("Opening Log File: file:///" + NEW_FILE);
             fc = (FileConnection) Connector.open(
-                    "file:///" + fileName, Connector.WRITE);
+                    "file:///" + NEW_FILE, Connector.WRITE);
             outStream = fc.openDataOutputStream();
 
             hasError = false;   // Be explicit!
@@ -113,107 +118,84 @@ public class FRCLogger {
     }
 
     /**
-     * Determines which log file to write to and cleans up the log created 2
-     * iterations ago.
-     *
-     * @return the log file name to write
+     * Prepares a new log file to be written
+     * @throws IOException if something goes wrong!
      */
-    private String manageLogFile() {
-        String log1 = LOG_FILE + "_1" + LOG_EXT;
-        String log2 = LOG_FILE + "_2" + LOG_EXT;
-        String log3 = LOG_FILE + "_3" + LOG_EXT;
-        
-        boolean log1Exists = Protocol.exists(log1);
-        boolean log2Exists = Protocol.exists(log2);
-        boolean log3Exists = Protocol.exists(log3);
-
-        String retLog;
-
-        Protocol p = new Protocol();
-
-        if (log3Exists && log1Exists) {
-            try {
-                p.open("file", "://" + log3, Connector.WRITE, false);
-                p.delete();
-            } catch (IOException ioe) {
-                try {
-                    p.close();
-                } catch (IOException ioe2) {
-                }
-            }
-            retLog = log2;
-        } else if (log2Exists && log3Exists) {
-            try {
-                p.open("file", "://" + log2, Connector.WRITE, false);
-                p.delete();
-            } catch (IOException ioe) {
-                try {
-                    p.close();
-                } catch (IOException ioe2) {
-                }
-            }
-            retLog = log1;
-        } else if (log1Exists && log2Exists) {
-            try {
-                p.open("file", "://" + log1, Connector.WRITE, false);
-                p.delete();
-            } catch (IOException ioe) {
-                try {
-                    p.close();
-                } catch (IOException ioe2) {
-                }
-            }
-            retLog = log3;
-        } else if (log1Exists && log2Exists) {
-            retLog = log2;
-        } else if( log2Exists && !log3Exists ) {
-            retLog = log3;
-        } else {
-            retLog = log1;
+    private void manageLogFile() throws IOException {
+        if (Protocol.exists(NEW_FILE)) {
+            copyLog(NEW_FILE, OLD_FILE);
         }
-        
-        if (!Protocol.exists(retLog)) {
-            try {
-                Protocol.create(retLog);
-            } catch (IOException ex) {
-                ex.printStackTrace();
+        else
+        {
+            Protocol.create(NEW_FILE);
+        }
+    }
+    
+    /**
+     * Copies the fromFile to the toFile
+     * PRECONDITION: fromFile exists
+     * @param fromFile - source
+     * @param toFile - destination
+     * @throws IOException if unable to process the log files
+     */
+    private void copyLog(String fromFile, String toFile) throws IOException
+    {
+        BufferedWriter out = null;
+        BufferedReader in = null;
+        try
+        {
+            Protocol p = new Protocol();
+            if (!Protocol.exists(toFile))
+                Protocol.create(toFile);
+            
+            in = new BufferedReader(
+                    new InputStreamReader(
+                            ((FileConnection)p.open(
+                                    "file",
+                                    "//" + fromFile,
+                                    Connector.READ,
+                                    false)).openDataInputStream()));
+            
+            out = new BufferedWriter(
+                    new OutputStreamWriter(
+                            ((FileConnection)p.open(
+                                    "file",
+                                    "//" + toFile,
+                                    Connector.WRITE,
+                                    false)).openDataOutputStream()));
+            
+            int max = 1024;
+            char[] buffer = new char[max];
+            int charsRead = 0;
+            while((charsRead = in.read(buffer, 0, max)) > 0)
+            {
+                out.write(buffer, 0, charsRead);
+                out.flush();
             }
-            Protocol p2 = new Protocol();
-            System.out.println(retLog);
-            try {
-                p2.open("file", "//" + retLog, Connector.WRITE, false);
-            } catch (IOException ex) {
-                ex.printStackTrace();
+        } catch(IOException ioe)
+        {
+            throw ioe;
+        } finally
+        {
+            if (in != null)
+            {
+                try {
+                    in.close();
+                } catch(IOException e)
+                {
+                    System.out.println("Unable to close the source file!");
+                }
             }
-            OutputStream os = null;
-            try {
-                os = p2.openOutputStream();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            DataOutputStream dos = new DataOutputStream(os);
-            try {
-                dos.writeChars("***** FRC3157 Log File *****\n");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            try {
-                dos.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            try {
-                os.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            try {
-                p2.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if (out != null)
+            {
+                try {
+                    out.close();
+                } catch(IOException e)
+                {
+                    System.out.println("Unable to close the dest file!");
+                }
             }
         }
-        return retLog;
     }
 
     /**
