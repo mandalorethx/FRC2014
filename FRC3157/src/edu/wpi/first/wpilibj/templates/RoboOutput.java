@@ -7,6 +7,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalModule;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -31,6 +32,10 @@ public class RoboOutput {
     public Victor grabberLeft; //Controls the grabber arms to pick up the ball
     public Victor grabberRight; //Controls the grabber arms to pick up the ball
     
+    public Relay testRelay;
+    
+    public DigitalModule digiMod;
+    
     public static boolean bLeftDriveFound = false;
     public static boolean bRightDriveFound = false;
     public static boolean bAirCompressorFound = false;
@@ -50,7 +55,7 @@ public class RoboOutput {
         System.out.println("Left: " + left + " Right: " + right);
         
         try {
-            DigitalModule digiMod = DigitalModule.getInstance(DigitalModule.getDefaultDigitalModule());
+            digiMod = DigitalModule.getInstance(DigitalModule.getDefaultDigitalModule());
         } catch( Exception e) {
             System.out.println("***UNABLE TO FIND DIGITAL MODULE!***");
         }
@@ -128,6 +133,7 @@ public class RoboOutput {
             System.out.println("unable to connect to middle Solenoid");
             FRCLogger.getInstance().logError("unable to connect to middle Solenoid");
             bGrabberExtenderFound = false;
+       
         }
         //this.pinShooter=new Solenoid( FRCConfig.SLOT_PIN_SHOOTER );
     }
@@ -166,6 +172,18 @@ public class RoboOutput {
         if(bGrabberExtenderFound = true){
             this.grabberLeftExtend.set(OutputData.bLeftGrabberExtend);
         }
-        //this.pinShooter.set(OutputData.bPullPin);
+        if(OutputData.bCarLockForward == true){
+            digiMod.setRelayForward(1, true);
+            digiMod.setRelayReverse(1, false);
+        }else if(OutputData.bCarLockBackward == true){
+            digiMod.setRelayReverse(1, true);
+            digiMod.setRelayForward(1, false);
+        }else{
+            digiMod.setRelayForward(1, false);
+            digiMod.setRelayReverse(1, false);
+        }
     }
+    
+        //this.pinShooter.set(OutputData.bPullPin);
+    
 }

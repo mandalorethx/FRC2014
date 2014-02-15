@@ -110,6 +110,8 @@ public class InputData {
 
     public static boolean bTestMode = false;
     
+    public static boolean bCarLockRelay = false;
+    
     /**
      * Sets all fields to 0 or false
      */

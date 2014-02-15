@@ -58,6 +58,7 @@ public class RoboInput {
     public static boolean bCameraFound = false;
     
     
+    
     /**
      * Initializes the RoboInput object with specified joystick inputs
      *
@@ -191,6 +192,15 @@ public class RoboInput {
         }
         
         InputData.bGrabberExtendButtonPressed = this.coDrive.getRawButton(FRCConfig.btnGRABBER_EXTEND);
+        
+        if (OutputData.bCarLockForward == true) {
+            InputData.bCarLockRelay = this.coDrive.getRawButton(FRCConfig.btnCAR_LOCK_FORWARD);
+            System.out.println("Car lock forward pressed");
+        }
+        if (OutputData.bCarLockBackward == true) {
+            InputData.bCarLockRelay = this.coDrive.getRawButton(FRCConfig.btnCAR_LOCK_BACKWARD);
+            System.out.println("Car lock reverse pressed");
+        }
     }
 
     /**
@@ -203,15 +213,8 @@ public class RoboInput {
             InputData.fLeftEncoderTime = encoderTimer.get();
             InputData.fRightEncoderTime = encoderTimer.get();
             
-            System.out.println("getRate: " + leftMotorEncoder.getRate() + " " + rightMotorEncoder.getRate() );
-            System.out.println("getRaw: " + leftMotorEncoder.getRaw() + " " + rightMotorEncoder.getRaw() );
-            System.out.println("get: " + leftMotorEncoder.get() + " " + rightMotorEncoder.get() );
-            
-            System.out.println("Left Val: " + InputData.leftMotorEncoderVal + " Right Val: " + InputData.rightMotorEncoderVal);
-            System.out.println("Left Time: " + InputData.fLeftEncoderTime + " Right Time: " + InputData.fRightEncoderTime);
-            
-            // leftMotorEncoder.reset();
-            // rightMotorEncoder.reset();
+            leftMotorEncoder.reset();
+            rightMotorEncoder.reset();
             
             encoderTimer.reset();
         }

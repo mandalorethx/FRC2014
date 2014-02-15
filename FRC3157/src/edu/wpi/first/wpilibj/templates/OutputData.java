@@ -44,6 +44,9 @@ public class OutputData {
     
     public static boolean bLeftGrabberExtend=false;
     public static boolean bRightGrabberExtend=false;
+    
+    public static boolean bCarLockForward = false;
+    public static boolean bCarLockBackward = false;
     /**
      * Sets all fields to 0 or false respectively
      */
