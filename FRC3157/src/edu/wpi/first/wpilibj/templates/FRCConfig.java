@@ -86,6 +86,8 @@ public class FRCConfig {
     public static int btnDECREASE_WAIT_TIME = 4;
     public static int btnSTART_AUTON_MODE = 3;
     public static int btnSTOP_AUTON_MODE = 2;
+    public static int btnCAR_LOCK_FORWARD = 10;
+    public static int btnCAR_LOCK_BACKWARD = 11;
     public static double kAUTON_DELAY_STEP = 500.0;
     public static int SLOT_GRABBER_EXTEND = 1;
     public static int btnGRABBER_EXTEND = 10;
@@ -238,6 +240,10 @@ public class FRCConfig {
                             btnSTART_AUTON_MODE = Integer.parseInt(value);
                         }else if (varName.equals("btnSTOP_AUTON_MODE")){
                             btnSTOP_AUTON_MODE = Integer.parseInt(value);
+                        }else if (varName.equals("btnCAR_LOCK_FORWARD")){
+                            btnCAR_LOCK_FORWARD = Integer.parseInt(value);
+                        }else if (varName.equals("btnCAR_LOCK_BACKWARD")){
+                            btnCAR_LOCK_BACKWARD = Integer.parseInt(value);
                         }else if (varName.equals("kAUTON_DELAY_STEP")){
                             kAUTON_DELAY_STEP = Double.parseDouble(value);
                         } else if (varName.equals("SLOT_GRABBER_EXTEND")){
