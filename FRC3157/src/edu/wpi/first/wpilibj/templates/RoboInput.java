@@ -193,13 +193,9 @@ public class RoboInput {
         
         InputData.bGrabberExtendButtonPressed = this.coDrive.getRawButton(FRCConfig.btnGRABBER_EXTEND);
         
-        if (OutputData.bCarLockForward == true) {
-            InputData.bCarLockRelay = this.coDrive.getRawButton(FRCConfig.btnCAR_LOCK_FORWARD);
-            System.out.println("Car lock forward pressed");
-        }
-        if (OutputData.bCarLockBackward == true) {
-            InputData.bCarLockRelay = this.coDrive.getRawButton(FRCConfig.btnCAR_LOCK_BACKWARD);
-            System.out.println("Car lock reverse pressed");
+
+        InputData.bCarLockRelay = this.coDrive.getRawButton(FRCConfig.btnCAR_LOCK);
+        if( InputData.bCarLockRelay ) {
         }
     }
 

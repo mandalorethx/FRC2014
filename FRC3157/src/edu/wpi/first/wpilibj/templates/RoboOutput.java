@@ -172,14 +172,9 @@ public class RoboOutput {
         if(bGrabberExtenderFound = true){
             this.grabberLeftExtend.set(OutputData.bLeftGrabberExtend);
         }
-        if(OutputData.bCarLockForward == true){
-            digiMod.setRelayForward(1, true);
-            digiMod.setRelayReverse(1, false);
-        }else if(OutputData.bCarLockBackward == true){
+        if(OutputData.bCarLockReverse == true){
             digiMod.setRelayReverse(1, true);
-            digiMod.setRelayForward(1, false);
         }else{
-            digiMod.setRelayForward(1, false);
             digiMod.setRelayReverse(1, false);
         }
     }
