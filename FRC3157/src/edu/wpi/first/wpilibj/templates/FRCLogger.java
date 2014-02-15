@@ -10,10 +10,12 @@ import com.sun.squawk.io.BufferedWriter;
 import com.sun.squawk.io.j2me.file.Protocol;
 import com.sun.squawk.microedition.io.FileConnection;
 import edu.wpi.first.wpilibj.Timer;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import javax.microedition.io.Connector;
 
 /**
@@ -25,6 +27,8 @@ import javax.microedition.io.Connector;
  */
 public class FRCLogger {
 
+    private static boolean LOCK = false;
+    
     private static FRCLogger instance;
 
     public static final int DEBUG = 1;
@@ -41,14 +45,13 @@ public class FRCLogger {
     private static final String OLD_FILE = LOG_FILE + "_OLD" + LOG_EXT;
     private static final String NEW_FILE = LOG_FILE + "_NEW" + LOG_EXT;
     
-    private DataOutputStream outStream;
-    private OutputStreamWriter outStreamWriter;
+    private Protocol fileHandler;
     private BufferedWriter outBuffer;
 
     private Timer clock;
     private int minimumLevel = 0;
     private int phase = DISABLED;
-    private boolean hasError = false;
+    private boolean hasError = true;
 
     /**
      * Initializes the logger
@@ -66,9 +69,12 @@ public class FRCLogger {
      * @return the logger
      */
     public static FRCLogger getInstance() {
+        while(LOCK){ Thread.yield(); }
+        LOCK = true;
         if (instance == null) {
             instance = new FRCLogger();
         }
+        LOCK = false;
         return instance;
     }
 
@@ -77,15 +83,28 @@ public class FRCLogger {
      */
     private void initialize() {
         if(!FRCConfig.EN_LOG){
+            System.out.println("Logging not enabled");
+            hasError = true;
             return;
         }
         try {
+            System.out.println("Logging enabled");
             manageLogFile();    // Will throw IOException if something happens
             
             System.out.println("Opening Log File: file://" + NEW_FILE);
-            outStream = ((FileConnection) Connector.open(
-                    "file://" + NEW_FILE,
-                    Connector.WRITE)).openDataOutputStream();
+            fileHandler = new Protocol();
+            outBuffer = new BufferedWriter(
+                    new OutputStreamWriter(
+                            ((FileConnection)fileHandler.open(
+                                    "file",
+                                    "//" + NEW_FILE,
+                                    Connector.WRITE,
+                                    false)).openDataOutputStream()));
+            Calendar c = Calendar.getInstance(TimeZone.getTimeZone("EST"));
+            outBuffer.write("<--- " 
+                    + c.getTime().toString() 
+                    + " --->\n");
+            outBuffer.flush();
 
             hasError = false;   // Be explicit!
         } catch (IOException e) {
@@ -93,21 +112,18 @@ public class FRCLogger {
             hasError = true;
             
             try {
-                if (outStream != null) {
-                    outStream.close();
-                    outStream = null;
+                if (fileHandler != null) {
+                    fileHandler.close();
+                    fileHandler = null;
                 }
             } catch (IOException ioe) {
-                System.out.println("Unable to close log with init errors.");
+                System.out.println("Unable to close file handler protocol");
                 System.out.println(ioe.getMessage());
             }
             System.out.println("Unable to initialize log!");
             System.out.println(e.getMessage());
             return;
         }
-
-        outStreamWriter = new OutputStreamWriter(outStream);
-        outBuffer = new BufferedWriter(outStreamWriter);
         clock = new Timer();
         clock.start();
     }
@@ -275,7 +291,10 @@ public class FRCLogger {
     public void changePhase(int phase)
     {
         if(phase >= DISABLED && phase <= TELEOP)
+        {
             this.phase = phase;
+            System.out.println("Entered phase " + phase);
+        }
     }
 
     /**
@@ -325,7 +344,7 @@ public class FRCLogger {
         if(!FRCConfig.EN_LOG){
             return;
         }
-        System.out.println(msg);
+        
         if (hasError) {
             initialize();
             if (hasError) {
@@ -374,9 +393,12 @@ public class FRCLogger {
             outBuffer.write(clock.get() + "s [" + phaseName + "] ("
                     + levelName + ") - " + msg + "\n");
             outBuffer.flush();
+            System.out.println("[Logged]: " + msg);
         } catch (IOException e) {
             // Nothing we can do...! But code shouldn't be too concerned
             // with inability to log.
+            System.out.println("[Missed Log]: " + msg);
+            System.out.println("Because: " + e.getMessage());
         }
     }
 
@@ -390,15 +412,10 @@ public class FRCLogger {
             try{ outBuffer.close(); } catch(IOException e) {}
             outBuffer = null;
         }
-
-        if (outStreamWriter != null) {
-            try{ outStreamWriter.close(); } catch(IOException e) {}
-            outStreamWriter = null;
-        }
-
-        if (outStream != null) {
-            try{ outStream.close(); } catch(IOException e) {}
-            outStream = null;
+        
+        if (fileHandler != null) {
+            try{ fileHandler.close(); } catch(IOException e) {}
+            fileHandler = null;
         }
     }
 }

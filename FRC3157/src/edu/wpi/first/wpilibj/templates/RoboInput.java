@@ -17,8 +17,6 @@ import edu.wpi.first.wpilibj.Timer;
  * @author Programming Subteam
  */
 public class RoboInput {
-
-    public static FRCLogger logger = FRCLogger.getInstance();
     
     /**
      * The left joystick
@@ -84,7 +82,7 @@ public class RoboInput {
             bLeftMotorEncoderFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to the left Encoder");
-            logger.logError("unable to connect to the left Encoder");
+            FRCLogger.getInstance().logError("unable to connect to the left Encoder");
             bLeftMotorEncoderFound = false;
         }
         try{
@@ -93,7 +91,7 @@ public class RoboInput {
             bRightMotorEncoderFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to the right Encoder");
-            logger.logError("unable to connect to the right Encoder");
+            FRCLogger.getInstance().logError("unable to connect to the right Encoder");
             bRightMotorEncoderFound = false;
         }
      
@@ -107,7 +105,7 @@ public class RoboInput {
             }
         } catch (Exception e) {
             System.out.println("unable to connect to the shooter switch");
-            logger.logError("unable to connect to the shooter switch");
+            FRCLogger.getInstance().logError("unable to connect to the shooter switch");
             bShooterSwitchFound = false;
         }
         
@@ -120,7 +118,7 @@ public class RoboInput {
             }
         } catch( Exception e ) {
             System.out.println("unable to connect to the camera");
-            logger.logError("unable to connect to the camera");
+            FRCLogger.getInstance().logError("unable to connect to the camera");
             bCameraFound = false;
         }
     }
@@ -144,45 +142,45 @@ public class RoboInput {
         
         InputData.shooterButtonPressed = this.coDrive.getRawButton(FRCConfig.btnSHOOTER);
         if (InputData.shooterButtonPressed) {
-            logger.logInfo("Shooter Button Pressed");
+            FRCLogger.getInstance().logInfo("Shooter Button Pressed");
         }
         InputData.grabberButttonPressed = this.coDrive.getRawButton(FRCConfig.btnGRABBER);
         if (InputData.grabberButttonPressed) {
-            logger.logInfo("Grabber Button Pressed");
+            FRCLogger.getInstance().logInfo("Grabber Button Pressed");
         }
         getEncoderVals();
         
         InputData.bManualShoot = this.coDrive.getRawButton(FRCConfig.btnMANUAL_SHOOTER);
         if (InputData.bManualShoot) {
-            logger.logInfo("Manual Shoot Pressed");
+            FRCLogger.getInstance().logInfo("Manual Shoot Pressed");
         }
         if (this.coDrive.getRawButton(FRCConfig.btnMANUAL_ON)) {
             InputData.bPower = true;
-            logger.logInfo("Manual On");
+            FRCLogger.getInstance().logInfo("Manual On");
         } else if (this.coDrive.getRawButton(FRCConfig.btnMANUAL_OFF)) {
             InputData.bPower = false;
-            logger.logInfo("Manual Off");
+            FRCLogger.getInstance().logInfo("Manual Off");
         }
         
         InputData.bDriveStraightPressed = this.leftDrive.getRawButton(FRCConfig.btnDRIVE_STRAIGHT) || this.rightDrive.getRawButton(FRCConfig.btnDRIVE_STRAIGHT);
         if (InputData.bDriveStraightPressed) {
-            logger.logInfo("Drive Straight Pressed");
+            FRCLogger.getInstance().logInfo("Drive Straight Pressed");
         }
         InputData.bAutoShootAndCatch = this.leftDrive.getRawButton(FRCConfig.btnMAGIC_SHOOT_CATCH) || this.rightDrive.getRawButton(FRCConfig.btnMAGIC_SHOOT_CATCH);
         if (InputData.bAutoShootAndCatch) {
-            logger.logInfo("Shoot and Catch Button Pressed");
+            FRCLogger.getInstance().logInfo("Shoot and Catch Button Pressed");
         }
         InputData.bAutoturnLeft = this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_LEFT) || this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_LEFT);
         if (InputData.bAutoturnLeft) {
-            logger.logInfo("Drove Left");
+            FRCLogger.getInstance().logInfo("Drove Left");
         }
         InputData.bAutoturnRight = this.leftDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT) || this.rightDrive.getRawButton(FRCConfig.btnAUTOTURN_RIGHT);
         if (InputData.bAutoturnRight) {
-            logger.logInfo("Drove Right");
+            FRCLogger.getInstance().logInfo("Drove Right");
         }
         InputData.bDistanceCorrect = this.leftDrive.getRawButton(FRCConfig.btnAUTO_DISTANCE) || this.rightDrive.getRawButton(FRCConfig.btnAUTO_DISTANCE);
         if (InputData.bDistanceCorrect) {
-            logger.logInfo("Distance Correction");
+            FRCLogger.getInstance().logInfo("Distance Correction");
         }
         
         if(bShooterSwitchFound == true){
@@ -190,7 +188,7 @@ public class RoboInput {
         }
      
         if (InputData.bShooterRet) {
-            logger.logInfo("Shooter Retracted");
+            FRCLogger.getInstance().logInfo("Shooter Retracted");
         }
         
         InputData.bGrabberExtendButtonPressed = this.coDrive.getRawButton(FRCConfig.btnGRABBER_EXTEND);

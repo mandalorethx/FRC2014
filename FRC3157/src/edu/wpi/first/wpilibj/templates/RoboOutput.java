@@ -18,8 +18,6 @@ import edu.wpi.first.wpilibj.Victor;
  * @author FRCUser
  */
 public class RoboOutput {
-
-    public static FRCLogger logger = FRCLogger.getInstance();
     
     public Victor driveLeft; //left drive motor
     public Victor driveRight; //right drive motor
@@ -70,7 +68,7 @@ public class RoboOutput {
             bLeftDriveFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to left drive motor: " + e.toString());
-            logger.logError("unable to connect to left drive motor: " + e.toString());
+            FRCLogger.getInstance().logError("unable to connect to left drive motor: " + e.toString());
             bLeftDriveFound = false;
         }
         try{
@@ -79,7 +77,7 @@ public class RoboOutput {
             bRightDriveFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to right drive motor: " + e.toString());
-            logger.logError("unable to connect to right drive motor: " + e.toString());
+            FRCLogger.getInstance().logError("unable to connect to right drive motor: " + e.toString());
             bRightDriveFound = false;
         }
         
@@ -89,7 +87,7 @@ public class RoboOutput {
             bAirCompressorFound = true;
         }catch(Exception e){
             System.out.print("unable to connect to air compressor");
-            logger.logError("unable to connect to air compressor");
+            FRCLogger.getInstance().logError("unable to connect to air compressor");
             bAirCompressorFound = true;
         }
         
@@ -98,7 +96,7 @@ public class RoboOutput {
             bLeftShooterFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to left Solenoid");
-            logger.logError("unable to connect to left Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to left Solenoid");
             bRightShooterFound = false;
         }
         try{
@@ -106,7 +104,7 @@ public class RoboOutput {
             bRightShooterFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to right Solenoid");
-            logger.logError("unable to connect to right Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to right Solenoid");
             bRightShooterFound = false;
         }
         
@@ -115,7 +113,7 @@ public class RoboOutput {
             bLeftGrabberFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to left grabber motor Victor");
-            logger.logError("unable to connect to left grabber motor Victor");
+            FRCLogger.getInstance().logError("unable to connect to left grabber motor Victor");
             bLeftGrabberFound = false;
         }
         
@@ -124,7 +122,7 @@ public class RoboOutput {
             bRightGrabberFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to right grabber motor Victor");
-            logger.logError("unable to connect to right grabber motor Victor");
+            FRCLogger.getInstance().logError("unable to connect to right grabber motor Victor");
             bRightGrabberFound = false;
         }
         
@@ -133,7 +131,7 @@ public class RoboOutput {
             bGrabberExtenderFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to middle Solenoid");
-            logger.logError("unable to connect to middle Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to middle Solenoid");
             bGrabberExtenderFound = false;
        
         }
@@ -146,7 +144,7 @@ public class RoboOutput {
      */
     public void setOutputs() {
         
-        System.out.println( "Left In: " + OutputData.leftMotorVal + "|| Right In: " + OutputData.rightMotorVal);
+        // System.out.println( "Left In: " + OutputData.leftMotorVal + "|| Right In: " + OutputData.rightMotorVal);
         
         this.driveLeft.set(OutputData.leftMotorVal);
         this.driveRight.set(OutputData.rightMotorVal);
