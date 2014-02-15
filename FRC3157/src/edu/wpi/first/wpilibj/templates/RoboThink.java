@@ -167,6 +167,10 @@ public class RoboThink {
      * in FRCConfig file
      */
     public void steerStraightPID() {
+        if(!FRCConfig.EN_ENCODERS){
+            return;
+        }
+     
         //double expectPower = (OutputData.leftMotorVal*FRCConfig.kMAX_MOTOR_SPEED + OutputData.rightMotorVal*FRCConfig.kMAX_MOTOR_SPEED) / 2.0;
         double expectPower = (OutputData.leftMotorVal
                 + OutputData.rightMotorVal) / 2.0;
@@ -203,6 +207,10 @@ public class RoboThink {
      * change required in other value
      */
     public void steerStraight() {
+        if(!FRCConfig.EN_ENCODERS){
+            return;
+        }
+        
         double expectPowerLeft = OutputData.leftMotorVal * FRCConfig.kMAX_MOTOR_SPEED;
         double expectPowerRight = OutputData.rightMotorVal * FRCConfig.kMAX_MOTOR_SPEED;
 

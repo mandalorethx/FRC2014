@@ -96,6 +96,7 @@ public class FRCConfig {
     public static boolean EN_LOG = true;
     public static boolean EN_CONFIG = true;
     public static boolean EN_SWITCHES = true;
+    public static boolean EN_ENCODERS = true;
     public static int kLEFT_MOTOR_MULTIPLIER = -1;
     public static int kRIGHT_MOTOR_MULTIPLIER = 1;
     
@@ -265,6 +266,8 @@ public class FRCConfig {
                             kLEFT_MOTOR_MULTIPLIER = Integer.parseInt(value);
                         }else if (varName.equals("kRIGHT_MOTOR_MULTIPLIER")){
                             kRIGHT_MOTOR_MULTIPLIER = Integer.parseInt(value);
+                        }else if (varName.equals("EN_ENCODERS")){
+                            EN_ENCODERS = value.toLowerCase().equals("true");
                         }else{
                             System.out.println("No variable found: " + line);
                             logger.logError("No variable found: " + line);

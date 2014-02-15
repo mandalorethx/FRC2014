@@ -205,7 +205,7 @@ public class RoboInput {
      * Populates InputData's encoder properties
      */
     public void getEncoderVals() {
-        if(bLeftMotorEncoderFound && bRightMotorEncoderFound == true){ 
+        if(bLeftMotorEncoderFound && bRightMotorEncoderFound && FRCConfig.EN_ENCODERS){ 
             InputData.leftMotorEncoderVal = leftMotorEncoder.get();
             InputData.rightMotorEncoderVal = rightMotorEncoder.get();
             InputData.fLeftEncoderTime = encoderTimer.get();
