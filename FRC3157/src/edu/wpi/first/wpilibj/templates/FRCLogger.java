@@ -31,21 +31,23 @@ public class FRCLogger {
     public static final int INFO = 2;
     public static final int WARNING = 3;
     public static final int ERROR = 4;
+    
+    public static final int DISABLED = 0;
+    public static final int AUTONOMOUS = 1;
+    public static final int PERIODIC = 2;
 
     private static final String LOG_FILE = "FRC_LOG";
     private static final String LOG_EXT = ".txt";
     private static final String OLD_FILE = LOG_FILE + "_OLD" + LOG_EXT;
     private static final String NEW_FILE = LOG_FILE + "_NEW" + LOG_EXT;
-
-    //private FileConnection fc;
+    
     private DataOutputStream outStream;
     private OutputStreamWriter outStreamWriter;
     private BufferedWriter outBuffer;
 
     private Timer clock;
     private int minimumLevel = 0;
-    private boolean teleop = false;
-
+    private int phase = DISABLED;
     private boolean hasError = false;
 
     /**
@@ -89,7 +91,6 @@ public class FRCLogger {
         } catch (IOException e) {
             // Undo any connections made
             hasError = true;
-            System.out.println(e.getMessage());
             
             try {
                 if (outStream != null) {
@@ -97,10 +98,10 @@ public class FRCLogger {
                     outStream = null;
                 }
             } catch (IOException ioe) {
-                System.out.println("unable to close log");
+                System.out.println("Unable to close log with init errors.");
                 System.out.println(ioe.getMessage());
             }
-            System.out.println("unable to open log");
+            System.out.println("Unable to initialize log!");
             System.out.println(e.getMessage());
             return;
         }
@@ -121,6 +122,7 @@ public class FRCLogger {
         }
         else
         {
+            // Must write placeholder text to successfully create file
             Protocol.create(NEW_FILE);
             Protocol p = null;
             BufferedWriter out = null;
@@ -266,12 +268,14 @@ public class FRCLogger {
     }
 
     /**
-     * Is the robot in teleop mode?
+     * Sets the phase of the competition
      *
-     * @param inTeleop - true if in teleop; false otherwise
+     * @param phase - phase
      */
-    public void inTeleopMode(boolean inTeleop) {
-        this.teleop = inTeleop;
+    public void changePhase(int phase)
+    {
+        if(phase >= DISABLED && phase <= PERIODIC)
+            this.phase = phase;
     }
 
     /**
@@ -350,12 +354,25 @@ public class FRCLogger {
                 levelName = "ERROR";
                 break;
         }
+        
+        // Derive phase of the competition
+        String phaseName = "Unknown";
+        switch (this.phase) {
+            case (DISABLED):
+                phaseName = "DISABLED";
+                break;
+            case (AUTONOMOUS):
+                phaseName = "AUTONOMOUS";
+                break;
+            case (PERIODIC):
+                phaseName = "PERIODIC";
+                break;
+        }
 
         // Write to file
         try {
-            outBuffer.write(clock.get() + "s [" + levelName + "] ("
-                    + (this.teleop ? "TELEOP" : "AUTONOMOUS") + ") - "
-                    + msg + "\n");
+            outBuffer.write(clock.get() + "s [" + phaseName + "] ("
+                    + levelName + ") - " + msg + "\n");
             outBuffer.flush();
         } catch (IOException e) {
             // Nothing we can do...! But code shouldn't be too concerned
@@ -367,24 +384,21 @@ public class FRCLogger {
      * Closes the logger if possible
      */
     public void close() {
-        try {
-            clock.stop();
+        clock.stop();
 
-            if (outBuffer != null) {
-                outBuffer.close();
-                outBuffer = null;
-            }
+        if (outBuffer != null) {
+            try{ outBuffer.close(); } catch(IOException e) {}
+            outBuffer = null;
+        }
 
-            if (outStreamWriter != null) {
-                outStreamWriter.close();
-                outStreamWriter = null;
-            }
+        if (outStreamWriter != null) {
+            try{ outStreamWriter.close(); } catch(IOException e) {}
+            outStreamWriter = null;
+        }
 
-            if (outStream != null) {
-                outStream.close();
-                outStream = null;
-            }
-        } catch (IOException ioe) {
+        if (outStream != null) {
+            try{ outStream.close(); } catch(IOException e) {}
+            outStream = null;
         }
     }
 }
