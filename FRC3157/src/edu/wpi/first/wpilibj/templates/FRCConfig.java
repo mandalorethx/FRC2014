@@ -42,13 +42,18 @@ public class FRCConfig {
     public static double kMAX_MOTOR_POWER = 0.9;
     public static int SLOT_LEFT_MOTOR = 1;
     public static int SLOT_RIGHT_MOTOR = 2;
-    public static int SLOT_LEFT_DRIVER_JOYSTICK = 0;
-    public static int SLOT_RIGHT_DRIVER_JOYSTICK = 1;
-    public static int SLOT_CO_DRIVER_JOYSTICK = 2;
+    public static int SLOT_LEFT_DRIVER_JOYSTICK = 1;
+    public static int SLOT_RIGHT_DRIVER_JOYSTICK = 2;
+    public static int SLOT_CO_DRIVER_JOYSTICK = 3;
     public static int SLOT_PRESSURE = 1;
     public static int SLOT_COMPRESSOR_RELAY = 2;
-    public static int SLOT_LEFT_SHOOTER = 2;
-    public static int SLOT_RIGHT_SHOOTER = 3;
+    public static int LATCH_RET = 1;
+    public static int LEFT_EXT = 3;
+    public static int LEFT_RET = 4;
+    public static int RIGHT_EXT = 5;
+    public static int RIGHT_RET = 6;
+    public static int GRABBER_EXT = 7;
+    public static int GRABBER_RET = 8;
     //public static int SLOT_PIN_SHOOTER=4;
     public static int SLOT_LEFT_GRABBER_MOTOR = 3;
     public static int SLOT_RIGHT_GRABBER_MOTOR = 4;
@@ -73,6 +78,7 @@ public class FRCConfig {
     public static boolean kRUN_AUTONOMOUS = true;
     public static double kFIRING_TIME = 500.0;
     public static double kMOTOR_SPEED = 0.9;
+    public static double kSHOOT_TIME = 1000;//we may need to change this
     public static double kMOVE_TIME = 2000.0;
     public static int SLOT_ANALOG = 0;
     public static int SLOT_DIO = 1;
@@ -99,6 +105,8 @@ public class FRCConfig {
     public static boolean EN_ENCODERS = true;
     public static int kLEFT_MOTOR_MULTIPLIER = -1;
     public static int kRIGHT_MOTOR_MULTIPLIER = 1;
+    public static double kCO_DRIVE_VALUE = -0.5;
+    public static double kGRABBER_RUN_TIME = 500;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -119,7 +127,7 @@ public class FRCConfig {
         boolean fileDone = false;
         try {
             while (!fileDone) {
-                String line = inBuffer.readLine();
+                String line = inBuffer.readLine();//Error here
                 // System.out.println( line );
                 if (line == null) {
                     fileDone = true;
@@ -170,10 +178,20 @@ public class FRCConfig {
                             SLOT_PRESSURE = Integer.parseInt(value);
                         } else if (varName.equals("SLOT_COMPRESSOR_RELAY")) {
                             SLOT_COMPRESSOR_RELAY = Integer.parseInt(value);
-                        } else if (varName.equals("SLOT_LEFT_SHOOTER")) {
-                            SLOT_LEFT_SHOOTER = Integer.parseInt(value);
-                        } else if (varName.equals("SLOT_RIGHT_SHOOTER")) {
-                            SLOT_RIGHT_SHOOTER = Integer.parseInt(value);
+                        } else if (varName.equals("LATCH_RET")) {
+                            LATCH_RET = Integer.parseInt(value);
+                        } else if (varName.equals("LEFT_EXT")) {
+                            LEFT_EXT = Integer.parseInt(value);
+                        } else if (varName.equals("LEFT_RET")) {
+                            LEFT_RET = Integer.parseInt(value);
+                        } else if (varName.equals("RIGHT_EXT")) {
+                            RIGHT_EXT = Integer.parseInt(value);
+                        } else if (varName.equals("RIGHT_RET")) {
+                            RIGHT_RET = Integer.parseInt(value);
+                        } else if (varName.equals("GRABBER_EXT")) {
+                            GRABBER_EXT = Integer.parseInt(value);
+                        } else if (varName.equals("GRABBER_RET")) {
+                            GRABBER_RET = Integer.parseInt(value);
                         } else if (varName.equals("btnDRIVE_STRAIGHT")) {
                             btnDRIVE_STRAIGHT = Integer.parseInt(value);
                         } else if (varName.equals("btnMAGIC_SHOOT_CATCH")) {
@@ -212,6 +230,8 @@ public class FRCConfig {
                             kFIRING_TIME = Double.parseDouble(value);
                         } else if (varName.equals("kMOTOR_SPEED")) {
                             kMOTOR_SPEED = Double.parseDouble(value);
+                        } else if (varName.equals("kSHOOT_TIME")){
+                            kSHOOT_TIME = Double.parseDouble(value);
                         } else if (varName.equals("kMOVE_TIME")) {
                             kMOVE_TIME = Double.parseDouble(value);
                         } else if (varName.equals("SLOT_ANALOG")) {
@@ -268,6 +288,10 @@ public class FRCConfig {
                             kRIGHT_MOTOR_MULTIPLIER = Integer.parseInt(value);
                         }else if (varName.equals("EN_ENCODERS")){
                             EN_ENCODERS = value.toLowerCase().equals("true");
+                        }else if (varName.equals("kCO_DRIVE_VALUE")){
+                            kCO_DRIVE_VALUE = Double.parseDouble(value);
+                        }else if (varName.equals("kGRABBER_RUN_TIME")){
+                            kGRABBER_RUN_TIME = Double.parseDouble(value);
                         }else{
                             System.out.println("No variable found: " + line);
                             logger.logError("No variable found: " + line);
@@ -287,13 +311,13 @@ public class FRCConfig {
             closeFile();
         }
     }
-
     /**
      * Helper function that opens the config file
      *
      * @param fileName - the name of the config file
      */
-    private static void openFile(String fileName) {
+        
+    private static void openFile (String fileName){
         try {
             fc = (FileConnection) Connector.open("file:///" + fileName, Connector.READ);
             inStream = fc.openDataInputStream();

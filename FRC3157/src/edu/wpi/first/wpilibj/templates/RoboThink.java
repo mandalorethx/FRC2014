@@ -30,13 +30,19 @@ public class RoboThink {
      * this is a general timer for RoboThink functions
      */
     public Timer thinkTimer;
-
+    public Timer shootTimer;
+    public Timer grabberTimer;
     /*
      RPM values calculated from the encoders
      */
     public double fLeftMotorSpeed;
     public double fRightMotorSpeed;
 
+    public static final int kFireCharge = 0;
+    public static final int kFireRelese = 1;
+    public static final int kFireExtend = 2;
+    public static final int kFireRetract = 3;
+    
     /*
      PID error values
      */
@@ -46,9 +52,12 @@ public class RoboThink {
     public double fRightError = 0;
     public double fLastDistanceError = 0;
     public double fDistanceError = 0;
-
+    
+    
     public RoboThink() {
         thinkTimer = new Timer();
+        shootTimer = new Timer();
+        grabberTimer = new Timer();
     }
 
     /**
@@ -76,6 +85,25 @@ public class RoboThink {
             OutputData.rightMotorVal = -1 * FRCConfig.kRIGHT_MOTOR_MULTIPLIER * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         }
 
+        if(InputData.coDriverStick[1] < FRCConfig.kCO_DRIVE_VALUE) {
+            OutputData.rightGrabberVal = -0.9;
+            OutputData.leftGrabberVal = 0.9;
+            OutputData.bGrabberEXT = true;
+            OutputData.bGrabberRET = false;
+            grabberTimer.reset();
+            grabberTimer.start();
+        } else if(grabberTimer.get() < FRCConfig.kGRABBER_RUN_TIME){
+            OutputData.rightGrabberVal = -0.9;
+            OutputData.leftGrabberVal = 0.9;
+            OutputData.bGrabberEXT = false;
+            OutputData.bGrabberRET = true;
+        }else{
+            OutputData.rightGrabberVal = 0;
+            OutputData.leftGrabberVal = 0;
+            OutputData.bGrabberEXT = false;
+            OutputData.bGrabberRET = true;
+        }
+        
         if (InputData.bAutoShootAndCatch == true) {
             catchAndShoot();
         }
@@ -117,9 +145,8 @@ public class RoboThink {
             fRightLastError = 0;
         }
         
-        OutputData.bLeftGrabberExtend = InputData.bGrabberExtendButtonPressed;
-        OutputData.bRightGrabberExtend = InputData.bGrabberExtendButtonPressed;
-
+        
+        
         OutputData.bCarLockReverse = InputData.bCarLockRelay;
         
         ScreenOutput.clrLine(0);
@@ -147,6 +174,55 @@ public class RoboThink {
             ScreenOutput.screenWrite("Fire Step: Retracting (Switch not hit)", 2);
         }
     }
+
+        /*
+            1.if shooting:charge pneumatics    
+            2.Release latch(FRCConfig.LATCH_RET) and extend arms(FRCConfig.LEFT_EXT and FRCConfig.RIGHT_EXT)
+            3.Wait for full extension of arm with a timer
+            4.retract the arms and extend the latch(FRCConfig.LEFT_RET and FRCConfig.RIGHT_RET)
+        */
+    
+    public void shootOrPass() {
+        
+        if(InputData.passButtonPressed || InputData.shooterButtonPressed){
+
+            if(InputData.shooterButtonPressed){
+                // Charge Pneumatics / ARM
+                OutputData.bArmLEFTExtend = true;
+                OutputData.bArmLEFTRetract = false;
+                OutputData.bArmRIGHTExtend = true;
+                OutputData.bArmRIGHTRetract = false;
+                
+                // Wait for Pneumatics to Charge
+                
+            }
+
+            if(shootTimer.get() >= FRCConfig.kSHOOT_TIME){
+                OutputData.bReleaseLatch = true;
+                //**OutputData.bStartShooter = true;
+                
+                // Wait for Arm/Shooter to Fully Extend
+                //**shootTimer.reset();
+                //**shootTimer.start();
+                
+                // Retract Arm / Shooter
+                //**OutputData.bRetractShooter = true;
+                OutputData.bReleaseLatch = false;
+                OutputData.bArmLEFTExtend = false;
+                OutputData.bArmLEFTRetract = true;
+                OutputData.bArmRIGHTExtend = false;
+                OutputData.bArmRIGHTRetract = true;
+                
+            }
+        }
+    }
+    /*
+    public void pass() {
+        if (InputData.passButtonPressed) {
+            
+        }
+    }
+    */
 
     /**
      * Calculates the speed of the motors using encoders

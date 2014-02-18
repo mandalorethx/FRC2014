@@ -23,11 +23,13 @@ public class RoboOutput {
     public Victor driveRight; //right drive motor
 
     public Compressor airCompressor; //Air compressor for shooting
-    public Solenoid leftShooter; //Controls the state of the air compressor
-    public Solenoid rightShooter; //Controls the state of the air compressor
+    public Solenoid leftShooterEXT; //Controls the state of the air compressor
+    public Solenoid leftShooterRET;
+    public Solenoid rightShooterEXT;//Controls the state of the air compressor
+    public Solenoid rightShooterRET;
     public Solenoid grabberLeftExtend;
     public Solenoid grabberRightExtend;
-    //public Solenoid pinShooter; //Locking mechanism for the shooter arms
+    public Solenoid latchRET; //Locking mechanism for the shooter arms
 
     public Victor grabberLeft; //Controls the grabber arms to pick up the ball
     public Victor grabberRight; //Controls the grabber arms to pick up the ball
@@ -39,11 +41,14 @@ public class RoboOutput {
     public static boolean bLeftDriveFound = false;
     public static boolean bRightDriveFound = false;
     public static boolean bAirCompressorFound = false;
-    public static boolean bLeftShooterFound = false;
-    public static boolean bRightShooterFound = false;
+    public static boolean bLeftRETShooterFound = false;
+    public static boolean bRightRETShooterFound = false;
+    public static boolean bLeftEXTShooterFound = false;
+    public static boolean bRightEXTShooterFound = false;
     public static boolean bGrabberExtenderFound = false;
     public static boolean bLeftGrabberFound = false;
     public static boolean bRightGrabberFound = false;
+    public static boolean bLatchFound = false;
     
     /**
      * Initializing variables, and starts the air compressor
@@ -92,20 +97,36 @@ public class RoboOutput {
         }
         
         try{
-            this.leftShooter = new Solenoid(FRCConfig.SLOT_LEFT_SHOOTER);
-            bLeftShooterFound = true;
+            this.leftShooterEXT = new Solenoid(FRCConfig.LEFT_EXT);
+            bLeftEXTShooterFound = true;
         }catch(Exception e){
-            System.out.println("unable to connect to left Solenoid");
-            FRCLogger.getInstance().logError("unable to connect to left Solenoid");
-            bRightShooterFound = false;
+            System.out.println("unable to connect to left extend Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to left extend Solenoid");
+            bRightEXTShooterFound = false;
+        }
+         try{
+            this.leftShooterRET = new Solenoid(FRCConfig.LEFT_RET);
+            bLeftRETShooterFound = true;
+        }catch(Exception e){
+            System.out.println("unable to connect to left retract Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to left retract Solenoid");
+            bRightRETShooterFound = false;
         }
         try{
-            this.rightShooter = new Solenoid(FRCConfig.SLOT_RIGHT_SHOOTER);
-            bRightShooterFound = true;
+            this.rightShooterEXT = new Solenoid(FRCConfig.RIGHT_EXT);
+            bRightEXTShooterFound = true;
         }catch(Exception e){
-            System.out.println("unable to connect to right Solenoid");
-            FRCLogger.getInstance().logError("unable to connect to right Solenoid");
-            bRightShooterFound = false;
+            System.out.println("unable to connect to right extend Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to right extend Solenoid");
+            bLeftEXTShooterFound = false;
+        }
+         try{
+            this.rightShooterRET = new Solenoid(FRCConfig.RIGHT_RET);
+            bRightRETShooterFound = true;
+        }catch(Exception e){
+            System.out.println("unable to connect to right retract Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to right retract Solenoid");
+            bLeftRETShooterFound = false;
         }
         
         try{
@@ -135,7 +156,15 @@ public class RoboOutput {
             bGrabberExtenderFound = false;
        
         }
-        //this.pinShooter=new Solenoid( FRCConfig.SLOT_PIN_SHOOTER );
+        
+        try{
+            this.latchRET=new Solenoid( FRCConfig.LATCH_RET);
+            bLatchFound = true;
+        }catch(Exception e){
+            System.out.println("unable to connect to latch Solenoid");
+            FRCLogger.getInstance().logError("unable to connect to latch Solenoid");
+            bLatchFound = false;
+        }
     }
 
     /**
@@ -160,17 +189,24 @@ public class RoboOutput {
             this.grabberRight.set(OutputData.rightGrabberVal);
         }
 
-        if(bLeftShooterFound && bRightShooterFound == true){
+        if(bLeftEXTShooterFound && bRightEXTShooterFound == true){
             if( OutputData.bStartShooter ) {
                 System.out.println("Starting Shooter TRUE");
             }
 
-            this.leftShooter.set(OutputData.bStartShooter);
-            this.rightShooter.set(OutputData.bStartShooter);
-        }
+            this.leftShooterEXT.set(OutputData.bStartShooter);
+            this.rightShooterEXT.set(OutputData.bStartShooter);
+            
+        if(bLeftRETShooterFound && bRightRETShooterFound == true){
+            if( OutputData.bRetractShooter ) {
+                System.out.println("Retracting Shooter TRUE");
+            }
+            
+            this.leftShooterRET.set(OutputData.bRetractShooter);
+            this.rightShooterRET.set(OutputData.bRetractShooter);
         
         if(bGrabberExtenderFound = true){
-            this.grabberLeftExtend.set(OutputData.bLeftGrabberExtend);
+            this.grabberLeftExtend.set(OutputData.bGrabberEXT);
         }
         
         
@@ -180,9 +216,12 @@ public class RoboOutput {
             digiMod.setRelayReverse(1, false);
         }
         
-        
+        if(bLatchFound == true){
+            this.latchRET.set(OutputData.bReleaseLatch);
+        }
+           
     }
     
-        //this.pinShooter.set(OutputData.bPullPin);
-    
+    }     //this.pinShooter.set(OutputData.bPullPin);
+    }
 }

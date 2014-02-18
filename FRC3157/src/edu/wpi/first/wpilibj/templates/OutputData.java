@@ -27,10 +27,18 @@ public class OutputData {
      */
     public static boolean bStartShooter=false;
     
+    public static boolean bRetractShooter = false;
+    
+    public static boolean bArmLEFTExtend = false;
+    public static boolean bArmLEFTRetract = false;
+
+    public static boolean bArmRIGHTExtend = false;
+    public static boolean bArmRIGHTRetract = false;
+    
     /**
-     * Should we pull the pin
+     * Should we pull the latch?
      */
-    //public static boolean bPullPin=false;
+    public static boolean bReleaseLatch=false;
     
     /**
      * Value the left grabber motor will be set to
@@ -42,8 +50,8 @@ public class OutputData {
      */
     public static double rightGrabberVal=0;
     
-    public static boolean bLeftGrabberExtend=false;
-    public static boolean bRightGrabberExtend=false;
+    public static boolean bGrabberEXT=false;
+    public static boolean bGrabberRET=false;
     
     public static boolean bCarLockReverse = false;
     /**
@@ -54,7 +62,7 @@ public class OutputData {
         rightMotorVal=0;
         
         bStartShooter=false;
-        
+        bRetractShooter = false;
         //bPullPin=false;
         
         leftGrabberVal=0;

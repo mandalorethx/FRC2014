@@ -35,6 +35,9 @@ public class InputData {
      */
     public static boolean shooterButtonPressed = false;
 
+    //Is the pass button pressed?
+    public static boolean passButtonPressed = false;
+    
     /**
      * Is the grabber button pressed?
      */
@@ -123,6 +126,7 @@ public class InputData {
         }
         shooterButtonPressed = false;
         grabberButttonPressed = false;
+        passButtonPressed = false;
 
         leftMotorEncoderVal = 0;
         rightMotorEncoderVal = 0;

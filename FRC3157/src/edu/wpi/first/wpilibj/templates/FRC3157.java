@@ -40,7 +40,7 @@ public class FRC3157 extends IterativeRobot {
     public void robotInit() {
         //FRCLogger.getInstance().changePhase(FRCLogger.DISABLED);
         System.out.println("robotInit Start");
-        configInit();
+        configInit();// Error here
         ScreenOutput.initDriverStationScreen();
         System.out.println("robotInit End");
     }
@@ -193,7 +193,7 @@ public class FRC3157 extends IterativeRobot {
     
     public void configInit(){
      
-        FRCConfig.initialize();
+        FRCConfig.initialize();//Error here
 
         if( input == null ) {
             input = new RoboInput();
