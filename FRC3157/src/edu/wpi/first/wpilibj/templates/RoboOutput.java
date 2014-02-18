@@ -27,8 +27,8 @@ public class RoboOutput {
     public Solenoid leftShooterRET;
     public Solenoid rightShooterEXT;//Controls the state of the air compressor
     public Solenoid rightShooterRET;
-    public Solenoid grabberLeftExtend;
-    public Solenoid grabberRightExtend;
+    public Solenoid grabberEXT;
+    public Solenoid grabberRET;
     public Solenoid latchRET; //Locking mechanism for the shooter arms
 
     public Victor grabberLeft; //Controls the grabber arms to pick up the ball
@@ -87,8 +87,9 @@ public class RoboOutput {
         }
         
         try{
-            this.airCompressor = new Compressor(FRCConfig.SLOT_PRESSURE, +FRCConfig.SLOT_COMPRESSOR_RELAY);
+            this.airCompressor = new Compressor(FRCConfig.SLOT_PRESSURE, FRCConfig.SLOT_COMPRESSOR_RELAY);
             this.airCompressor.start();
+            this.digiMod.setRelayReverse(FRCConfig.SLOT_COMPRESSOR_RELAY, true);
             bAirCompressorFound = true;
         }catch(Exception e){
             System.out.print("unable to connect to air compressor");
@@ -148,7 +149,8 @@ public class RoboOutput {
         }
         
         try{
-            this.grabberLeftExtend = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND);
+            this.grabberEXT = new Solenoid(FRCConfig.SLOT_GRABBER_EXTEND);
+            this.grabberRET = new Solenoid( FRCConfig.SLOT_GRABBER_RETRACT );
             bGrabberExtenderFound = true;
         }catch(Exception e){
             System.out.println("unable to connect to middle Solenoid");
@@ -193,7 +195,7 @@ public class RoboOutput {
             if( OutputData.bStartShooter ) {
                 System.out.println("Starting Shooter TRUE");
             }
-
+            
             this.leftShooterEXT.set(OutputData.bStartShooter);
             this.rightShooterEXT.set(OutputData.bStartShooter);
             
@@ -206,15 +208,18 @@ public class RoboOutput {
             this.rightShooterRET.set(OutputData.bRetractShooter);
         
         if(bGrabberExtenderFound = true){
-            this.grabberLeftExtend.set(OutputData.bGrabberEXT);
+            this.grabberRET.set( OutputData.bGrabberRET );
+            this.grabberEXT.set( OutputData.bGrabberEXT );
         }
         
         
+        /*
         if(OutputData.bCarLockReverse == true){
             digiMod.setRelayReverse(1, true);
         }else{
             digiMod.setRelayReverse(1, false);
         }
+        */
         
         if(bLatchFound == true){
             this.latchRET.set(OutputData.bReleaseLatch);

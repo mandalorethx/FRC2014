@@ -45,15 +45,14 @@ public class FRCConfig {
     public static int SLOT_LEFT_DRIVER_JOYSTICK = 1;
     public static int SLOT_RIGHT_DRIVER_JOYSTICK = 2;
     public static int SLOT_CO_DRIVER_JOYSTICK = 3;
-    public static int SLOT_PRESSURE = 1;
-    public static int SLOT_COMPRESSOR_RELAY = 2;
+    public static int SLOT_PRESSURE = 5;
+    public static int SLOT_COMPRESSOR_RELAY = 1;
     public static int LATCH_RET = 1;
     public static int LEFT_EXT = 3;
     public static int LEFT_RET = 4;
     public static int RIGHT_EXT = 5;
     public static int RIGHT_RET = 6;
-    public static int GRABBER_EXT = 7;
-    public static int GRABBER_RET = 8;
+    public static int SLOT_PRETTY_LIGHTS = 2;
     //public static int SLOT_PIN_SHOOTER=4;
     public static int SLOT_LEFT_GRABBER_MOTOR = 3;
     public static int SLOT_RIGHT_GRABBER_MOTOR = 4;
@@ -96,7 +95,8 @@ public class FRCConfig {
     public static int btnSTOP_AUTON_MODE = 2;
     public static int btnCAR_LOCK= 11;
     public static double kAUTON_DELAY_STEP = 500.0;
-    public static int SLOT_GRABBER_EXTEND = 1;
+    public static int SLOT_GRABBER_EXTEND = 7;
+    public static int SLOT_GRABBER_RETRACT = 8;
     public static int btnGRABBER_EXTEND = 10;
     public static boolean EN_CAMERA = true;
     public static boolean EN_LOG = true;
@@ -188,10 +188,6 @@ public class FRCConfig {
                             RIGHT_EXT = Integer.parseInt(value);
                         } else if (varName.equals("RIGHT_RET")) {
                             RIGHT_RET = Integer.parseInt(value);
-                        } else if (varName.equals("GRABBER_EXT")) {
-                            GRABBER_EXT = Integer.parseInt(value);
-                        } else if (varName.equals("GRABBER_RET")) {
-                            GRABBER_RET = Integer.parseInt(value);
                         } else if (varName.equals("btnDRIVE_STRAIGHT")) {
                             btnDRIVE_STRAIGHT = Integer.parseInt(value);
                         } else if (varName.equals("btnMAGIC_SHOOT_CATCH")) {
@@ -292,6 +288,8 @@ public class FRCConfig {
                             kCO_DRIVE_VALUE = Double.parseDouble(value);
                         }else if (varName.equals("kGRABBER_RUN_TIME")){
                             kGRABBER_RUN_TIME = Double.parseDouble(value);
+                        }else if (varName.equals("SLOT_PRETTY_LIGHTS")){
+                            SLOT_PRETTY_LIGHTS = Integer.parseInt(value);
                         }else{
                             System.out.println("No variable found: " + line);
                             logger.logError("No variable found: " + line);

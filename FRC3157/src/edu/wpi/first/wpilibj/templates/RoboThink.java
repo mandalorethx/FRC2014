@@ -53,6 +53,8 @@ public class RoboThink {
     public double fLastDistanceError = 0;
     public double fDistanceError = 0;
     
+    public boolean bGrabbing = false;
+    
     
     public RoboThink() {
         thinkTimer = new Timer();
@@ -92,16 +94,19 @@ public class RoboThink {
             OutputData.bGrabberRET = false;
             grabberTimer.reset();
             grabberTimer.start();
-        } else if(grabberTimer.get() < FRCConfig.kGRABBER_RUN_TIME){
+            bGrabbing = true;
+        } else if(grabberTimer.get() < FRCConfig.kGRABBER_RUN_TIME && bGrabbing ){
             OutputData.rightGrabberVal = -0.9;
             OutputData.leftGrabberVal = 0.9;
             OutputData.bGrabberEXT = false;
             OutputData.bGrabberRET = true;
+            bGrabbing = false;
         }else{
             OutputData.rightGrabberVal = 0;
             OutputData.leftGrabberVal = 0;
             OutputData.bGrabberEXT = false;
             OutputData.bGrabberRET = true;
+            bGrabbing = false;
         }
         
         if (InputData.bAutoShootAndCatch == true) {
@@ -115,6 +120,7 @@ public class RoboThink {
             fire();
         }
 
+        /*
         if (InputData.grabberButttonPressed == true) {
             OutputData.leftGrabberVal = 1.0;
             OutputData.rightGrabberVal = 1.0;
@@ -122,6 +128,7 @@ public class RoboThink {
             OutputData.leftGrabberVal = 0;
             OutputData.rightGrabberVal = 0;
         }
+        */
         
         fRightMotorSpeed = CalcMotorSpeed(InputData.rightMotorEncoderVal, InputData.fRightEncoderTime);
         fLeftMotorSpeed = CalcMotorSpeed(InputData.leftMotorEncoderVal, InputData.fLeftEncoderTime);
@@ -147,7 +154,7 @@ public class RoboThink {
         
         
         
-        OutputData.bCarLockReverse = InputData.bCarLockRelay;
+        // OutputData.bCarLockReverse = InputData.bCarLockRelay;
         
         ScreenOutput.clrLine(0);
         ScreenOutput.screenWrite("Left Motor Speed: " + fLeftMotorSpeed, 0);
