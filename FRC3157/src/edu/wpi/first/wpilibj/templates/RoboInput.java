@@ -144,8 +144,8 @@ public class RoboInput {
         if (InputData.shooterButtonPressed) {
             FRCLogger.getInstance().logInfo("Shooter Button Pressed");
         }
-        InputData.grabberButttonPressed = this.coDrive.getRawButton(FRCConfig.btnGRABBER);
-        if (InputData.grabberButttonPressed) {
+        InputData.passButtonPressed = this.coDrive.getRawButton(FRCConfig.btnPASS);
+        if (InputData.passButtonPressed) {
             FRCLogger.getInstance().logInfo("Grabber Button Pressed");
         }
         getEncoderVals();
@@ -183,6 +183,11 @@ public class RoboInput {
             FRCLogger.getInstance().logInfo("Distance Correction");
         }
         
+        InputData.bForceRetreact = this.coDrive.getRawButton( FRCConfig.btnFORCE_FIRE_RETRACT );
+        if( InputData.bForceRetreact ) {
+            FRCLogger.getInstance().logInfo( "Force Retract Pressed" );
+        }
+        
         if(bShooterSwitchFound == true){
             InputData.bShooterRet = this.shooterSwitchRet.get();
         }
@@ -206,6 +211,7 @@ public class RoboInput {
         if(bLeftMotorEncoderFound && bRightMotorEncoderFound && FRCConfig.EN_ENCODERS){ 
             InputData.leftMotorEncoderVal = leftMotorEncoder.get();
             InputData.rightMotorEncoderVal = rightMotorEncoder.get();
+            // System.out.println( "Left: " + InputData.leftMotorEncoderVal + " | Right: " + InputData.rightMotorEncoderVal );
             InputData.fLeftEncoderTime = encoderTimer.get();
             InputData.fRightEncoderTime = encoderTimer.get();
             

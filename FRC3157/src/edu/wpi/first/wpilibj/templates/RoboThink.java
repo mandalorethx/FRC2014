@@ -25,7 +25,7 @@ public class RoboThink {
      This one is the current step
      */
     public static int dCatchStep = 0;
-    
+
     /**
      * this is a general timer for RoboThink functions
      */
@@ -43,7 +43,7 @@ public class RoboThink {
     public static final int kFireRelease = 2;
     public static final int kFireExtend = 3;
     public static final int kFireRetract = 4;
-    
+
     /*
      PID error values
      */
@@ -53,10 +53,10 @@ public class RoboThink {
     public double fRightError = 0;
     public double fLastDistanceError = 0;
     public double fDistanceError = 0;
-    
+
     public boolean bGrabbing = false;
     public int dShootState = 0;
-    
+
     public RoboThink() {
         thinkTimer = new Timer();
         shootTimer = new Timer();
@@ -73,11 +73,11 @@ public class RoboThink {
             ScreenOutput.screenWrite("Left: " + InputData.leftDriverStick[1], 4);
             ScreenOutput.clrLine(5);
             ScreenOutput.screenWrite("Right: " + InputData.rightDriverStick[1], 5);
-        } catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
-        
-        if (InputData.leftDriverStick[1] > 0) { 
+
+        if (InputData.leftDriverStick[1] > 0) {
             OutputData.leftMotorVal = FRCConfig.kLEFT_MOTOR_MULTIPLIER * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         } else {
             OutputData.leftMotorVal = -1 * FRCConfig.kLEFT_MOTOR_MULTIPLIER * (InputData.leftDriverStick[1] * InputData.leftDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
@@ -88,7 +88,7 @@ public class RoboThink {
             OutputData.rightMotorVal = -1 * FRCConfig.kRIGHT_MOTOR_MULTIPLIER * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         }
 
-        if(InputData.coDriverStick[1] < FRCConfig.kCO_DRIVE_VALUE) {
+        if (InputData.coDriverStick[1] < FRCConfig.kCO_DRIVE_VALUE) {
             OutputData.rightGrabberVal = -0.9;
             OutputData.leftGrabberVal = 0.9;
             OutputData.bGrabberEXT = true;
@@ -96,44 +96,29 @@ public class RoboThink {
             grabberTimer.reset();
             grabberTimer.start();
             bGrabbing = true;
-        } else if(grabberTimer.get() < FRCConfig.kGRABBER_RUN_TIME && bGrabbing ){
+        } else if (grabberTimer.get() < FRCConfig.kGRABBER_RUN_TIME && bGrabbing) {
             OutputData.rightGrabberVal = -0.9;
             OutputData.leftGrabberVal = 0.9;
             OutputData.bGrabberEXT = false;
             OutputData.bGrabberRET = true;
             bGrabbing = false;
-        }else{
+        } else {
             OutputData.rightGrabberVal = 0;
             OutputData.leftGrabberVal = 0;
             OutputData.bGrabberEXT = false;
             OutputData.bGrabberRET = true;
             bGrabbing = false;
         }
-        
+
         if (InputData.bAutoShootAndCatch == true) {
             catchAndShoot();
         }
 
-        /*
-        if (InputData.bPower == true) {
-            //OutputData.bPullPin=InputData.bManualPin;
-            OutputData.bStartShooter = InputData.bManualShoot;
-        } else {
-            fire();
-        }*/
-        
+        if( InputData.bForceRetreact && dShootState == kFireWait ) {
+            dShootState = kFireRetract;
+        }
         shootOrPass();
 
-        /*
-        if (InputData.grabberButttonPressed == true) {
-            OutputData.leftGrabberVal = 1.0;
-            OutputData.rightGrabberVal = 1.0;
-        } else {
-            OutputData.leftGrabberVal = 0;
-            OutputData.rightGrabberVal = 0;
-        }
-        */
-        
         fRightMotorSpeed = CalcMotorSpeed(InputData.rightMotorEncoderVal, InputData.fRightEncoderTime);
         fLeftMotorSpeed = CalcMotorSpeed(InputData.leftMotorEncoderVal, InputData.fLeftEncoderTime);
 
@@ -143,11 +128,11 @@ public class RoboThink {
             } else {
                 steerStraightPID();
             }
-        } else if( InputData.bDistanceCorrect ) {
-            if( FRCConfig.kDISTANCE_P == 0 && FRCConfig.kDISTANCE_I == 0 && FRCConfig.kDISTANCE_D == 0 ) {
-                adjustPositionPID( 0 ); // TODO - add real distance from camera
+        } else if (InputData.bDistanceCorrect) {
+            if (FRCConfig.kDISTANCE_P == 0 && FRCConfig.kDISTANCE_I == 0 && FRCConfig.kDISTANCE_D == 0) {
+                adjustPositionPID(0); // TODO - add real distance from camera
             } else {
-                adjustPosition( 0 ); // TODO - Add real distance from camera
+                adjustPosition(0); // TODO - Add real distance from camera
             }
         } else {
             fLeftError = 0;
@@ -155,76 +140,55 @@ public class RoboThink {
             fLeftLastError = 0;
             fRightLastError = 0;
         }
-        
-        
-        
+
         // OutputData.bCarLockReverse = InputData.bCarLockRelay;
-        
         ScreenOutput.clrLine(0);
         ScreenOutput.screenWrite("Left Motor Speed: " + fLeftMotorSpeed, 0);
         ScreenOutput.clrLine(1);
         ScreenOutput.screenWrite("Right Motor Speed: " + fRightMotorSpeed, 1);
 
         //Sets motor value for testing purposes
-         // testMode(); - TDOD add back in
+        // testMode(); - TDOD add back in
     }
 
-    /**
-     * Automatically determines firing step first, while button is pressed, the
-     * firing pin is pulled next, while the button is not pressed, it does not
-     * fire and the pistons are retracted last, it recharges for the next launch
+    /*
+     1.if shooting:charge pneumatics    
+     2.Release latch(FRCConfig.LATCH_RET) and extend arms(FRCConfig.LEFT_EXT and FRCConfig.RIGHT_EXT)
+     3.Wait for full extension of arm with a timer
+     4.retract the arms and extend the latch(FRCConfig.LEFT_RET and FRCConfig.RIGHT_RET)
      */
-    public void fire() {
-        if (InputData.shooterButtonPressed) {
-            OutputData.bStartShooter = true;
-            ScreenOutput.clrLine(2);
-            ScreenOutput.screenWrite("Fire Step: Firing Pistons (trigger pulled)", 2);
-        } else {
-            OutputData.bStartShooter = false;
-            ScreenOutput.clrLine(2);
-            ScreenOutput.screenWrite("Fire Step: Retracting (Switch not hit)", 2);
-        }
-    }
-
-        /*
-            1.if shooting:charge pneumatics    
-            2.Release latch(FRCConfig.LATCH_RET) and extend arms(FRCConfig.LEFT_EXT and FRCConfig.RIGHT_EXT)
-            3.Wait for full extension of arm with a timer
-            4.retract the arms and extend the latch(FRCConfig.LEFT_RET and FRCConfig.RIGHT_RET)
-        */
-    
     public void shootOrPass() {
-        
-        switch(dShootState){
+
+        switch (dShootState) {
             case kFireWait:
                 ScreenOutput.clrLine(2);
                 ScreenOutput.screenWrite("kFireWait", 2);
-                 if(InputData.shooterButtonPressed){
-                     dShootState++;
-                     shootTimer.start();
-                     shootTimer.reset();
-                    OutputData.bGrabberEXT = true;
-                    OutputData.bGrabberRET = false;
-                 }else if(InputData.passButtonPressed){
-                     dShootState += 2;
-                    OutputData.bGrabberEXT = true;
-                    OutputData.bGrabberRET = false;
-                 }
+                if (InputData.shooterButtonPressed || InputData.passButtonPressed) {
+                    dShootState++;
+                    shootTimer.start();
+                    shootTimer.reset();
+                }
                 OutputData.bStartShooter = false;
                 OutputData.bRetractShooter = false;
                 break;
             case kFireCharge:
                 ScreenOutput.clrLine(2);
                 ScreenOutput.screenWrite("kFireCharge", 2);
-                OutputData.bStartShooter = true;
-                OutputData.bRetractShooter = false;
-                if(shootTimer.get() >= FRCConfig.kCHARGE_TIME){
+                OutputData.bGrabberEXT = true;
+                OutputData.bGrabberRET = false;
+                if (InputData.shooterButtonPressed) {
+                    OutputData.bStartShooter = true;
+                    OutputData.bRetractShooter = false;
+                }
+                if (shootTimer.get() >= FRCConfig.kCHARGE_TIME / 1000.0) {
                     dShootState++;
                 }
                 break;
             case kFireRelease:
                 ScreenOutput.clrLine(2);
                 ScreenOutput.screenWrite("kFireRelease", 2);
+                OutputData.bGrabberEXT = true;
+                OutputData.bGrabberRET = false;
                 OutputData.bReleaseLatch = true;
                 dShootState++;
                 shootTimer.start();
@@ -235,7 +199,9 @@ public class RoboThink {
                 ScreenOutput.screenWrite("kFireExtend", 2);
                 OutputData.bStartShooter = true;
                 OutputData.bRetractShooter = false;
-                if(shootTimer.get() >= FRCConfig.kEXTEND_TIME){
+                OutputData.bGrabberEXT = true;
+                OutputData.bGrabberRET = false;
+                if (shootTimer.get() >= FRCConfig.kEXTEND_TIME / 1000.0) {
                     shootTimer.reset();
                     dShootState++;
                 }
@@ -248,7 +214,7 @@ public class RoboThink {
                 OutputData.bRetractShooter = true;
                 OutputData.bGrabberEXT = false;
                 OutputData.bGrabberRET = true;
-                if(shootTimer.get() >= FRCConfig.kRETRACT_TIME){
+                if (shootTimer.get() >= FRCConfig.kRETRACT_TIME / 1000.0) {
                     dShootState = 0;
                 }
                 break;
@@ -260,49 +226,7 @@ public class RoboThink {
                 dShootState = 0;
                 break;
         }
-        
-        /*
-        if(InputData.passButtonPressed || InputData.shooterButtonPressed){
-
-            
-            if(InputData.shooterButtonPressed){
-                // Charge Pneumatics / ARM
-                OutputData.bArmLEFTExtend = true;
-                OutputData.bArmLEFTRetract = false;
-                OutputData.bArmRIGHTExtend = true;
-                OutputData.bArmRIGHTRetract = false;
-                
-                // Wait for Pneumatics to Charge
-                
-            }
-
-            if(shootTimer.get() >= FRCConfig.kSHOOT_TIME){
-                OutputData.bReleaseLatch = true;
-                //**OutputData.bStartShooter = true;
-                
-                // Wait for Arm/Shooter to Fully Extend
-                //**shootTimer.reset();
-                //**shootTimer.start();
-                
-                // Retract Arm / Shooter
-                //**OutputData.bRetractShooter = true;
-                OutputData.bReleaseLatch = false;
-                OutputData.bArmLEFTExtend = false;
-                OutputData.bArmLEFTRetract = true;
-                OutputData.bArmRIGHTExtend = false;
-                OutputData.bArmRIGHTRetract = true;
-                
-            }
-        }
-        */
     }
-    /*
-    public void pass() {
-        if (InputData.passButtonPressed) {
-            
-        }
-    }
-    */
 
     /**
      * Calculates the speed of the motors using encoders
@@ -314,7 +238,7 @@ public class RoboThink {
     public double CalcMotorSpeed(int encoderCount, double encoderTime) {
         double speed;
         speed = (double) encoderCount / (double) FRCConfig.kENCODER_PPR;
-        speed /= ((double) encoderTime / 60000);
+        speed /= ((double) encoderTime / 60.0);
         return speed;
     }
 
@@ -323,10 +247,10 @@ public class RoboThink {
      * in FRCConfig file
      */
     public void steerStraightPID() {
-        if(!FRCConfig.EN_ENCODERS){
+        if (!FRCConfig.EN_ENCODERS) {
             return;
         }
-     
+
         //double expectPower = (OutputData.leftMotorVal*FRCConfig.kMAX_MOTOR_SPEED + OutputData.rightMotorVal*FRCConfig.kMAX_MOTOR_SPEED) / 2.0;
         double expectPower = (OutputData.leftMotorVal
                 + OutputData.rightMotorVal) / 2.0;
@@ -363,10 +287,10 @@ public class RoboThink {
      * change required in other value
      */
     public void steerStraight() {
-        if(!FRCConfig.EN_ENCODERS){
+        if (!FRCConfig.EN_ENCODERS) {
             return;
         }
-        
+
         double expectPowerLeft = OutputData.leftMotorVal * FRCConfig.kMAX_MOTOR_SPEED;
         double expectPowerRight = OutputData.rightMotorVal * FRCConfig.kMAX_MOTOR_SPEED;
 
@@ -460,9 +384,9 @@ public class RoboThink {
         }
         return motorPower;
     }
-    
-    public void testMode(){
-        if(InputData.bTestMode == true){
+
+    public void testMode() {
+        if (InputData.bTestMode == true) {
             OutputData.leftMotorVal = 0;
             OutputData.rightMotorVal = 0;
         }

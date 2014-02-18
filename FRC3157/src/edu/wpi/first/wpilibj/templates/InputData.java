@@ -41,7 +41,6 @@ public class InputData {
     /**
      * Is the grabber button pressed?
      */
-    public static boolean grabberButttonPressed = false;
     public static boolean bGrabberExtendButtonPressed = false;
 
     /**
@@ -115,6 +114,8 @@ public class InputData {
     
     public static boolean bCarLockRelay = false;
     
+    public static boolean bForceRetreact = false;
+    
     /**
      * Sets all fields to 0 or false
      */
@@ -125,7 +126,6 @@ public class InputData {
             coDriverStick[ii] = 0;
         }
         shooterButtonPressed = false;
-        grabberButttonPressed = false;
         passButtonPressed = false;
 
         leftMotorEncoderVal = 0;

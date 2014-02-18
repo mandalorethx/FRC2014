@@ -34,10 +34,10 @@ public class FRCConfig {
     public static double kSLEEP_TIME = 500.0;
     // I am 85-90% sure this is correct based on model number.
     public static double kENCODER_PPR = 1440.0;
-    public static int SLOT_LEFT_ENCODER_1 = 0;
-    public static int SLOT_LEFT_ENCODER_2 = 1;
-    public static int SLOT_RIGHT_ENCODER_1 = 2;
-    public static int SLOT_RIGHT_ENCODER_2 = 3;
+    public static int SLOT_LEFT_ENCODER_1 = 1;
+    public static int SLOT_LEFT_ENCODER_2 = 2;
+    public static int SLOT_RIGHT_ENCODER_1 = 3;
+    public static int SLOT_RIGHT_ENCODER_2 = 4;
     public static double fMAX_SHOOTER_POWER = 0.9;
     public static double kMAX_MOTOR_POWER = 0.9;
     public static int SLOT_LEFT_MOTOR = 1;
@@ -57,10 +57,10 @@ public class FRCConfig {
     public static int SLOT_LEFT_GRABBER_MOTOR = 3;
     public static int SLOT_RIGHT_GRABBER_MOTOR = 4;
 
-    public static int btnDRIVE_STRAIGHT = 0;
+    public static int btnDRIVE_STRAIGHT = 1;
     public static int btnMAGIC_SHOOT_CATCH = 2;
-    public static int btnSHOOTER = 0;
-    public static int btnGRABBER = 3;
+    public static int btnSHOOTER = 1;
+    public static int btnPASS = 3;
     public static int btnMANUAL_SHOOTER = 4;
     //public static int btnMANUAL_PIN = 5;
     public static int btnMANUAL_ON = 6;
@@ -108,8 +108,9 @@ public class FRCConfig {
     public static double kCO_DRIVE_VALUE = -0.5;
     public static double kGRABBER_RUN_TIME = 500;
     public static double kCHARGE_TIME = 1000;
-    public static double kRETRACT_TIME = 1000;
+    public static double kRETRACT_TIME = 5000;
     public static double kEXTEND_TIME = 1000;
+    public static int btnFORCE_FIRE_RETRACT = 2;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -197,8 +198,8 @@ public class FRCConfig {
                             btnMAGIC_SHOOT_CATCH = Integer.parseInt(value);
                         } else if (varName.equals("btnSHOOTER")) {
                             btnSHOOTER = Integer.parseInt(value);
-                        } else if (varName.equals("btnGRABBER")) {
-                            btnGRABBER = Integer.parseInt(value);
+                        } else if (varName.equals("btnPASS")) {
+                            btnPASS = Integer.parseInt(value);
                         } else if (varName.equals("btnMANUAL_SHOOTER")) {
                             btnMANUAL_SHOOTER = Integer.parseInt(value);
                         } else if (varName.equals("btnMANUAL_ON")) {
@@ -299,6 +300,8 @@ public class FRCConfig {
                             kRETRACT_TIME = Double.parseDouble(value);
                         }else if(varName.equals("kEXTEND_TIME")){
                             kEXTEND_TIME = Double.parseDouble(value);
+                        }else if(varName.equals("btnFORCE_FIRE_RETRACT")){
+                            btnFORCE_FIRE_RETRACT = Integer.parseInt(value);
                         }else{
                             System.out.println("No variable found: " + line);
                             logger.logError("No variable found: " + line);
