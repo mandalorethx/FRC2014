@@ -114,12 +114,15 @@ public class RoboThink {
             catchAndShoot();
         }
 
+        /*
         if (InputData.bPower == true) {
             //OutputData.bPullPin=InputData.bManualPin;
             OutputData.bStartShooter = InputData.bManualShoot;
         } else {
             fire();
-        }
+        }*/
+        
+        shootOrPass();
 
         /*
         if (InputData.grabberButttonPressed == true) {
@@ -194,17 +197,25 @@ public class RoboThink {
         
         switch(dShootState){
             case kFireWait:
+                ScreenOutput.clrLine(2);
+                ScreenOutput.screenWrite("kFireWait", 2);
                  if(InputData.shooterButtonPressed){
                      dShootState++;
                      shootTimer.start();
                      shootTimer.reset();
+                    OutputData.bGrabberEXT = true;
+                    OutputData.bGrabberRET = false;
                  }else if(InputData.passButtonPressed){
                      dShootState += 2;
+                    OutputData.bGrabberEXT = true;
+                    OutputData.bGrabberRET = false;
                  }
                 OutputData.bStartShooter = false;
                 OutputData.bRetractShooter = false;
                 break;
             case kFireCharge:
+                ScreenOutput.clrLine(2);
+                ScreenOutput.screenWrite("kFireCharge", 2);
                 OutputData.bStartShooter = true;
                 OutputData.bRetractShooter = false;
                 if(shootTimer.get() >= FRCConfig.kCHARGE_TIME){
@@ -212,12 +223,16 @@ public class RoboThink {
                 }
                 break;
             case kFireRelease:
+                ScreenOutput.clrLine(2);
+                ScreenOutput.screenWrite("kFireRelease", 2);
                 OutputData.bReleaseLatch = true;
                 dShootState++;
                 shootTimer.start();
                 shootTimer.reset();
                 break;
             case kFireExtend:
+                ScreenOutput.clrLine(2);
+                ScreenOutput.screenWrite("kFireExtend", 2);
                 OutputData.bStartShooter = true;
                 OutputData.bRetractShooter = false;
                 if(shootTimer.get() >= FRCConfig.kEXTEND_TIME){
@@ -226,9 +241,13 @@ public class RoboThink {
                 }
                 break;
             case kFireRetract:
+                ScreenOutput.clrLine(2);
+                ScreenOutput.screenWrite("kFireRetract", 2);
                 OutputData.bReleaseLatch = false;
                 OutputData.bStartShooter = false;
                 OutputData.bRetractShooter = true;
+                OutputData.bGrabberEXT = false;
+                OutputData.bGrabberRET = true;
                 if(shootTimer.get() >= FRCConfig.kRETRACT_TIME){
                     dShootState = 0;
                 }
