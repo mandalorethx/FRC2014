@@ -107,6 +107,9 @@ public class FRCConfig {
     public static int kRIGHT_MOTOR_MULTIPLIER = 1;
     public static double kCO_DRIVE_VALUE = -0.5;
     public static double kGRABBER_RUN_TIME = 500;
+    public static double kCHARGE_TIME = 1000;
+    public static double kRETRACT_TIME = 1000;
+    public static double kEXTEND_TIME = 1000;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -290,6 +293,12 @@ public class FRCConfig {
                             kGRABBER_RUN_TIME = Double.parseDouble(value);
                         }else if (varName.equals("SLOT_PRETTY_LIGHTS")){
                             SLOT_PRETTY_LIGHTS = Integer.parseInt(value);
+                        }else if(varName.equals("kCHARGE_TIME")){
+                            kCHARGE_TIME = Double.parseDouble(value);
+                        }else if(varName.equals("kRETRACT_TIME")){
+                            kRETRACT_TIME = Double.parseDouble(value);
+                        }else if(varName.equals("kEXTEND_TIME")){
+                            kEXTEND_TIME = Double.parseDouble(value);
                         }else{
                             System.out.println("No variable found: " + line);
                             logger.logError("No variable found: " + line);

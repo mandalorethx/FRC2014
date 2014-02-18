@@ -38,10 +38,11 @@ public class RoboThink {
     public double fLeftMotorSpeed;
     public double fRightMotorSpeed;
 
-    public static final int kFireCharge = 0;
-    public static final int kFireRelese = 1;
-    public static final int kFireExtend = 2;
-    public static final int kFireRetract = 3;
+    public static final int kFireWait = 0;
+    public static final int kFireCharge = 1;
+    public static final int kFireRelease = 2;
+    public static final int kFireExtend = 3;
+    public static final int kFireRetract = 4;
     
     /*
      PID error values
@@ -54,7 +55,7 @@ public class RoboThink {
     public double fDistanceError = 0;
     
     public boolean bGrabbing = false;
-    
+    public int dShootState = 0;
     
     public RoboThink() {
         thinkTimer = new Timer();
@@ -191,8 +192,60 @@ public class RoboThink {
     
     public void shootOrPass() {
         
+        switch(dShootState){
+            case kFireWait:
+                 if(InputData.shooterButtonPressed){
+                     dShootState++;
+                     shootTimer.start();
+                     shootTimer.reset();
+                 }else if(InputData.passButtonPressed){
+                     dShootState += 2;
+                 }
+                OutputData.bStartShooter = false;
+                OutputData.bRetractShooter = false;
+                break;
+            case kFireCharge:
+                OutputData.bStartShooter = true;
+                OutputData.bRetractShooter = false;
+                if(shootTimer.get() >= FRCConfig.kCHARGE_TIME){
+                    dShootState++;
+                }
+                break;
+            case kFireRelease:
+                OutputData.bReleaseLatch = true;
+                dShootState++;
+                shootTimer.start();
+                shootTimer.reset();
+                break;
+            case kFireExtend:
+                OutputData.bStartShooter = true;
+                OutputData.bRetractShooter = false;
+                if(shootTimer.get() >= FRCConfig.kEXTEND_TIME){
+                    shootTimer.reset();
+                    dShootState++;
+                }
+                break;
+            case kFireRetract:
+                OutputData.bReleaseLatch = false;
+                OutputData.bStartShooter = false;
+                OutputData.bRetractShooter = true;
+                if(shootTimer.get() >= FRCConfig.kRETRACT_TIME){
+                    dShootState = 0;
+                }
+                break;
+            default:
+                OutputData.bStartShooter = false;
+                OutputData.bRetractShooter = false;
+                OutputData.bReleaseLatch = false;
+                shootTimer.reset();
+                dShootState = 0;
+                break;
+        }
+        
+        /*
         if(InputData.passButtonPressed || InputData.shooterButtonPressed){
 
+            
             if(InputData.shooterButtonPressed){
                 // Charge Pneumatics / ARM
                 OutputData.bArmLEFTExtend = true;
@@ -222,6 +275,7 @@ public class RoboThink {
                 
             }
         }
+        */
     }
     /*
     public void pass() {

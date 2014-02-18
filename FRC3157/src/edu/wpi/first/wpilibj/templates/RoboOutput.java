@@ -61,6 +61,7 @@ public class RoboOutput {
         
         try {
             digiMod = DigitalModule.getInstance(DigitalModule.getDefaultDigitalModule());
+            digiMod.setRelayForward(FRCConfig.SLOT_PRETTY_LIGHTS, true);
         } catch( Exception e) {
             System.out.println("***UNABLE TO FIND DIGITAL MODULE!***");
         }
