@@ -162,9 +162,9 @@ public class RoboInput {
             FRCLogger.getInstance().logInfo("Manual Off");
         }
         
-        InputData.bDriveStraightPressed = this.leftDrive.getRawButton(FRCConfig.btnDRIVE_STRAIGHT) || this.rightDrive.getRawButton(FRCConfig.btnDRIVE_STRAIGHT);
-        if (InputData.bDriveStraightPressed) {
-            FRCLogger.getInstance().logInfo("Drive Straight Pressed");
+        InputData.bRevButtonPressed = this.leftDrive.getRawButton(FRCConfig.btnREV_DRIVE) || this.rightDrive.getRawButton(FRCConfig.btnREV_DRIVE);
+        if (InputData.bRevButtonPressed) {
+            FRCLogger.getInstance().logInfo("Drive Reverse Pressed");
         }
         InputData.bAutoShootAndCatch = this.leftDrive.getRawButton(FRCConfig.btnMAGIC_SHOOT_CATCH) || this.rightDrive.getRawButton(FRCConfig.btnMAGIC_SHOOT_CATCH);
         if (InputData.bAutoShootAndCatch) {
@@ -190,6 +190,8 @@ public class RoboInput {
         
         if(bShooterSwitchFound == true){
             InputData.bShooterRet = this.shooterSwitchRet.get();
+        } else {
+            InputData.bShooterRet = false;
         }
      
         if (InputData.bShooterRet) {

@@ -87,15 +87,20 @@ public class RoboOutput {
             bRightDriveFound = false;
         }
 
-        try {
-            this.airCompressor = new Compressor(FRCConfig.SLOT_PRESSURE, FRCConfig.SLOT_COMPRESSOR_RELAY);
-            this.airCompressor.start();
-            bAirCompressorFound = true;
-        } catch (Exception e) {
-            System.out.print("unable to connect to air compressor");
-            FRCLogger.getInstance().logError("unable to connect to air compressor");
-            bAirCompressorFound = true;
+        if( true ) {
+            try {
+                this.airCompressor = new Compressor(FRCConfig.SLOT_PRESSURE, FRCConfig.SLOT_COMPRESSOR_RELAY);
+                this.airCompressor.start();
+                bAirCompressorFound = true;
+            } catch (Exception e) {
+                System.out.print("unable to connect to air compressor");
+                FRCLogger.getInstance().logError("unable to connect to air compressor");
+                bAirCompressorFound = false;
+            }
+        } else {
+            bAirCompressorFound = false;
         }
+        
 
         try {
             this.leftShooterEXT = new Solenoid(FRCConfig.LEFT_EXT);
@@ -179,7 +184,7 @@ public class RoboOutput {
         this.driveLeft.set(OutputData.leftMotorVal);
         this.driveRight.set(OutputData.rightMotorVal);
 
-        processCompressor();
+        // processCompressor();
         
         // System.out.println( "Left Out: " + this.driveLeft.get() + "|| Right Out: " + this.driveRight.get());
         /*
@@ -192,18 +197,10 @@ public class RoboOutput {
         }
 
         if (bLeftEXTShooterFound && bRightEXTShooterFound == true) {
-            if (OutputData.bStartShooter) {
-                System.out.println("Starting Shooter TRUE");
-            }
-
             this.leftShooterEXT.set(OutputData.bStartShooter);
             this.rightShooterEXT.set(OutputData.bStartShooter);
 
             if (bLeftRETShooterFound && bRightRETShooterFound == true) {
-                if (OutputData.bRetractShooter) {
-                    System.out.println("Retracting Shooter TRUE");
-                }
-
                 this.leftShooterRET.set(OutputData.bRetractShooter);
                 this.rightShooterRET.set(OutputData.bRetractShooter);
 
@@ -229,7 +226,7 @@ public class RoboOutput {
     }
     
     public void processCompressor() {
-        System.out.println("getDIO: " + digiMod.getDIO(FRCConfig.SLOT_PRESSURE) + " from AC: " + airCompressor.getPressureSwitchValue());
+        System.out.println("getDIO: " + digiMod.getDIO( FRCConfig.SLOT_PRESSURE) );
         if( digiMod.getDIO(FRCConfig.SLOT_PRESSURE) ) {
             digiMod.setRelayReverse(FRCConfig.SLOT_COMPRESSOR_RELAY, true);
         }

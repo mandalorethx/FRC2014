@@ -88,6 +88,11 @@ public class RoboThink {
             OutputData.rightMotorVal = -1 * FRCConfig.kRIGHT_MOTOR_MULTIPLIER * (InputData.rightDriverStick[1] * InputData.rightDriverStick[1]) * FRCConfig.kMAX_SHOOTER_POWER;
         }
 
+        if( InputData.bRevButtonPressed ) {
+            OutputData.rightMotorVal *= -1.0;
+            OutputData.leftMotorVal *= -1.0;
+        }
+        
         if (InputData.coDriverStick[1] < FRCConfig.kCO_DRIVE_VALUE) {
             OutputData.rightGrabberVal = -0.9;
             OutputData.leftGrabberVal = 0.9;
@@ -96,7 +101,7 @@ public class RoboThink {
             grabberTimer.reset();
             grabberTimer.start();
             bGrabbing = true;
-        } else if (grabberTimer.get() < FRCConfig.kGRABBER_RUN_TIME && bGrabbing) {
+        } else if ( InputData.coDriverStick[1] > -1.0*FRCConfig.kCO_DRIVE_VALUE ) {
             OutputData.rightGrabberVal = -0.9;
             OutputData.leftGrabberVal = 0.9;
             OutputData.bGrabberEXT = false;
@@ -122,7 +127,7 @@ public class RoboThink {
         fRightMotorSpeed = CalcMotorSpeed(InputData.rightMotorEncoderVal, InputData.fRightEncoderTime);
         fLeftMotorSpeed = CalcMotorSpeed(InputData.leftMotorEncoderVal, InputData.fLeftEncoderTime);
 
-        if (InputData.bDriveStraightPressed == true) {
+        if (InputData.bRevButtonPressed == true) {
             if (FRCConfig.kSTEER_P == 0 && FRCConfig.kSTEER_I == 0 && FRCConfig.kSTEER_D == 0) {
                 steerStraight();
             } else {
@@ -163,44 +168,51 @@ public class RoboThink {
             case kFireWait:
                 ScreenOutput.clrLine(2);
                 ScreenOutput.screenWrite("kFireWait", 2);
+                if( !FRCConfig.kPRECHARGE ) {
+                    // No Pre-charge
+                    OutputData.bStartShooter = false;
+                    OutputData.bRetractShooter = false;
+                } else {
+                    // With Pre-charge
+                    OutputData.bStartShooter = true;
+                    OutputData.bRetractShooter = false;
+                }
                 if (InputData.shooterButtonPressed || InputData.passButtonPressed) {
-                    dShootState++;
                     shootTimer.start();
                     shootTimer.reset();
+                    dShootState++;
                 }
-                OutputData.bStartShooter = false;
-                OutputData.bRetractShooter = false;
                 break;
             case kFireCharge:
                 ScreenOutput.clrLine(2);
                 ScreenOutput.screenWrite("kFireCharge", 2);
-                OutputData.bGrabberEXT = true;
-                OutputData.bGrabberRET = false;
-                if (InputData.shooterButtonPressed) {
-                    OutputData.bStartShooter = true;
-                    OutputData.bRetractShooter = false;
-                }
-                if (shootTimer.get() >= FRCConfig.kCHARGE_TIME / 1000.0) {
+                
+                if( !FRCConfig.kPRECHARGE ) {
+                    if (InputData.shooterButtonPressed) {
+                        OutputData.bStartShooter = true;
+                        OutputData.bRetractShooter = false;
+                    }
+                    if (shootTimer.get() >= FRCConfig.kCHARGE_TIME / 1000.0) {
+                        dShootState++;
+                    }
+                } else {
                     dShootState++;
                 }
+                
                 break;
             case kFireRelease:
                 ScreenOutput.clrLine(2);
                 ScreenOutput.screenWrite("kFireRelease", 2);
-                OutputData.bGrabberEXT = true;
-                OutputData.bGrabberRET = false;
                 OutputData.bReleaseLatch = true;
-                dShootState++;
                 shootTimer.start();
                 shootTimer.reset();
+                dShootState++;
                 break;
             case kFireExtend:
                 ScreenOutput.clrLine(2);
                 ScreenOutput.screenWrite("kFireExtend", 2);
                 OutputData.bStartShooter = true;
                 OutputData.bRetractShooter = false;
-                OutputData.bGrabberEXT = true;
-                OutputData.bGrabberRET = false;
                 if (shootTimer.get() >= FRCConfig.kEXTEND_TIME / 1000.0) {
                     shootTimer.reset();
                     dShootState++;
@@ -212,9 +224,7 @@ public class RoboThink {
                 OutputData.bReleaseLatch = false;
                 OutputData.bStartShooter = false;
                 OutputData.bRetractShooter = true;
-                OutputData.bGrabberEXT = false;
-                OutputData.bGrabberRET = true;
-                if (shootTimer.get() >= FRCConfig.kRETRACT_TIME / 1000.0) {
+                if ( InputData.bShooterRet || shootTimer.get() >= FRCConfig.kRETRACT_TIME / 1000.0 ) {
                     dShootState = 0;
                 }
                 break;

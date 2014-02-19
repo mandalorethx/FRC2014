@@ -57,7 +57,7 @@ public class FRCConfig {
     public static int SLOT_LEFT_GRABBER_MOTOR = 3;
     public static int SLOT_RIGHT_GRABBER_MOTOR = 4;
 
-    public static int btnDRIVE_STRAIGHT = 1;
+    public static int btnREV_DRIVE = 1;
     public static int btnMAGIC_SHOOT_CATCH = 2;
     public static int btnSHOOTER = 1;
     public static int btnPASS = 3;
@@ -106,11 +106,12 @@ public class FRCConfig {
     public static int kLEFT_MOTOR_MULTIPLIER = -1;
     public static int kRIGHT_MOTOR_MULTIPLIER = 1;
     public static double kCO_DRIVE_VALUE = -0.5;
-    public static double kGRABBER_RUN_TIME = 500;
-    public static double kCHARGE_TIME = 1000;
-    public static double kRETRACT_TIME = 5000;
+    public static double kGRABBER_RUN_TIME = 10000;
+    public static double kCHARGE_TIME = 5000;
+    public static double kRETRACT_TIME = 12000;
     public static double kEXTEND_TIME = 1000;
     public static int btnFORCE_FIRE_RETRACT = 2;
+    public static boolean kPRECHARGE = true;
     
     private static FileConnection fc;
     private static DataInputStream inStream;
@@ -192,8 +193,8 @@ public class FRCConfig {
                             RIGHT_EXT = Integer.parseInt(value);
                         } else if (varName.equals("RIGHT_RET")) {
                             RIGHT_RET = Integer.parseInt(value);
-                        } else if (varName.equals("btnDRIVE_STRAIGHT")) {
-                            btnDRIVE_STRAIGHT = Integer.parseInt(value);
+                        } else if (varName.equals("btnREV_DRIVE")) {
+                            btnREV_DRIVE = Integer.parseInt(value);
                         } else if (varName.equals("btnMAGIC_SHOOT_CATCH")) {
                             btnMAGIC_SHOOT_CATCH = Integer.parseInt(value);
                         } else if (varName.equals("btnSHOOTER")) {
@@ -302,6 +303,8 @@ public class FRCConfig {
                             kEXTEND_TIME = Double.parseDouble(value);
                         }else if(varName.equals("btnFORCE_FIRE_RETRACT")){
                             btnFORCE_FIRE_RETRACT = Integer.parseInt(value);
+                        }else if(varName.equals("kPRECHARGE")){
+                            kPRECHARGE = value.toLowerCase().equals("true");
                         }else{
                             System.out.println("No variable found: " + line);
                             logger.logError("No variable found: " + line);

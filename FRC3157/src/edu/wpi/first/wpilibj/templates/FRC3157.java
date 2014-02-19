@@ -140,7 +140,7 @@ public class FRC3157 extends IterativeRobot {
                 ScreenOutput.screenWrite("kAUTON_MOVE", 3);
                 InputData.leftDriverStick[1] = 1.0;
                 InputData.rightDriverStick[1] = 1.0;
-                InputData.bDriveStraightPressed = true;
+                InputData.bRevButtonPressed = true;
                 if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_TIME / 1000.0 ) {
                     dAutonState++;
                     autonTimer.reset();
@@ -151,7 +151,7 @@ public class FRC3157 extends IterativeRobot {
                 ScreenOutput.screenWrite("kAUTON_SLEEP", 3);
                 InputData.leftDriverStick[1] = 0;
                 InputData.rightDriverStick[1] = 0;
-                InputData.bDriveStraightPressed = false;
+                InputData.bRevButtonPressed = false;
                 autonTimer.stop();
                 break;
             default:

@@ -76,7 +76,7 @@ public class InputData {
     /**
      * Are we driving straight?
      */
-    public static boolean bDriveStraightPressed = false;
+    public static boolean bRevButtonPressed = false;
 
     /**
      * Is automatic shooting and catching enabled?
