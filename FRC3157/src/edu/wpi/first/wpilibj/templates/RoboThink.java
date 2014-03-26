@@ -40,9 +40,10 @@ public class RoboThink {
 
     public static final int kFireWait = 0;
     public static final int kFireCharge = 1;
-    public static final int kFireRelease = 2;
-    public static final int kFireExtend = 3;
-    public static final int kFireRetract = 4;
+    public static final int kPassDischarge = 2;
+    public static final int kFireRelease = 3;
+    public static final int kFireExtend = 4;
+    public static final int kFireRetract = 5;
 
     /*
      PID error values
@@ -193,12 +194,30 @@ public class RoboThink {
                         OutputData.bRetractShooter = false;
                     }
                     if (shootTimer.get() >= FRCConfig.kCHARGE_TIME / 1000.0) {
+                        shootTimer.reset();
                         dShootState++;
                     }
                 } else {
                     dShootState++;
                 }
                 
+                break;
+            case kPassDischarge:
+                // This should release the bult-up air, allowing for a short pass
+                // maybe
+                ScreenOutput.clrLine(2);
+                ScreenOutput.screenWrite("kPassDischarge", 2);
+                
+                // We are passing and pre-charged
+                if( InputData.passButtonPressed && FRCConfig.kPRECHARGE ) {
+                    OutputData.bStartShooter = false;
+                    OutputData.bRetractShooter = true;
+                    if (shootTimer.get() >= 0.5 ) {
+                        dShootState++;
+                    }
+                } else {
+                    dShootState ++;
+                }
                 break;
             case kFireRelease:
                 ScreenOutput.clrLine(2);

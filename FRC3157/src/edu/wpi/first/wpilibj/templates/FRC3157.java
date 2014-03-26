@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.Timer;
 public class FRC3157 extends IterativeRobot {
     
     public static final int kAUTON_WAIT = 0;
-    public static final int kAUTON_FIRE = 1;
+    public static final int kAUTON_MOVE = 1;
     public static final int kAUTON_WAIT_2 = 2;
-    public static final int kAUTON_MOVE = 3;
+    public static final int kAUTON_FIRE = 3;
     public static final int kAUTON_SLEEP = 4;
     public static boolean decreaseLastState = false;
     public static boolean increaseLastState = false;
@@ -117,14 +117,15 @@ public class FRC3157 extends IterativeRobot {
                     autonTimer.reset();
                 }
                 break;
-            case kAUTON_FIRE:
+            case kAUTON_MOVE:
                 ScreenOutput.clrScreen();
-                ScreenOutput.screenWrite("kAUTON_FIRE: " + autonTimer.get(), 3);
-                InputData.shooterButtonPressed = true;
-                if (autonTimer.get() >= FRCConfig.kAUTON_FIRE_TIME / 1000.0) {
+                ScreenOutput.screenWrite("kAUTON_MOVE", 3);
+                InputData.leftDriverStick[1] = 1.0;
+                InputData.rightDriverStick[1] = 1.0;
+                InputData.bRevButtonPressed = true;
+                if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_TIME / 1000.0 ) {
                     dAutonState++;
                     autonTimer.reset();
-                    InputData.shooterButtonPressed = false;
                 }
                 break;
             case kAUTON_WAIT_2:
@@ -135,15 +136,14 @@ public class FRC3157 extends IterativeRobot {
                     autonTimer.reset();
                 }
                 break;
-            case kAUTON_MOVE:
+            case kAUTON_FIRE:
                 ScreenOutput.clrScreen();
-                ScreenOutput.screenWrite("kAUTON_MOVE", 3);
-                InputData.leftDriverStick[1] = 1.0;
-                InputData.rightDriverStick[1] = 1.0;
-                InputData.bRevButtonPressed = true;
-                if (autonTimer.get() >= FRCConfig.kAUTON_MOVE_TIME / 1000.0 ) {
+                ScreenOutput.screenWrite("kAUTON_FIRE: " + autonTimer.get(), 3);
+                InputData.shooterButtonPressed = true;
+                if (autonTimer.get() >= FRCConfig.kAUTON_FIRE_TIME / 1000.0) {
                     dAutonState++;
                     autonTimer.reset();
+                    InputData.shooterButtonPressed = false;
                 }
                 break;
             case kAUTON_SLEEP:
